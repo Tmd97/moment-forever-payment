@@ -3,7 +3,7 @@ package com.forvmom.MomentForeverPayment.events;
 import java.time.LocalDateTime;
 import java.math.BigDecimal;
 
-public class PaymentRequestedEvent implements PaymentEvent {
+public class PaymentRequestedEvent implements InboundPaymentEvent {
     private String eventType = "PAYMENT_REQUESTED";
     private String bookingId;
     private Long userId;
@@ -15,6 +15,7 @@ public class PaymentRequestedEvent implements PaymentEvent {
     private BigDecimal grandTotal;
     private String currency;
     private LocalDateTime requestedAt;
+    private String paymentType; // e.g., "CREDIT_CARD", "PAYPAL"
 
     @Override
     public String getEventType() {
@@ -24,6 +25,11 @@ public class PaymentRequestedEvent implements PaymentEvent {
     @Override
     public String getBookingId() {
         return bookingId;
+    }
+
+    @Override
+    public String getPaymentType() {
+        return paymentType;
     }
 
     public void setEventType(String eventType) {

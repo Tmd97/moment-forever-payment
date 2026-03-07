@@ -3,7 +3,7 @@ package com.forvmom.MomentForeverPayment.service;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.forvmom.MomentForeverPayment.domain.entity.PaymentOutbox;
-import com.forvmom.MomentForeverPayment.events.PaymentEvent;
+import com.forvmom.MomentForeverPayment.events.InboundPaymentEvent;
 import com.forvmom.MomentForeverPayment.repository.PaymentOutboxDao;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -27,45 +27,45 @@ public class PaymentOutboxService {
     }
 
     @Transactional
-    public PaymentOutbox findOrCreateForEvent(PaymentEvent event) {
-        String bookingId = event.getBookingId();
-        String eventType = event.getEventType();
+    public PaymentOutbox findOrCreateForEvent(InboundPaymentEvent inboundPaymentEvent) {
+        String bookingId = inboundPaymentEvent.getBookingId();
+        String inboundPaymentEventType = inboundPaymentEvent.getEventType();
 
         try {
-            Optional<PaymentOutbox> existing = outboxDao.findByBookingIdAndEventType(bookingId, eventType);
+            Optional<PaymentOutbox> existing = outboxDao.findByBookingIdAndEventType(bookingId, inboundPaymentEventType);
 
             if (existing.isPresent()) {
-                log.debug("Found existing outbox record for bookingId={}, eventType={}", bookingId, eventType);
+                log.debug("Found existing outbox record for bookingId={}, inboundPaymentEventType={}", bookingId, inboundPaymentEventType);
                 return existing.get();
             }
 
-            return createNewOutbox(event);
+            return createNewOutbox(inboundPaymentEvent);
 
         } catch (DataIntegrityViolationException e) {
             // Race condition - another thread inserted concurrently
-            log.warn("Concurrent insert detected for bookingId={}, eventType={}, fetching existing",
-                    bookingId, eventType);
-            return outboxDao.findByBookingIdAndEventType(bookingId, eventType)
+            log.warn("Concurrent insert detected for bookingId={}, inboundPaymentEventType={}, fetching existing",
+                    bookingId, inboundPaymentEventType);
+            return outboxDao.findByBookingIdAndEventType(bookingId, inboundPaymentEventType)
                     .orElseThrow(() -> new IllegalStateException("Failed to recover from concurrent insert", e));
         }
     }
 
-    private PaymentOutbox createNewOutbox(PaymentEvent event) {
+    private PaymentOutbox createNewOutbox(InboundPaymentEvent inboundPaymentEvent) {
         try {
             PaymentOutbox outbox = new PaymentOutbox();
-            outbox.setBookingId(event.getBookingId());
-            outbox.setEventType(event.getEventType());
+            outbox.setBookingId(inboundPaymentEvent.getBookingId());
+            outbox.setEventType(inboundPaymentEvent.getEventType());
             outbox.setStatus(PaymentOutbox.STATUS_PENDING);
             outbox.setRetryCount(0);
-            outbox.setPayload(objectMapper.writeValueAsString(event));
+            outbox.setPayload(objectMapper.writeValueAsString(inboundPaymentEvent));
 
             PaymentOutbox saved = outboxDao.save(outbox);
-            log.info("Created new outbox record id={} for bookingId={}, eventType={}",
-                    saved.getId(), event.getBookingId(), event.getEventType());
+            log.info("Created new outbox record id={} for bookingId={}, inboundPaymentEventType={}",
+                    saved.getId(), inboundPaymentEvent.getBookingId(), inboundPaymentEvent.getEventType());
             return saved;
 
         } catch (JsonProcessingException e) {
-            log.error("Failed to serialize event payload for bookingId={}", event.getBookingId(), e);
+            log.error("Failed to serialize inboundPaymentEvent payload for bookingId={}", inboundPaymentEvent.getBookingId(), e);
             throw new RuntimeException("Failed to create outbox record", e);
         }
     }

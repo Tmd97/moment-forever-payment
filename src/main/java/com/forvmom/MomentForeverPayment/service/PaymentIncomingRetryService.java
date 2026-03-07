@@ -1,8 +1,11 @@
 package com.forvmom.MomentForeverPayment.service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.forvmom.MomentForeverPayment.commons.EventConstants;
 import com.forvmom.MomentForeverPayment.domain.entity.PaymentOutbox;
 import com.forvmom.MomentForeverPayment.domain.entity.OutgoingPaymentOutbox;
+import com.forvmom.MomentForeverPayment.domain.entity.PaymentResult;
+import com.forvmom.MomentForeverPayment.events.InboundPaymentEvent;
 import com.forvmom.MomentForeverPayment.events.PaymentRequestedEvent;
 import com.forvmom.MomentForeverPayment.repository.PaymentOutboxDao;
 import com.forvmom.MomentForeverPayment.repository.OutgoingPaymentOutboxDao;
@@ -11,6 +14,7 @@ import com.forvmom.MomentForeverPayment.scheduler.PaymentDeadLetterHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.kafka.support.Acknowledgment;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -32,7 +36,7 @@ public class PaymentIncomingRetryService {
     private final PaymentOutboxDao outboxDao;
     private final OutgoingPaymentOutboxDao outgoingDao;
     private final PaymentOutboxService outboxService;
-    private final PaymentService paymentService;
+    private final PaymentProcessService paymentProcessService;
     private final OutgoingPaymentPublisher outgoingPublisher;
     private final ObjectMapper objectMapper;
     private final PaymentDeadLetterHandler deadLetterHandler;
@@ -40,14 +44,14 @@ public class PaymentIncomingRetryService {
     public PaymentIncomingRetryService(PaymentOutboxDao outboxDao,
                                        OutgoingPaymentOutboxDao outgoingDao,
                                        PaymentOutboxService outboxService,
-                                       PaymentService paymentService,
+                                       PaymentProcessService paymentProcessService,
                                        OutgoingPaymentPublisher outgoingPublisher,
                                        ObjectMapper objectMapper,
                                        PaymentDeadLetterHandler deadLetterHandler) {
         this.outboxDao = outboxDao;
         this.outgoingDao = outgoingDao;
         this.outboxService = outboxService;
-        this.paymentService = paymentService;
+        this.paymentProcessService = paymentProcessService;
         this.outgoingPublisher = outgoingPublisher;
         this.objectMapper = objectMapper;
         this.deadLetterHandler = deadLetterHandler;
@@ -96,7 +100,7 @@ public class PaymentIncomingRetryService {
 
                 // BRANCH A: Check if outgoing record already exists (payment already processed)
                 Optional<OutgoingPaymentOutbox> existingOutgoing = outgoingDao
-                        .findByBookingIdAndEventType(bookingId, PaymentService.EVT_PAYMENT_PROCESSED);
+                        .findByBookingIdAndEventType(bookingId, EventConstants.PAYMENT_PROCESSED);
 
                 if (existingOutgoing.isPresent()) {
                     // Payment was already processed, just need to publish
@@ -111,7 +115,7 @@ public class PaymentIncomingRetryService {
 
                 // BRANCH B: Check if failed record exists
                 Optional<OutgoingPaymentOutbox> existingFailed = outgoingDao
-                        .findByBookingIdAndEventType(bookingId, PaymentService.EVT_PAYMENT_FAILED);
+                        .findByBookingIdAndEventType(bookingId, EventConstants.PAYMENT_FAILED);
 
                 if (existingFailed.isPresent()) {
                     // Payment already failed, just need to publish
@@ -123,27 +127,16 @@ public class PaymentIncomingRetryService {
                     outboxService.markAsProcessed(outbox);
                     continue;
                 }
-
                 // BRANCH C: No outgoing record - reprocess the payment
                 log.info("[Branch B] Reprocessing payment for bookingId={}", bookingId);
-
                 // Deserialize the original event
-                PaymentRequestedEvent event = objectMapper.readValue(
+                InboundPaymentEvent event = objectMapper.readValue(
                         outbox.getPayload(),
-                        PaymentRequestedEvent.class
+                        InboundPaymentEvent.class
                 );
-
                 // Process payment again (this will create a new outgoing record)
-                OutgoingPaymentOutbox newOutgoing = paymentService.processPayment(event);
-
-                // Mark incoming as processed
-                outboxService.markAsProcessed(outbox);
-
-                // Attempt to publish the result
-                if (newOutgoing != null) {
-                    outgoingPublisher.trySinglePublish(newOutgoing);
-                }
-
+                Acknowledgment acknowledgment= null; // Placeholder, not used in Quartz context
+                paymentProcessService.processPayment(event, acknowledgment);
                 log.info("Successfully retried payment for bookingId={}", bookingId);
 
             } catch (Exception e) {

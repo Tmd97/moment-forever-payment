@@ -1,6 +1,7 @@
 package com.forvmom.MomentForeverPayment.scheduler;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.forvmom.MomentForeverPayment.commons.EventConstants;
 import com.forvmom.MomentForeverPayment.domain.entity.OutgoingPaymentOutbox;
 import com.forvmom.MomentForeverPayment.domain.entity.PaymentOutbox;
 import com.forvmom.MomentForeverPayment.events.PaymentFailedEvent;
@@ -8,7 +9,6 @@ import com.forvmom.MomentForeverPayment.events.PaymentProcessedEvent;
 import com.forvmom.MomentForeverPayment.service.AlertService;
 import com.forvmom.MomentForeverPayment.service.OutgoingPaymentOutboxService;
 import com.forvmom.MomentForeverPayment.service.PaymentOutboxService;
-import com.forvmom.MomentForeverPayment.service.PaymentService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -84,7 +84,7 @@ public class PaymentDeadLetterHandler {
         String payload = record.getPayload();
 
         switch (eventType) {
-            case PaymentService.EVT_PAYMENT_PROCESSED:
+            case EventConstants.PAYMENT_PROCESSED:
                 PaymentProcessedEvent processed = objectMapper.readValue(payload, PaymentProcessedEvent.class);
                 log.warn("Dead PAYMENT_PROCESSED for booking {} - manual refund may be needed",
                         processed.getBookingId());
@@ -94,7 +94,7 @@ public class PaymentDeadLetterHandler {
                 ));
                 break;
 
-            case PaymentService.EVT_PAYMENT_FAILED:
+            case EventConstants.PAYMENT_FAILED:
                 PaymentFailedEvent failed = objectMapper.readValue(payload, PaymentFailedEvent.class);
                 log.warn("Dead PAYMENT_FAILED for booking {} - notification to booking service failed",
                         failed.getBookingId());
@@ -111,7 +111,7 @@ public class PaymentDeadLetterHandler {
         String payload = record.getPayload();
 
         switch (eventType) {
-            case PaymentService.EVT_PAYMENT_PROCESSED:
+            case EventConstants.PAYMENT_PROCESSED:
                 PaymentProcessedEvent processed = objectMapper.readValue(payload, PaymentProcessedEvent.class);
                 log.warn("Dead PAYMENT_PROCESSED for booking {} - manual refund may be needed",
                         processed.getBookingId());
@@ -121,13 +121,12 @@ public class PaymentDeadLetterHandler {
                 ));
                 break;
 
-            case PaymentService.EVT_PAYMENT_FAILED:
+            case EventConstants.PAYMENT_FAILED:
                 PaymentFailedEvent failed = objectMapper.readValue(payload, PaymentFailedEvent.class);
                 log.warn("Dead PAYMENT_FAILED for booking {} - notification to booking service failed",
                         failed.getBookingId());
                 // Payment failure notification is less critical
                 break;
-
             default:
                 log.warn("No compensation for dead event type: {}", eventType);
         }

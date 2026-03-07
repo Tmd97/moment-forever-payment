@@ -6,7 +6,7 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Data
-public class PaymentFailedEvent implements PaymentEvent {
+public class PaymentFailedEvent implements OutGoingEvent {
     private String eventType = "PAYMENT_FAILED";
     private String bookingId;
     private String failureReason;
@@ -21,16 +21,12 @@ public class PaymentFailedEvent implements PaymentEvent {
     private Integer guestCount;
     private Long userId;
     private String userEmail;
+//
+//    @Override
+//    public String getEventType() {
+//        return eventType;
+//    }
 
-    @Override
-    public String getEventType() {
-        return eventType;
-    }
-
-    @Override
-    public String getBookingId() {
-        return bookingId;
-    }
 
     public void setEventType(String eventType) {
         this.eventType = eventType;

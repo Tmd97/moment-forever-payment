@@ -1,13 +1,13 @@
 package com.forvmom.MomentForeverPayment.scheduler;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.forvmom.MomentForeverPayment.commons.EventConstants;
 import com.forvmom.MomentForeverPayment.domain.entity.OutgoingPaymentOutbox;
 import com.forvmom.MomentForeverPayment.events.PaymentFailedEvent;
 import com.forvmom.MomentForeverPayment.events.PaymentProcessedEvent;
 import com.forvmom.MomentForeverPayment.producer.PaymentEventProducer;
 import com.forvmom.MomentForeverPayment.repository.OutgoingPaymentOutboxDao;
 import com.forvmom.MomentForeverPayment.service.OutgoingPaymentOutboxService;
-import com.forvmom.MomentForeverPayment.service.PaymentService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -93,12 +93,12 @@ public class OutgoingPaymentPublisher {
         String json = record.getPayload();
 
         switch (type) {
-            case PaymentService.EVT_PAYMENT_PROCESSED:
+            case EventConstants.PAYMENT_PROCESSED:
                 PaymentProcessedEvent processedEvent = objectMapper.readValue(json, PaymentProcessedEvent.class);
                 eventProducer.sendPaymentProcessedEvent(processedEvent);
                 break;
 
-            case PaymentService.EVT_PAYMENT_FAILED:
+            case EventConstants.PAYMENT_FAILED:
                 PaymentFailedEvent failedEvent = objectMapper.readValue(json, PaymentFailedEvent.class);
                 eventProducer.sendPaymentFailedEvent(failedEvent);
                 break;

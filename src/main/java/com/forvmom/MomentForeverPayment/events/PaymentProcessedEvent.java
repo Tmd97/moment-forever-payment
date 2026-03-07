@@ -3,9 +3,9 @@ package com.forvmom.MomentForeverPayment.events;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
-public class PaymentProcessedEvent implements PaymentEvent {
-    private String eventType = "PAYMENT_PROCESSED";
+public class PaymentProcessedEvent implements OutGoingEvent {
     private String bookingId;
+    private String eventType = "PAYMENT_PROCESSED";
     private String transactionId;
     private BigDecimal amount;
     private String currency;
@@ -19,22 +19,13 @@ public class PaymentProcessedEvent implements PaymentEvent {
     private Long userId;
     private String userEmail;
 
-    @Override
-    public String getEventType() {
-        return eventType;
-    }
 
-    @Override
-    public String getBookingId() {
-        return bookingId;
+    public void setBookingId(String bookingId) {
+        this.bookingId = bookingId;
     }
 
     public void setEventType(String eventType) {
         this.eventType = eventType;
-    }
-
-    public void setBookingId(String bookingId) {
-        this.bookingId = bookingId;
     }
 
     public String getTransactionId() {
@@ -115,5 +106,15 @@ public class PaymentProcessedEvent implements PaymentEvent {
 
     public void setUserEmail(String userEmail) {
         this.userEmail = userEmail;
+    }
+
+    @Override
+    public String getBookingId() {
+        return bookingId;
+    }
+
+    @Override
+    public String getEventType() {
+        return eventType;
     }
 }
