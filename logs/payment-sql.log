@@ -1,41 +1,11 @@
-2026-03-06 17:29:10.776 [main] [39mDEBUG[0;39m [36morg.hibernate.SQL[0;39m - 
-    create table outgoing_payment_outbox (
-        id bigserial not null,
-        booking_id varchar(255) not null,
-        created_at timestamp(6),
-        event_type varchar(255) not null,
-        payload TEXT,
-        retry_count integer,
-        status varchar(255) not null,
-        updated_at timestamp(6),
-        primary key (id)
-    )
-2026-03-06 17:29:10.817 [main] [39mDEBUG[0;39m [36morg.hibernate.SQL[0;39m - 
-    create table payment_outbox (
-        id bigserial not null,
-        booking_id varchar(255) not null,
-        created_at timestamp(6),
-        event_type varchar(255) not null,
-        payload TEXT,
-        retry_count integer,
-        status varchar(255) not null,
-        updated_at timestamp(6),
-        primary key (id)
-    )
-2026-03-06 17:29:10.821 [main] [39mDEBUG[0;39m [36morg.hibernate.SQL[0;39m - 
-    alter table if exists payment_outbox 
-       drop constraint if exists UKkeqx8svh3yen3kms4xiull7uo
-2026-03-06 17:29:10.826 [main] [39mDEBUG[0;39m [36morg.hibernate.SQL[0;39m - 
-    alter table if exists payment_outbox 
-       add constraint UKkeqx8svh3yen3kms4xiull7uo unique (booking_id, event_type)
-2026-03-06 17:48:37.964 [paymentScheduler_Worker-1] [39mDEBUG[0;39m [36morg.hibernate.SQL[0;39m - 
+2026-03-08 17:39:28.980 [paymentScheduler_Worker-1] [39mDEBUG[0;39m [36morg.hibernate.SQL[0;39m - 
     delete 
     from
         payment_outbox 
     where
         status=? 
         and updated_at<?
-2026-03-06 17:48:37.986 [paymentScheduler_Worker-2] [39mDEBUG[0;39m [36morg.hibernate.SQL[0;39m - 
+2026-03-08 17:39:29.027 [paymentScheduler_Worker-2] [39mDEBUG[0;39m [36morg.hibernate.SQL[0;39m - 
     select
         p1_0.id,
         p1_0.booking_id,
@@ -50,7 +20,7 @@
     where
         p1_0.status in (?,?,?,?) 
         and p1_0.updated_at<?
-2026-03-06 17:48:37.986 [paymentScheduler_Worker-3] [39mDEBUG[0;39m [36morg.hibernate.SQL[0;39m - 
+2026-03-08 17:39:29.028 [paymentScheduler_Worker-3] [39mDEBUG[0;39m [36morg.hibernate.SQL[0;39m - 
     select
         o1_0.id,
         o1_0.booking_id,
@@ -65,7 +35,7 @@
     where
         o1_0.status in (?,?) 
         and o1_0.updated_at<?
-2026-03-06 17:49:07.830 [paymentScheduler_Worker-4] [39mDEBUG[0;39m [36morg.hibernate.SQL[0;39m - 
+2026-03-08 17:39:54.251 [paymentScheduler_Worker-4] [39mDEBUG[0;39m [36morg.hibernate.SQL[0;39m - 
     select
         o1_0.id,
         o1_0.booking_id,
@@ -80,7 +50,7 @@
     where
         o1_0.status in (?,?) 
         and o1_0.updated_at<?
-2026-03-06 17:49:37.820 [paymentScheduler_Worker-5] [39mDEBUG[0;39m [36morg.hibernate.SQL[0;39m - 
+2026-03-08 17:40:24.251 [paymentScheduler_Worker-5] [39mDEBUG[0;39m [36morg.hibernate.SQL[0;39m - 
     select
         p1_0.id,
         p1_0.booking_id,
@@ -95,7 +65,2405 @@
     where
         p1_0.status in (?,?,?,?) 
         and p1_0.updated_at<?
-2026-03-06 17:49:37.829 [paymentScheduler_Worker-1] [39mDEBUG[0;39m [36morg.hibernate.SQL[0;39m - 
+2026-03-08 17:40:24.260 [paymentScheduler_Worker-1] [39mDEBUG[0;39m [36morg.hibernate.SQL[0;39m - 
+    select
+        o1_0.id,
+        o1_0.booking_id,
+        o1_0.created_at,
+        o1_0.event_type,
+        o1_0.payload,
+        o1_0.retry_count,
+        o1_0.status,
+        o1_0.updated_at 
+    from
+        outgoing_payment_outbox o1_0 
+    where
+        o1_0.status in (?,?) 
+        and o1_0.updated_at<?
+2026-03-08 17:40:54.264 [paymentScheduler_Worker-3] [39mDEBUG[0;39m [36morg.hibernate.SQL[0;39m - 
+    select
+        o1_0.id,
+        o1_0.booking_id,
+        o1_0.created_at,
+        o1_0.event_type,
+        o1_0.payload,
+        o1_0.retry_count,
+        o1_0.status,
+        o1_0.updated_at 
+    from
+        outgoing_payment_outbox o1_0 
+    where
+        o1_0.status in (?,?) 
+        and o1_0.updated_at<?
+2026-03-08 17:41:24.256 [paymentScheduler_Worker-2] [39mDEBUG[0;39m [36morg.hibernate.SQL[0;39m - 
+    select
+        p1_0.id,
+        p1_0.booking_id,
+        p1_0.created_at,
+        p1_0.event_type,
+        p1_0.payload,
+        p1_0.retry_count,
+        p1_0.status,
+        p1_0.updated_at 
+    from
+        payment_outbox p1_0 
+    where
+        p1_0.status in (?,?,?,?) 
+        and p1_0.updated_at<?
+2026-03-08 17:41:24.265 [paymentScheduler_Worker-4] [39mDEBUG[0;39m [36morg.hibernate.SQL[0;39m - 
+    select
+        o1_0.id,
+        o1_0.booking_id,
+        o1_0.created_at,
+        o1_0.event_type,
+        o1_0.payload,
+        o1_0.retry_count,
+        o1_0.status,
+        o1_0.updated_at 
+    from
+        outgoing_payment_outbox o1_0 
+    where
+        o1_0.status in (?,?) 
+        and o1_0.updated_at<?
+2026-03-08 17:41:54.256 [paymentScheduler_Worker-5] [39mDEBUG[0;39m [36morg.hibernate.SQL[0;39m - 
+    select
+        o1_0.id,
+        o1_0.booking_id,
+        o1_0.created_at,
+        o1_0.event_type,
+        o1_0.payload,
+        o1_0.retry_count,
+        o1_0.status,
+        o1_0.updated_at 
+    from
+        outgoing_payment_outbox o1_0 
+    where
+        o1_0.status in (?,?) 
+        and o1_0.updated_at<?
+2026-03-08 17:42:31.332 [paymentScheduler_Worker-1] [39mDEBUG[0;39m [36morg.hibernate.SQL[0;39m - 
+    delete 
+    from
+        payment_outbox 
+    where
+        status=? 
+        and updated_at<?
+2026-03-08 17:42:31.375 [paymentScheduler_Worker-3] [39mDEBUG[0;39m [36morg.hibernate.SQL[0;39m - 
+    select
+        o1_0.id,
+        o1_0.booking_id,
+        o1_0.created_at,
+        o1_0.event_type,
+        o1_0.payload,
+        o1_0.retry_count,
+        o1_0.status,
+        o1_0.updated_at 
+    from
+        outgoing_payment_outbox o1_0 
+    where
+        o1_0.status in (?,?) 
+        and o1_0.updated_at<?
+2026-03-08 17:42:31.376 [paymentScheduler_Worker-2] [39mDEBUG[0;39m [36morg.hibernate.SQL[0;39m - 
+    select
+        p1_0.id,
+        p1_0.booking_id,
+        p1_0.created_at,
+        p1_0.event_type,
+        p1_0.payload,
+        p1_0.retry_count,
+        p1_0.status,
+        p1_0.updated_at 
+    from
+        payment_outbox p1_0 
+    where
+        p1_0.status in (?,?,?,?) 
+        and p1_0.updated_at<?
+2026-03-08 17:42:57.440 [paymentScheduler_Worker-4] [39mDEBUG[0;39m [36morg.hibernate.SQL[0;39m - 
+    select
+        o1_0.id,
+        o1_0.booking_id,
+        o1_0.created_at,
+        o1_0.event_type,
+        o1_0.payload,
+        o1_0.retry_count,
+        o1_0.status,
+        o1_0.updated_at 
+    from
+        outgoing_payment_outbox o1_0 
+    where
+        o1_0.status in (?,?) 
+        and o1_0.updated_at<?
+2026-03-08 17:43:27.351 [paymentScheduler_Worker-5] [39mDEBUG[0;39m [36morg.hibernate.SQL[0;39m - 
+    select
+        p1_0.id,
+        p1_0.booking_id,
+        p1_0.created_at,
+        p1_0.event_type,
+        p1_0.payload,
+        p1_0.retry_count,
+        p1_0.status,
+        p1_0.updated_at 
+    from
+        payment_outbox p1_0 
+    where
+        p1_0.status in (?,?,?,?) 
+        and p1_0.updated_at<?
+2026-03-08 17:43:27.361 [paymentScheduler_Worker-1] [39mDEBUG[0;39m [36morg.hibernate.SQL[0;39m - 
+    select
+        o1_0.id,
+        o1_0.booking_id,
+        o1_0.created_at,
+        o1_0.event_type,
+        o1_0.payload,
+        o1_0.retry_count,
+        o1_0.status,
+        o1_0.updated_at 
+    from
+        outgoing_payment_outbox o1_0 
+    where
+        o1_0.status in (?,?) 
+        and o1_0.updated_at<?
+2026-03-08 17:43:57.353 [paymentScheduler_Worker-3] [39mDEBUG[0;39m [36morg.hibernate.SQL[0;39m - 
+    select
+        o1_0.id,
+        o1_0.booking_id,
+        o1_0.created_at,
+        o1_0.event_type,
+        o1_0.payload,
+        o1_0.retry_count,
+        o1_0.status,
+        o1_0.updated_at 
+    from
+        outgoing_payment_outbox o1_0 
+    where
+        o1_0.status in (?,?) 
+        and o1_0.updated_at<?
+2026-03-08 17:44:27.347 [paymentScheduler_Worker-2] [39mDEBUG[0;39m [36morg.hibernate.SQL[0;39m - 
+    select
+        p1_0.id,
+        p1_0.booking_id,
+        p1_0.created_at,
+        p1_0.event_type,
+        p1_0.payload,
+        p1_0.retry_count,
+        p1_0.status,
+        p1_0.updated_at 
+    from
+        payment_outbox p1_0 
+    where
+        p1_0.status in (?,?,?,?) 
+        and p1_0.updated_at<?
+2026-03-08 17:44:27.356 [paymentScheduler_Worker-4] [39mDEBUG[0;39m [36morg.hibernate.SQL[0;39m - 
+    select
+        o1_0.id,
+        o1_0.booking_id,
+        o1_0.created_at,
+        o1_0.event_type,
+        o1_0.payload,
+        o1_0.retry_count,
+        o1_0.status,
+        o1_0.updated_at 
+    from
+        outgoing_payment_outbox o1_0 
+    where
+        o1_0.status in (?,?) 
+        and o1_0.updated_at<?
+2026-03-08 17:44:57.352 [paymentScheduler_Worker-5] [39mDEBUG[0;39m [36morg.hibernate.SQL[0;39m - 
+    select
+        o1_0.id,
+        o1_0.booking_id,
+        o1_0.created_at,
+        o1_0.event_type,
+        o1_0.payload,
+        o1_0.retry_count,
+        o1_0.status,
+        o1_0.updated_at 
+    from
+        outgoing_payment_outbox o1_0 
+    where
+        o1_0.status in (?,?) 
+        and o1_0.updated_at<?
+2026-03-08 17:45:27.351 [paymentScheduler_Worker-1] [39mDEBUG[0;39m [36morg.hibernate.SQL[0;39m - 
+    select
+        p1_0.id,
+        p1_0.booking_id,
+        p1_0.created_at,
+        p1_0.event_type,
+        p1_0.payload,
+        p1_0.retry_count,
+        p1_0.status,
+        p1_0.updated_at 
+    from
+        payment_outbox p1_0 
+    where
+        p1_0.status in (?,?,?,?) 
+        and p1_0.updated_at<?
+2026-03-08 17:45:27.359 [paymentScheduler_Worker-3] [39mDEBUG[0;39m [36morg.hibernate.SQL[0;39m - 
+    select
+        o1_0.id,
+        o1_0.booking_id,
+        o1_0.created_at,
+        o1_0.event_type,
+        o1_0.payload,
+        o1_0.retry_count,
+        o1_0.status,
+        o1_0.updated_at 
+    from
+        outgoing_payment_outbox o1_0 
+    where
+        o1_0.status in (?,?) 
+        and o1_0.updated_at<?
+2026-03-08 17:45:57.366 [paymentScheduler_Worker-2] [39mDEBUG[0;39m [36morg.hibernate.SQL[0;39m - 
+    select
+        o1_0.id,
+        o1_0.booking_id,
+        o1_0.created_at,
+        o1_0.event_type,
+        o1_0.payload,
+        o1_0.retry_count,
+        o1_0.status,
+        o1_0.updated_at 
+    from
+        outgoing_payment_outbox o1_0 
+    where
+        o1_0.status in (?,?) 
+        and o1_0.updated_at<?
+2026-03-08 17:46:27.361 [paymentScheduler_Worker-4] [39mDEBUG[0;39m [36morg.hibernate.SQL[0;39m - 
+    select
+        p1_0.id,
+        p1_0.booking_id,
+        p1_0.created_at,
+        p1_0.event_type,
+        p1_0.payload,
+        p1_0.retry_count,
+        p1_0.status,
+        p1_0.updated_at 
+    from
+        payment_outbox p1_0 
+    where
+        p1_0.status in (?,?,?,?) 
+        and p1_0.updated_at<?
+2026-03-08 17:46:27.373 [paymentScheduler_Worker-5] [39mDEBUG[0;39m [36morg.hibernate.SQL[0;39m - 
+    select
+        o1_0.id,
+        o1_0.booking_id,
+        o1_0.created_at,
+        o1_0.event_type,
+        o1_0.payload,
+        o1_0.retry_count,
+        o1_0.status,
+        o1_0.updated_at 
+    from
+        outgoing_payment_outbox o1_0 
+    where
+        o1_0.status in (?,?) 
+        and o1_0.updated_at<?
+2026-03-08 17:46:57.357 [paymentScheduler_Worker-1] [39mDEBUG[0;39m [36morg.hibernate.SQL[0;39m - 
+    select
+        o1_0.id,
+        o1_0.booking_id,
+        o1_0.created_at,
+        o1_0.event_type,
+        o1_0.payload,
+        o1_0.retry_count,
+        o1_0.status,
+        o1_0.updated_at 
+    from
+        outgoing_payment_outbox o1_0 
+    where
+        o1_0.status in (?,?) 
+        and o1_0.updated_at<?
+2026-03-08 17:47:27.354 [paymentScheduler_Worker-3] [39mDEBUG[0;39m [36morg.hibernate.SQL[0;39m - 
+    select
+        p1_0.id,
+        p1_0.booking_id,
+        p1_0.created_at,
+        p1_0.event_type,
+        p1_0.payload,
+        p1_0.retry_count,
+        p1_0.status,
+        p1_0.updated_at 
+    from
+        payment_outbox p1_0 
+    where
+        p1_0.status in (?,?,?,?) 
+        and p1_0.updated_at<?
+2026-03-08 17:47:27.360 [paymentScheduler_Worker-2] [39mDEBUG[0;39m [36morg.hibernate.SQL[0;39m - 
+    select
+        o1_0.id,
+        o1_0.booking_id,
+        o1_0.created_at,
+        o1_0.event_type,
+        o1_0.payload,
+        o1_0.retry_count,
+        o1_0.status,
+        o1_0.updated_at 
+    from
+        outgoing_payment_outbox o1_0 
+    where
+        o1_0.status in (?,?) 
+        and o1_0.updated_at<?
+2026-03-08 17:47:57.350 [paymentScheduler_Worker-4] [39mDEBUG[0;39m [36morg.hibernate.SQL[0;39m - 
+    select
+        o1_0.id,
+        o1_0.booking_id,
+        o1_0.created_at,
+        o1_0.event_type,
+        o1_0.payload,
+        o1_0.retry_count,
+        o1_0.status,
+        o1_0.updated_at 
+    from
+        outgoing_payment_outbox o1_0 
+    where
+        o1_0.status in (?,?) 
+        and o1_0.updated_at<?
+2026-03-08 17:48:27.351 [paymentScheduler_Worker-5] [39mDEBUG[0;39m [36morg.hibernate.SQL[0;39m - 
+    select
+        p1_0.id,
+        p1_0.booking_id,
+        p1_0.created_at,
+        p1_0.event_type,
+        p1_0.payload,
+        p1_0.retry_count,
+        p1_0.status,
+        p1_0.updated_at 
+    from
+        payment_outbox p1_0 
+    where
+        p1_0.status in (?,?,?,?) 
+        and p1_0.updated_at<?
+2026-03-08 17:48:27.356 [paymentScheduler_Worker-1] [39mDEBUG[0;39m [36morg.hibernate.SQL[0;39m - 
+    select
+        o1_0.id,
+        o1_0.booking_id,
+        o1_0.created_at,
+        o1_0.event_type,
+        o1_0.payload,
+        o1_0.retry_count,
+        o1_0.status,
+        o1_0.updated_at 
+    from
+        outgoing_payment_outbox o1_0 
+    where
+        o1_0.status in (?,?) 
+        and o1_0.updated_at<?
+2026-03-08 17:48:57.348 [paymentScheduler_Worker-3] [39mDEBUG[0;39m [36morg.hibernate.SQL[0;39m - 
+    select
+        o1_0.id,
+        o1_0.booking_id,
+        o1_0.created_at,
+        o1_0.event_type,
+        o1_0.payload,
+        o1_0.retry_count,
+        o1_0.status,
+        o1_0.updated_at 
+    from
+        outgoing_payment_outbox o1_0 
+    where
+        o1_0.status in (?,?) 
+        and o1_0.updated_at<?
+2026-03-08 17:49:27.352 [paymentScheduler_Worker-2] [39mDEBUG[0;39m [36morg.hibernate.SQL[0;39m - 
+    select
+        p1_0.id,
+        p1_0.booking_id,
+        p1_0.created_at,
+        p1_0.event_type,
+        p1_0.payload,
+        p1_0.retry_count,
+        p1_0.status,
+        p1_0.updated_at 
+    from
+        payment_outbox p1_0 
+    where
+        p1_0.status in (?,?,?,?) 
+        and p1_0.updated_at<?
+2026-03-08 17:49:27.361 [paymentScheduler_Worker-4] [39mDEBUG[0;39m [36morg.hibernate.SQL[0;39m - 
+    select
+        o1_0.id,
+        o1_0.booking_id,
+        o1_0.created_at,
+        o1_0.event_type,
+        o1_0.payload,
+        o1_0.retry_count,
+        o1_0.status,
+        o1_0.updated_at 
+    from
+        outgoing_payment_outbox o1_0 
+    where
+        o1_0.status in (?,?) 
+        and o1_0.updated_at<?
+2026-03-08 17:49:57.350 [paymentScheduler_Worker-5] [39mDEBUG[0;39m [36morg.hibernate.SQL[0;39m - 
+    select
+        o1_0.id,
+        o1_0.booking_id,
+        o1_0.created_at,
+        o1_0.event_type,
+        o1_0.payload,
+        o1_0.retry_count,
+        o1_0.status,
+        o1_0.updated_at 
+    from
+        outgoing_payment_outbox o1_0 
+    where
+        o1_0.status in (?,?) 
+        and o1_0.updated_at<?
+2026-03-08 17:50:44.166 [paymentScheduler_Worker-1] [39mDEBUG[0;39m [36morg.hibernate.SQL[0;39m - 
+    delete 
+    from
+        payment_outbox 
+    where
+        status=? 
+        and updated_at<?
+2026-03-08 17:50:44.211 [paymentScheduler_Worker-2] [39mDEBUG[0;39m [36morg.hibernate.SQL[0;39m - 
+    select
+        p1_0.id,
+        p1_0.booking_id,
+        p1_0.created_at,
+        p1_0.event_type,
+        p1_0.payload,
+        p1_0.retry_count,
+        p1_0.status,
+        p1_0.updated_at 
+    from
+        payment_outbox p1_0 
+    where
+        p1_0.status in (?,?,?,?) 
+        and p1_0.updated_at<?
+2026-03-08 17:50:44.213 [paymentScheduler_Worker-3] [39mDEBUG[0;39m [36morg.hibernate.SQL[0;39m - 
+    select
+        o1_0.id,
+        o1_0.booking_id,
+        o1_0.created_at,
+        o1_0.event_type,
+        o1_0.payload,
+        o1_0.retry_count,
+        o1_0.status,
+        o1_0.updated_at 
+    from
+        outgoing_payment_outbox o1_0 
+    where
+        o1_0.status in (?,?) 
+        and o1_0.updated_at<?
+2026-03-08 17:51:10.282 [paymentScheduler_Worker-4] [39mDEBUG[0;39m [36morg.hibernate.SQL[0;39m - 
+    select
+        o1_0.id,
+        o1_0.booking_id,
+        o1_0.created_at,
+        o1_0.event_type,
+        o1_0.payload,
+        o1_0.retry_count,
+        o1_0.status,
+        o1_0.updated_at 
+    from
+        outgoing_payment_outbox o1_0 
+    where
+        o1_0.status in (?,?) 
+        and o1_0.updated_at<?
+2026-03-08 17:51:52.981 [paymentScheduler_Worker-1] [39mDEBUG[0;39m [36morg.hibernate.SQL[0;39m - 
+    delete 
+    from
+        payment_outbox 
+    where
+        status=? 
+        and updated_at<?
+2026-03-08 17:51:53.027 [paymentScheduler_Worker-2] [39mDEBUG[0;39m [36morg.hibernate.SQL[0;39m - 
+    select
+        p1_0.id,
+        p1_0.booking_id,
+        p1_0.created_at,
+        p1_0.event_type,
+        p1_0.payload,
+        p1_0.retry_count,
+        p1_0.status,
+        p1_0.updated_at 
+    from
+        payment_outbox p1_0 
+    where
+        p1_0.status in (?,?,?,?) 
+        and p1_0.updated_at<?
+2026-03-08 17:51:53.027 [paymentScheduler_Worker-3] [39mDEBUG[0;39m [36morg.hibernate.SQL[0;39m - 
+    select
+        o1_0.id,
+        o1_0.booking_id,
+        o1_0.created_at,
+        o1_0.event_type,
+        o1_0.payload,
+        o1_0.retry_count,
+        o1_0.status,
+        o1_0.updated_at 
+    from
+        outgoing_payment_outbox o1_0 
+    where
+        o1_0.status in (?,?) 
+        and o1_0.updated_at<?
+2026-03-08 17:52:18.937 [paymentScheduler_Worker-4] [39mDEBUG[0;39m [36morg.hibernate.SQL[0;39m - 
+    select
+        o1_0.id,
+        o1_0.booking_id,
+        o1_0.created_at,
+        o1_0.event_type,
+        o1_0.payload,
+        o1_0.retry_count,
+        o1_0.status,
+        o1_0.updated_at 
+    from
+        outgoing_payment_outbox o1_0 
+    where
+        o1_0.status in (?,?) 
+        and o1_0.updated_at<?
+2026-03-08 17:52:48.947 [paymentScheduler_Worker-5] [39mDEBUG[0;39m [36morg.hibernate.SQL[0;39m - 
+    select
+        p1_0.id,
+        p1_0.booking_id,
+        p1_0.created_at,
+        p1_0.event_type,
+        p1_0.payload,
+        p1_0.retry_count,
+        p1_0.status,
+        p1_0.updated_at 
+    from
+        payment_outbox p1_0 
+    where
+        p1_0.status in (?,?,?,?) 
+        and p1_0.updated_at<?
+2026-03-08 17:52:48.965 [paymentScheduler_Worker-1] [39mDEBUG[0;39m [36morg.hibernate.SQL[0;39m - 
+    select
+        o1_0.id,
+        o1_0.booking_id,
+        o1_0.created_at,
+        o1_0.event_type,
+        o1_0.payload,
+        o1_0.retry_count,
+        o1_0.status,
+        o1_0.updated_at 
+    from
+        outgoing_payment_outbox o1_0 
+    where
+        o1_0.status in (?,?) 
+        and o1_0.updated_at<?
+2026-03-08 17:53:18.933 [paymentScheduler_Worker-3] [39mDEBUG[0;39m [36morg.hibernate.SQL[0;39m - 
+    select
+        o1_0.id,
+        o1_0.booking_id,
+        o1_0.created_at,
+        o1_0.event_type,
+        o1_0.payload,
+        o1_0.retry_count,
+        o1_0.status,
+        o1_0.updated_at 
+    from
+        outgoing_payment_outbox o1_0 
+    where
+        o1_0.status in (?,?) 
+        and o1_0.updated_at<?
+2026-03-08 17:53:48.933 [paymentScheduler_Worker-2] [39mDEBUG[0;39m [36morg.hibernate.SQL[0;39m - 
+    select
+        p1_0.id,
+        p1_0.booking_id,
+        p1_0.created_at,
+        p1_0.event_type,
+        p1_0.payload,
+        p1_0.retry_count,
+        p1_0.status,
+        p1_0.updated_at 
+    from
+        payment_outbox p1_0 
+    where
+        p1_0.status in (?,?,?,?) 
+        and p1_0.updated_at<?
+2026-03-08 17:53:48.944 [paymentScheduler_Worker-4] [39mDEBUG[0;39m [36morg.hibernate.SQL[0;39m - 
+    select
+        o1_0.id,
+        o1_0.booking_id,
+        o1_0.created_at,
+        o1_0.event_type,
+        o1_0.payload,
+        o1_0.retry_count,
+        o1_0.status,
+        o1_0.updated_at 
+    from
+        outgoing_payment_outbox o1_0 
+    where
+        o1_0.status in (?,?) 
+        and o1_0.updated_at<?
+2026-03-08 17:54:18.935 [paymentScheduler_Worker-5] [39mDEBUG[0;39m [36morg.hibernate.SQL[0;39m - 
+    select
+        o1_0.id,
+        o1_0.booking_id,
+        o1_0.created_at,
+        o1_0.event_type,
+        o1_0.payload,
+        o1_0.retry_count,
+        o1_0.status,
+        o1_0.updated_at 
+    from
+        outgoing_payment_outbox o1_0 
+    where
+        o1_0.status in (?,?) 
+        and o1_0.updated_at<?
+2026-03-08 17:54:48.934 [paymentScheduler_Worker-1] [39mDEBUG[0;39m [36morg.hibernate.SQL[0;39m - 
+    select
+        p1_0.id,
+        p1_0.booking_id,
+        p1_0.created_at,
+        p1_0.event_type,
+        p1_0.payload,
+        p1_0.retry_count,
+        p1_0.status,
+        p1_0.updated_at 
+    from
+        payment_outbox p1_0 
+    where
+        p1_0.status in (?,?,?,?) 
+        and p1_0.updated_at<?
+2026-03-08 17:54:48.943 [paymentScheduler_Worker-3] [39mDEBUG[0;39m [36morg.hibernate.SQL[0;39m - 
+    select
+        o1_0.id,
+        o1_0.booking_id,
+        o1_0.created_at,
+        o1_0.event_type,
+        o1_0.payload,
+        o1_0.retry_count,
+        o1_0.status,
+        o1_0.updated_at 
+    from
+        outgoing_payment_outbox o1_0 
+    where
+        o1_0.status in (?,?) 
+        and o1_0.updated_at<?
+2026-03-08 17:55:18.935 [paymentScheduler_Worker-2] [39mDEBUG[0;39m [36morg.hibernate.SQL[0;39m - 
+    select
+        o1_0.id,
+        o1_0.booking_id,
+        o1_0.created_at,
+        o1_0.event_type,
+        o1_0.payload,
+        o1_0.retry_count,
+        o1_0.status,
+        o1_0.updated_at 
+    from
+        outgoing_payment_outbox o1_0 
+    where
+        o1_0.status in (?,?) 
+        and o1_0.updated_at<?
+2026-03-08 17:55:48.927 [paymentScheduler_Worker-4] [39mDEBUG[0;39m [36morg.hibernate.SQL[0;39m - 
+    select
+        p1_0.id,
+        p1_0.booking_id,
+        p1_0.created_at,
+        p1_0.event_type,
+        p1_0.payload,
+        p1_0.retry_count,
+        p1_0.status,
+        p1_0.updated_at 
+    from
+        payment_outbox p1_0 
+    where
+        p1_0.status in (?,?,?,?) 
+        and p1_0.updated_at<?
+2026-03-08 17:55:48.933 [paymentScheduler_Worker-5] [39mDEBUG[0;39m [36morg.hibernate.SQL[0;39m - 
+    select
+        o1_0.id,
+        o1_0.booking_id,
+        o1_0.created_at,
+        o1_0.event_type,
+        o1_0.payload,
+        o1_0.retry_count,
+        o1_0.status,
+        o1_0.updated_at 
+    from
+        outgoing_payment_outbox o1_0 
+    where
+        o1_0.status in (?,?) 
+        and o1_0.updated_at<?
+2026-03-08 17:56:18.925 [paymentScheduler_Worker-1] [39mDEBUG[0;39m [36morg.hibernate.SQL[0;39m - 
+    select
+        o1_0.id,
+        o1_0.booking_id,
+        o1_0.created_at,
+        o1_0.event_type,
+        o1_0.payload,
+        o1_0.retry_count,
+        o1_0.status,
+        o1_0.updated_at 
+    from
+        outgoing_payment_outbox o1_0 
+    where
+        o1_0.status in (?,?) 
+        and o1_0.updated_at<?
+2026-03-08 17:56:48.927 [paymentScheduler_Worker-3] [39mDEBUG[0;39m [36morg.hibernate.SQL[0;39m - 
+    select
+        p1_0.id,
+        p1_0.booking_id,
+        p1_0.created_at,
+        p1_0.event_type,
+        p1_0.payload,
+        p1_0.retry_count,
+        p1_0.status,
+        p1_0.updated_at 
+    from
+        payment_outbox p1_0 
+    where
+        p1_0.status in (?,?,?,?) 
+        and p1_0.updated_at<?
+2026-03-08 17:56:48.930 [paymentScheduler_Worker-2] [39mDEBUG[0;39m [36morg.hibernate.SQL[0;39m - 
+    select
+        o1_0.id,
+        o1_0.booking_id,
+        o1_0.created_at,
+        o1_0.event_type,
+        o1_0.payload,
+        o1_0.retry_count,
+        o1_0.status,
+        o1_0.updated_at 
+    from
+        outgoing_payment_outbox o1_0 
+    where
+        o1_0.status in (?,?) 
+        and o1_0.updated_at<?
+2026-03-08 17:57:18.933 [paymentScheduler_Worker-4] [39mDEBUG[0;39m [36morg.hibernate.SQL[0;39m - 
+    select
+        o1_0.id,
+        o1_0.booking_id,
+        o1_0.created_at,
+        o1_0.event_type,
+        o1_0.payload,
+        o1_0.retry_count,
+        o1_0.status,
+        o1_0.updated_at 
+    from
+        outgoing_payment_outbox o1_0 
+    where
+        o1_0.status in (?,?) 
+        and o1_0.updated_at<?
+2026-03-08 17:57:48.952 [paymentScheduler_Worker-5] [39mDEBUG[0;39m [36morg.hibernate.SQL[0;39m - 
+    select
+        p1_0.id,
+        p1_0.booking_id,
+        p1_0.created_at,
+        p1_0.event_type,
+        p1_0.payload,
+        p1_0.retry_count,
+        p1_0.status,
+        p1_0.updated_at 
+    from
+        payment_outbox p1_0 
+    where
+        p1_0.status in (?,?,?,?) 
+        and p1_0.updated_at<?
+2026-03-08 17:57:48.965 [paymentScheduler_Worker-1] [39mDEBUG[0;39m [36morg.hibernate.SQL[0;39m - 
+    select
+        o1_0.id,
+        o1_0.booking_id,
+        o1_0.created_at,
+        o1_0.event_type,
+        o1_0.payload,
+        o1_0.retry_count,
+        o1_0.status,
+        o1_0.updated_at 
+    from
+        outgoing_payment_outbox o1_0 
+    where
+        o1_0.status in (?,?) 
+        and o1_0.updated_at<?
+2026-03-08 17:58:18.938 [paymentScheduler_Worker-3] [39mDEBUG[0;39m [36morg.hibernate.SQL[0;39m - 
+    select
+        o1_0.id,
+        o1_0.booking_id,
+        o1_0.created_at,
+        o1_0.event_type,
+        o1_0.payload,
+        o1_0.retry_count,
+        o1_0.status,
+        o1_0.updated_at 
+    from
+        outgoing_payment_outbox o1_0 
+    where
+        o1_0.status in (?,?) 
+        and o1_0.updated_at<?
+2026-03-08 17:58:48.932 [paymentScheduler_Worker-2] [39mDEBUG[0;39m [36morg.hibernate.SQL[0;39m - 
+    select
+        p1_0.id,
+        p1_0.booking_id,
+        p1_0.created_at,
+        p1_0.event_type,
+        p1_0.payload,
+        p1_0.retry_count,
+        p1_0.status,
+        p1_0.updated_at 
+    from
+        payment_outbox p1_0 
+    where
+        p1_0.status in (?,?,?,?) 
+        and p1_0.updated_at<?
+2026-03-08 17:58:48.945 [paymentScheduler_Worker-4] [39mDEBUG[0;39m [36morg.hibernate.SQL[0;39m - 
+    select
+        o1_0.id,
+        o1_0.booking_id,
+        o1_0.created_at,
+        o1_0.event_type,
+        o1_0.payload,
+        o1_0.retry_count,
+        o1_0.status,
+        o1_0.updated_at 
+    from
+        outgoing_payment_outbox o1_0 
+    where
+        o1_0.status in (?,?) 
+        and o1_0.updated_at<?
+2026-03-08 17:59:18.950 [paymentScheduler_Worker-5] [39mDEBUG[0;39m [36morg.hibernate.SQL[0;39m - 
+    select
+        o1_0.id,
+        o1_0.booking_id,
+        o1_0.created_at,
+        o1_0.event_type,
+        o1_0.payload,
+        o1_0.retry_count,
+        o1_0.status,
+        o1_0.updated_at 
+    from
+        outgoing_payment_outbox o1_0 
+    where
+        o1_0.status in (?,?) 
+        and o1_0.updated_at<?
+2026-03-08 17:59:48.953 [paymentScheduler_Worker-1] [39mDEBUG[0;39m [36morg.hibernate.SQL[0;39m - 
+    select
+        p1_0.id,
+        p1_0.booking_id,
+        p1_0.created_at,
+        p1_0.event_type,
+        p1_0.payload,
+        p1_0.retry_count,
+        p1_0.status,
+        p1_0.updated_at 
+    from
+        payment_outbox p1_0 
+    where
+        p1_0.status in (?,?,?,?) 
+        and p1_0.updated_at<?
+2026-03-08 17:59:48.964 [paymentScheduler_Worker-3] [39mDEBUG[0;39m [36morg.hibernate.SQL[0;39m - 
+    select
+        o1_0.id,
+        o1_0.booking_id,
+        o1_0.created_at,
+        o1_0.event_type,
+        o1_0.payload,
+        o1_0.retry_count,
+        o1_0.status,
+        o1_0.updated_at 
+    from
+        outgoing_payment_outbox o1_0 
+    where
+        o1_0.status in (?,?) 
+        and o1_0.updated_at<?
+2026-03-08 18:00:18.934 [paymentScheduler_Worker-2] [39mDEBUG[0;39m [36morg.hibernate.SQL[0;39m - 
+    select
+        o1_0.id,
+        o1_0.booking_id,
+        o1_0.created_at,
+        o1_0.event_type,
+        o1_0.payload,
+        o1_0.retry_count,
+        o1_0.status,
+        o1_0.updated_at 
+    from
+        outgoing_payment_outbox o1_0 
+    where
+        o1_0.status in (?,?) 
+        and o1_0.updated_at<?
+2026-03-08 18:00:48.931 [paymentScheduler_Worker-4] [39mDEBUG[0;39m [36morg.hibernate.SQL[0;39m - 
+    select
+        p1_0.id,
+        p1_0.booking_id,
+        p1_0.created_at,
+        p1_0.event_type,
+        p1_0.payload,
+        p1_0.retry_count,
+        p1_0.status,
+        p1_0.updated_at 
+    from
+        payment_outbox p1_0 
+    where
+        p1_0.status in (?,?,?,?) 
+        and p1_0.updated_at<?
+2026-03-08 18:00:48.952 [paymentScheduler_Worker-5] [39mDEBUG[0;39m [36morg.hibernate.SQL[0;39m - 
+    select
+        o1_0.id,
+        o1_0.booking_id,
+        o1_0.created_at,
+        o1_0.event_type,
+        o1_0.payload,
+        o1_0.retry_count,
+        o1_0.status,
+        o1_0.updated_at 
+    from
+        outgoing_payment_outbox o1_0 
+    where
+        o1_0.status in (?,?) 
+        and o1_0.updated_at<?
+2026-03-08 18:01:25.068 [paymentScheduler_Worker-1] [39mDEBUG[0;39m [36morg.hibernate.SQL[0;39m - 
+    delete 
+    from
+        payment_outbox 
+    where
+        status=? 
+        and updated_at<?
+2026-03-08 18:01:25.117 [paymentScheduler_Worker-3] [39mDEBUG[0;39m [36morg.hibernate.SQL[0;39m - 
+    select
+        o1_0.id,
+        o1_0.booking_id,
+        o1_0.created_at,
+        o1_0.event_type,
+        o1_0.payload,
+        o1_0.retry_count,
+        o1_0.status,
+        o1_0.updated_at 
+    from
+        outgoing_payment_outbox o1_0 
+    where
+        o1_0.status in (?,?) 
+        and o1_0.updated_at<?
+2026-03-08 18:01:25.118 [paymentScheduler_Worker-2] [39mDEBUG[0;39m [36morg.hibernate.SQL[0;39m - 
+    select
+        p1_0.id,
+        p1_0.booking_id,
+        p1_0.created_at,
+        p1_0.event_type,
+        p1_0.payload,
+        p1_0.retry_count,
+        p1_0.status,
+        p1_0.updated_at 
+    from
+        payment_outbox p1_0 
+    where
+        p1_0.status in (?,?,?,?) 
+        and p1_0.updated_at<?
+2026-03-08 18:01:50.657 [paymentScheduler_Worker-4] [39mDEBUG[0;39m [36morg.hibernate.SQL[0;39m - 
+    select
+        o1_0.id,
+        o1_0.booking_id,
+        o1_0.created_at,
+        o1_0.event_type,
+        o1_0.payload,
+        o1_0.retry_count,
+        o1_0.status,
+        o1_0.updated_at 
+    from
+        outgoing_payment_outbox o1_0 
+    where
+        o1_0.status in (?,?) 
+        and o1_0.updated_at<?
+2026-03-08 18:02:20.677 [paymentScheduler_Worker-5] [39mDEBUG[0;39m [36morg.hibernate.SQL[0;39m - 
+    select
+        p1_0.id,
+        p1_0.booking_id,
+        p1_0.created_at,
+        p1_0.event_type,
+        p1_0.payload,
+        p1_0.retry_count,
+        p1_0.status,
+        p1_0.updated_at 
+    from
+        payment_outbox p1_0 
+    where
+        p1_0.status in (?,?,?,?) 
+        and p1_0.updated_at<?
+2026-03-08 18:02:20.697 [paymentScheduler_Worker-1] [39mDEBUG[0;39m [36morg.hibernate.SQL[0;39m - 
+    select
+        o1_0.id,
+        o1_0.booking_id,
+        o1_0.created_at,
+        o1_0.event_type,
+        o1_0.payload,
+        o1_0.retry_count,
+        o1_0.status,
+        o1_0.updated_at 
+    from
+        outgoing_payment_outbox o1_0 
+    where
+        o1_0.status in (?,?) 
+        and o1_0.updated_at<?
+2026-03-08 18:02:50.669 [paymentScheduler_Worker-2] [39mDEBUG[0;39m [36morg.hibernate.SQL[0;39m - 
+    select
+        o1_0.id,
+        o1_0.booking_id,
+        o1_0.created_at,
+        o1_0.event_type,
+        o1_0.payload,
+        o1_0.retry_count,
+        o1_0.status,
+        o1_0.updated_at 
+    from
+        outgoing_payment_outbox o1_0 
+    where
+        o1_0.status in (?,?) 
+        and o1_0.updated_at<?
+2026-03-08 18:03:20.663 [paymentScheduler_Worker-3] [39mDEBUG[0;39m [36morg.hibernate.SQL[0;39m - 
+    select
+        p1_0.id,
+        p1_0.booking_id,
+        p1_0.created_at,
+        p1_0.event_type,
+        p1_0.payload,
+        p1_0.retry_count,
+        p1_0.status,
+        p1_0.updated_at 
+    from
+        payment_outbox p1_0 
+    where
+        p1_0.status in (?,?,?,?) 
+        and p1_0.updated_at<?
+2026-03-08 18:03:20.686 [paymentScheduler_Worker-4] [39mDEBUG[0;39m [36morg.hibernate.SQL[0;39m - 
+    select
+        o1_0.id,
+        o1_0.booking_id,
+        o1_0.created_at,
+        o1_0.event_type,
+        o1_0.payload,
+        o1_0.retry_count,
+        o1_0.status,
+        o1_0.updated_at 
+    from
+        outgoing_payment_outbox o1_0 
+    where
+        o1_0.status in (?,?) 
+        and o1_0.updated_at<?
+2026-03-08 18:03:50.672 [paymentScheduler_Worker-5] [39mDEBUG[0;39m [36morg.hibernate.SQL[0;39m - 
+    select
+        o1_0.id,
+        o1_0.booking_id,
+        o1_0.created_at,
+        o1_0.event_type,
+        o1_0.payload,
+        o1_0.retry_count,
+        o1_0.status,
+        o1_0.updated_at 
+    from
+        outgoing_payment_outbox o1_0 
+    where
+        o1_0.status in (?,?) 
+        and o1_0.updated_at<?
+2026-03-08 18:04:20.676 [paymentScheduler_Worker-1] [39mDEBUG[0;39m [36morg.hibernate.SQL[0;39m - 
+    select
+        p1_0.id,
+        p1_0.booking_id,
+        p1_0.created_at,
+        p1_0.event_type,
+        p1_0.payload,
+        p1_0.retry_count,
+        p1_0.status,
+        p1_0.updated_at 
+    from
+        payment_outbox p1_0 
+    where
+        p1_0.status in (?,?,?,?) 
+        and p1_0.updated_at<?
+2026-03-08 18:04:20.681 [paymentScheduler_Worker-2] [39mDEBUG[0;39m [36morg.hibernate.SQL[0;39m - 
+    select
+        o1_0.id,
+        o1_0.booking_id,
+        o1_0.created_at,
+        o1_0.event_type,
+        o1_0.payload,
+        o1_0.retry_count,
+        o1_0.status,
+        o1_0.updated_at 
+    from
+        outgoing_payment_outbox o1_0 
+    where
+        o1_0.status in (?,?) 
+        and o1_0.updated_at<?
+2026-03-08 18:04:50.681 [paymentScheduler_Worker-3] [39mDEBUG[0;39m [36morg.hibernate.SQL[0;39m - 
+    select
+        o1_0.id,
+        o1_0.booking_id,
+        o1_0.created_at,
+        o1_0.event_type,
+        o1_0.payload,
+        o1_0.retry_count,
+        o1_0.status,
+        o1_0.updated_at 
+    from
+        outgoing_payment_outbox o1_0 
+    where
+        o1_0.status in (?,?) 
+        and o1_0.updated_at<?
+2026-03-08 18:05:20.662 [paymentScheduler_Worker-4] [39mDEBUG[0;39m [36morg.hibernate.SQL[0;39m - 
+    select
+        p1_0.id,
+        p1_0.booking_id,
+        p1_0.created_at,
+        p1_0.event_type,
+        p1_0.payload,
+        p1_0.retry_count,
+        p1_0.status,
+        p1_0.updated_at 
+    from
+        payment_outbox p1_0 
+    where
+        p1_0.status in (?,?,?,?) 
+        and p1_0.updated_at<?
+2026-03-08 18:05:20.679 [paymentScheduler_Worker-5] [39mDEBUG[0;39m [36morg.hibernate.SQL[0;39m - 
+    select
+        o1_0.id,
+        o1_0.booking_id,
+        o1_0.created_at,
+        o1_0.event_type,
+        o1_0.payload,
+        o1_0.retry_count,
+        o1_0.status,
+        o1_0.updated_at 
+    from
+        outgoing_payment_outbox o1_0 
+    where
+        o1_0.status in (?,?) 
+        and o1_0.updated_at<?
+2026-03-08 18:05:50.665 [paymentScheduler_Worker-1] [39mDEBUG[0;39m [36morg.hibernate.SQL[0;39m - 
+    select
+        o1_0.id,
+        o1_0.booking_id,
+        o1_0.created_at,
+        o1_0.event_type,
+        o1_0.payload,
+        o1_0.retry_count,
+        o1_0.status,
+        o1_0.updated_at 
+    from
+        outgoing_payment_outbox o1_0 
+    where
+        o1_0.status in (?,?) 
+        and o1_0.updated_at<?
+2026-03-08 18:06:20.671 [paymentScheduler_Worker-2] [39mDEBUG[0;39m [36morg.hibernate.SQL[0;39m - 
+    select
+        p1_0.id,
+        p1_0.booking_id,
+        p1_0.created_at,
+        p1_0.event_type,
+        p1_0.payload,
+        p1_0.retry_count,
+        p1_0.status,
+        p1_0.updated_at 
+    from
+        payment_outbox p1_0 
+    where
+        p1_0.status in (?,?,?,?) 
+        and p1_0.updated_at<?
+2026-03-08 18:06:20.683 [paymentScheduler_Worker-3] [39mDEBUG[0;39m [36morg.hibernate.SQL[0;39m - 
+    select
+        o1_0.id,
+        o1_0.booking_id,
+        o1_0.created_at,
+        o1_0.event_type,
+        o1_0.payload,
+        o1_0.retry_count,
+        o1_0.status,
+        o1_0.updated_at 
+    from
+        outgoing_payment_outbox o1_0 
+    where
+        o1_0.status in (?,?) 
+        and o1_0.updated_at<?
+2026-03-08 18:06:50.665 [paymentScheduler_Worker-4] [39mDEBUG[0;39m [36morg.hibernate.SQL[0;39m - 
+    select
+        o1_0.id,
+        o1_0.booking_id,
+        o1_0.created_at,
+        o1_0.event_type,
+        o1_0.payload,
+        o1_0.retry_count,
+        o1_0.status,
+        o1_0.updated_at 
+    from
+        outgoing_payment_outbox o1_0 
+    where
+        o1_0.status in (?,?) 
+        and o1_0.updated_at<?
+2026-03-08 18:07:20.669 [paymentScheduler_Worker-5] [39mDEBUG[0;39m [36morg.hibernate.SQL[0;39m - 
+    select
+        p1_0.id,
+        p1_0.booking_id,
+        p1_0.created_at,
+        p1_0.event_type,
+        p1_0.payload,
+        p1_0.retry_count,
+        p1_0.status,
+        p1_0.updated_at 
+    from
+        payment_outbox p1_0 
+    where
+        p1_0.status in (?,?,?,?) 
+        and p1_0.updated_at<?
+2026-03-08 18:07:20.682 [paymentScheduler_Worker-1] [39mDEBUG[0;39m [36morg.hibernate.SQL[0;39m - 
+    select
+        o1_0.id,
+        o1_0.booking_id,
+        o1_0.created_at,
+        o1_0.event_type,
+        o1_0.payload,
+        o1_0.retry_count,
+        o1_0.status,
+        o1_0.updated_at 
+    from
+        outgoing_payment_outbox o1_0 
+    where
+        o1_0.status in (?,?) 
+        and o1_0.updated_at<?
+2026-03-08 18:07:50.671 [paymentScheduler_Worker-2] [39mDEBUG[0;39m [36morg.hibernate.SQL[0;39m - 
+    select
+        o1_0.id,
+        o1_0.booking_id,
+        o1_0.created_at,
+        o1_0.event_type,
+        o1_0.payload,
+        o1_0.retry_count,
+        o1_0.status,
+        o1_0.updated_at 
+    from
+        outgoing_payment_outbox o1_0 
+    where
+        o1_0.status in (?,?) 
+        and o1_0.updated_at<?
+2026-03-08 18:08:20.671 [paymentScheduler_Worker-3] [39mDEBUG[0;39m [36morg.hibernate.SQL[0;39m - 
+    select
+        p1_0.id,
+        p1_0.booking_id,
+        p1_0.created_at,
+        p1_0.event_type,
+        p1_0.payload,
+        p1_0.retry_count,
+        p1_0.status,
+        p1_0.updated_at 
+    from
+        payment_outbox p1_0 
+    where
+        p1_0.status in (?,?,?,?) 
+        and p1_0.updated_at<?
+2026-03-08 18:08:20.686 [paymentScheduler_Worker-4] [39mDEBUG[0;39m [36morg.hibernate.SQL[0;39m - 
+    select
+        o1_0.id,
+        o1_0.booking_id,
+        o1_0.created_at,
+        o1_0.event_type,
+        o1_0.payload,
+        o1_0.retry_count,
+        o1_0.status,
+        o1_0.updated_at 
+    from
+        outgoing_payment_outbox o1_0 
+    where
+        o1_0.status in (?,?) 
+        and o1_0.updated_at<?
+2026-03-08 18:08:50.671 [paymentScheduler_Worker-5] [39mDEBUG[0;39m [36morg.hibernate.SQL[0;39m - 
+    select
+        o1_0.id,
+        o1_0.booking_id,
+        o1_0.created_at,
+        o1_0.event_type,
+        o1_0.payload,
+        o1_0.retry_count,
+        o1_0.status,
+        o1_0.updated_at 
+    from
+        outgoing_payment_outbox o1_0 
+    where
+        o1_0.status in (?,?) 
+        and o1_0.updated_at<?
+2026-03-08 18:09:20.664 [paymentScheduler_Worker-1] [39mDEBUG[0;39m [36morg.hibernate.SQL[0;39m - 
+    select
+        p1_0.id,
+        p1_0.booking_id,
+        p1_0.created_at,
+        p1_0.event_type,
+        p1_0.payload,
+        p1_0.retry_count,
+        p1_0.status,
+        p1_0.updated_at 
+    from
+        payment_outbox p1_0 
+    where
+        p1_0.status in (?,?,?,?) 
+        and p1_0.updated_at<?
+2026-03-08 18:09:20.673 [paymentScheduler_Worker-2] [39mDEBUG[0;39m [36morg.hibernate.SQL[0;39m - 
+    select
+        o1_0.id,
+        o1_0.booking_id,
+        o1_0.created_at,
+        o1_0.event_type,
+        o1_0.payload,
+        o1_0.retry_count,
+        o1_0.status,
+        o1_0.updated_at 
+    from
+        outgoing_payment_outbox o1_0 
+    where
+        o1_0.status in (?,?) 
+        and o1_0.updated_at<?
+2026-03-08 18:09:50.684 [paymentScheduler_Worker-3] [39mDEBUG[0;39m [36morg.hibernate.SQL[0;39m - 
+    select
+        o1_0.id,
+        o1_0.booking_id,
+        o1_0.created_at,
+        o1_0.event_type,
+        o1_0.payload,
+        o1_0.retry_count,
+        o1_0.status,
+        o1_0.updated_at 
+    from
+        outgoing_payment_outbox o1_0 
+    where
+        o1_0.status in (?,?) 
+        and o1_0.updated_at<?
+2026-03-08 18:10:20.659 [paymentScheduler_Worker-4] [39mDEBUG[0;39m [36morg.hibernate.SQL[0;39m - 
+    select
+        p1_0.id,
+        p1_0.booking_id,
+        p1_0.created_at,
+        p1_0.event_type,
+        p1_0.payload,
+        p1_0.retry_count,
+        p1_0.status,
+        p1_0.updated_at 
+    from
+        payment_outbox p1_0 
+    where
+        p1_0.status in (?,?,?,?) 
+        and p1_0.updated_at<?
+2026-03-08 18:10:20.663 [paymentScheduler_Worker-5] [39mDEBUG[0;39m [36morg.hibernate.SQL[0;39m - 
+    select
+        o1_0.id,
+        o1_0.booking_id,
+        o1_0.created_at,
+        o1_0.event_type,
+        o1_0.payload,
+        o1_0.retry_count,
+        o1_0.status,
+        o1_0.updated_at 
+    from
+        outgoing_payment_outbox o1_0 
+    where
+        o1_0.status in (?,?) 
+        and o1_0.updated_at<?
+2026-03-08 18:10:50.670 [paymentScheduler_Worker-1] [39mDEBUG[0;39m [36morg.hibernate.SQL[0;39m - 
+    select
+        o1_0.id,
+        o1_0.booking_id,
+        o1_0.created_at,
+        o1_0.event_type,
+        o1_0.payload,
+        o1_0.retry_count,
+        o1_0.status,
+        o1_0.updated_at 
+    from
+        outgoing_payment_outbox o1_0 
+    where
+        o1_0.status in (?,?) 
+        and o1_0.updated_at<?
+2026-03-08 18:11:20.675 [paymentScheduler_Worker-2] [39mDEBUG[0;39m [36morg.hibernate.SQL[0;39m - 
+    select
+        p1_0.id,
+        p1_0.booking_id,
+        p1_0.created_at,
+        p1_0.event_type,
+        p1_0.payload,
+        p1_0.retry_count,
+        p1_0.status,
+        p1_0.updated_at 
+    from
+        payment_outbox p1_0 
+    where
+        p1_0.status in (?,?,?,?) 
+        and p1_0.updated_at<?
+2026-03-08 18:11:20.686 [paymentScheduler_Worker-3] [39mDEBUG[0;39m [36morg.hibernate.SQL[0;39m - 
+    select
+        o1_0.id,
+        o1_0.booking_id,
+        o1_0.created_at,
+        o1_0.event_type,
+        o1_0.payload,
+        o1_0.retry_count,
+        o1_0.status,
+        o1_0.updated_at 
+    from
+        outgoing_payment_outbox o1_0 
+    where
+        o1_0.status in (?,?) 
+        and o1_0.updated_at<?
+2026-03-08 18:11:50.668 [paymentScheduler_Worker-4] [39mDEBUG[0;39m [36morg.hibernate.SQL[0;39m - 
+    select
+        o1_0.id,
+        o1_0.booking_id,
+        o1_0.created_at,
+        o1_0.event_type,
+        o1_0.payload,
+        o1_0.retry_count,
+        o1_0.status,
+        o1_0.updated_at 
+    from
+        outgoing_payment_outbox o1_0 
+    where
+        o1_0.status in (?,?) 
+        and o1_0.updated_at<?
+2026-03-08 18:12:20.656 [paymentScheduler_Worker-5] [39mDEBUG[0;39m [36morg.hibernate.SQL[0;39m - 
+    select
+        p1_0.id,
+        p1_0.booking_id,
+        p1_0.created_at,
+        p1_0.event_type,
+        p1_0.payload,
+        p1_0.retry_count,
+        p1_0.status,
+        p1_0.updated_at 
+    from
+        payment_outbox p1_0 
+    where
+        p1_0.status in (?,?,?,?) 
+        and p1_0.updated_at<?
+2026-03-08 18:12:20.668 [paymentScheduler_Worker-1] [39mDEBUG[0;39m [36morg.hibernate.SQL[0;39m - 
+    select
+        o1_0.id,
+        o1_0.booking_id,
+        o1_0.created_at,
+        o1_0.event_type,
+        o1_0.payload,
+        o1_0.retry_count,
+        o1_0.status,
+        o1_0.updated_at 
+    from
+        outgoing_payment_outbox o1_0 
+    where
+        o1_0.status in (?,?) 
+        and o1_0.updated_at<?
+2026-03-08 18:12:50.666 [paymentScheduler_Worker-2] [39mDEBUG[0;39m [36morg.hibernate.SQL[0;39m - 
+    select
+        o1_0.id,
+        o1_0.booking_id,
+        o1_0.created_at,
+        o1_0.event_type,
+        o1_0.payload,
+        o1_0.retry_count,
+        o1_0.status,
+        o1_0.updated_at 
+    from
+        outgoing_payment_outbox o1_0 
+    where
+        o1_0.status in (?,?) 
+        and o1_0.updated_at<?
+2026-03-08 18:13:20.663 [paymentScheduler_Worker-3] [39mDEBUG[0;39m [36morg.hibernate.SQL[0;39m - 
+    select
+        p1_0.id,
+        p1_0.booking_id,
+        p1_0.created_at,
+        p1_0.event_type,
+        p1_0.payload,
+        p1_0.retry_count,
+        p1_0.status,
+        p1_0.updated_at 
+    from
+        payment_outbox p1_0 
+    where
+        p1_0.status in (?,?,?,?) 
+        and p1_0.updated_at<?
+2026-03-08 18:13:20.672 [paymentScheduler_Worker-4] [39mDEBUG[0;39m [36morg.hibernate.SQL[0;39m - 
+    select
+        o1_0.id,
+        o1_0.booking_id,
+        o1_0.created_at,
+        o1_0.event_type,
+        o1_0.payload,
+        o1_0.retry_count,
+        o1_0.status,
+        o1_0.updated_at 
+    from
+        outgoing_payment_outbox o1_0 
+    where
+        o1_0.status in (?,?) 
+        and o1_0.updated_at<?
+2026-03-08 18:13:50.662 [paymentScheduler_Worker-5] [39mDEBUG[0;39m [36morg.hibernate.SQL[0;39m - 
+    select
+        o1_0.id,
+        o1_0.booking_id,
+        o1_0.created_at,
+        o1_0.event_type,
+        o1_0.payload,
+        o1_0.retry_count,
+        o1_0.status,
+        o1_0.updated_at 
+    from
+        outgoing_payment_outbox o1_0 
+    where
+        o1_0.status in (?,?) 
+        and o1_0.updated_at<?
+2026-03-08 18:14:20.657 [paymentScheduler_Worker-1] [39mDEBUG[0;39m [36morg.hibernate.SQL[0;39m - 
+    select
+        p1_0.id,
+        p1_0.booking_id,
+        p1_0.created_at,
+        p1_0.event_type,
+        p1_0.payload,
+        p1_0.retry_count,
+        p1_0.status,
+        p1_0.updated_at 
+    from
+        payment_outbox p1_0 
+    where
+        p1_0.status in (?,?,?,?) 
+        and p1_0.updated_at<?
+2026-03-08 18:14:20.669 [paymentScheduler_Worker-2] [39mDEBUG[0;39m [36morg.hibernate.SQL[0;39m - 
+    select
+        o1_0.id,
+        o1_0.booking_id,
+        o1_0.created_at,
+        o1_0.event_type,
+        o1_0.payload,
+        o1_0.retry_count,
+        o1_0.status,
+        o1_0.updated_at 
+    from
+        outgoing_payment_outbox o1_0 
+    where
+        o1_0.status in (?,?) 
+        and o1_0.updated_at<?
+2026-03-08 18:14:50.672 [paymentScheduler_Worker-3] [39mDEBUG[0;39m [36morg.hibernate.SQL[0;39m - 
+    select
+        o1_0.id,
+        o1_0.booking_id,
+        o1_0.created_at,
+        o1_0.event_type,
+        o1_0.payload,
+        o1_0.retry_count,
+        o1_0.status,
+        o1_0.updated_at 
+    from
+        outgoing_payment_outbox o1_0 
+    where
+        o1_0.status in (?,?) 
+        and o1_0.updated_at<?
+2026-03-08 18:15:20.659 [paymentScheduler_Worker-4] [39mDEBUG[0;39m [36morg.hibernate.SQL[0;39m - 
+    select
+        p1_0.id,
+        p1_0.booking_id,
+        p1_0.created_at,
+        p1_0.event_type,
+        p1_0.payload,
+        p1_0.retry_count,
+        p1_0.status,
+        p1_0.updated_at 
+    from
+        payment_outbox p1_0 
+    where
+        p1_0.status in (?,?,?,?) 
+        and p1_0.updated_at<?
+2026-03-08 18:15:20.668 [paymentScheduler_Worker-5] [39mDEBUG[0;39m [36morg.hibernate.SQL[0;39m - 
+    select
+        o1_0.id,
+        o1_0.booking_id,
+        o1_0.created_at,
+        o1_0.event_type,
+        o1_0.payload,
+        o1_0.retry_count,
+        o1_0.status,
+        o1_0.updated_at 
+    from
+        outgoing_payment_outbox o1_0 
+    where
+        o1_0.status in (?,?) 
+        and o1_0.updated_at<?
+2026-03-08 18:15:50.674 [paymentScheduler_Worker-1] [39mDEBUG[0;39m [36morg.hibernate.SQL[0;39m - 
+    select
+        o1_0.id,
+        o1_0.booking_id,
+        o1_0.created_at,
+        o1_0.event_type,
+        o1_0.payload,
+        o1_0.retry_count,
+        o1_0.status,
+        o1_0.updated_at 
+    from
+        outgoing_payment_outbox o1_0 
+    where
+        o1_0.status in (?,?) 
+        and o1_0.updated_at<?
+2026-03-08 18:16:20.671 [paymentScheduler_Worker-2] [39mDEBUG[0;39m [36morg.hibernate.SQL[0;39m - 
+    select
+        p1_0.id,
+        p1_0.booking_id,
+        p1_0.created_at,
+        p1_0.event_type,
+        p1_0.payload,
+        p1_0.retry_count,
+        p1_0.status,
+        p1_0.updated_at 
+    from
+        payment_outbox p1_0 
+    where
+        p1_0.status in (?,?,?,?) 
+        and p1_0.updated_at<?
+2026-03-08 18:16:20.686 [paymentScheduler_Worker-3] [39mDEBUG[0;39m [36morg.hibernate.SQL[0;39m - 
+    select
+        o1_0.id,
+        o1_0.booking_id,
+        o1_0.created_at,
+        o1_0.event_type,
+        o1_0.payload,
+        o1_0.retry_count,
+        o1_0.status,
+        o1_0.updated_at 
+    from
+        outgoing_payment_outbox o1_0 
+    where
+        o1_0.status in (?,?) 
+        and o1_0.updated_at<?
+2026-03-08 18:16:50.674 [paymentScheduler_Worker-4] [39mDEBUG[0;39m [36morg.hibernate.SQL[0;39m - 
+    select
+        o1_0.id,
+        o1_0.booking_id,
+        o1_0.created_at,
+        o1_0.event_type,
+        o1_0.payload,
+        o1_0.retry_count,
+        o1_0.status,
+        o1_0.updated_at 
+    from
+        outgoing_payment_outbox o1_0 
+    where
+        o1_0.status in (?,?) 
+        and o1_0.updated_at<?
+2026-03-08 18:17:20.667 [paymentScheduler_Worker-5] [39mDEBUG[0;39m [36morg.hibernate.SQL[0;39m - 
+    select
+        p1_0.id,
+        p1_0.booking_id,
+        p1_0.created_at,
+        p1_0.event_type,
+        p1_0.payload,
+        p1_0.retry_count,
+        p1_0.status,
+        p1_0.updated_at 
+    from
+        payment_outbox p1_0 
+    where
+        p1_0.status in (?,?,?,?) 
+        and p1_0.updated_at<?
+2026-03-08 18:17:20.676 [paymentScheduler_Worker-1] [39mDEBUG[0;39m [36morg.hibernate.SQL[0;39m - 
+    select
+        o1_0.id,
+        o1_0.booking_id,
+        o1_0.created_at,
+        o1_0.event_type,
+        o1_0.payload,
+        o1_0.retry_count,
+        o1_0.status,
+        o1_0.updated_at 
+    from
+        outgoing_payment_outbox o1_0 
+    where
+        o1_0.status in (?,?) 
+        and o1_0.updated_at<?
+2026-03-08 18:17:50.663 [paymentScheduler_Worker-2] [39mDEBUG[0;39m [36morg.hibernate.SQL[0;39m - 
+    select
+        o1_0.id,
+        o1_0.booking_id,
+        o1_0.created_at,
+        o1_0.event_type,
+        o1_0.payload,
+        o1_0.retry_count,
+        o1_0.status,
+        o1_0.updated_at 
+    from
+        outgoing_payment_outbox o1_0 
+    where
+        o1_0.status in (?,?) 
+        and o1_0.updated_at<?
+2026-03-08 18:18:20.665 [paymentScheduler_Worker-3] [39mDEBUG[0;39m [36morg.hibernate.SQL[0;39m - 
+    select
+        p1_0.id,
+        p1_0.booking_id,
+        p1_0.created_at,
+        p1_0.event_type,
+        p1_0.payload,
+        p1_0.retry_count,
+        p1_0.status,
+        p1_0.updated_at 
+    from
+        payment_outbox p1_0 
+    where
+        p1_0.status in (?,?,?,?) 
+        and p1_0.updated_at<?
+2026-03-08 18:18:20.677 [paymentScheduler_Worker-4] [39mDEBUG[0;39m [36morg.hibernate.SQL[0;39m - 
+    select
+        o1_0.id,
+        o1_0.booking_id,
+        o1_0.created_at,
+        o1_0.event_type,
+        o1_0.payload,
+        o1_0.retry_count,
+        o1_0.status,
+        o1_0.updated_at 
+    from
+        outgoing_payment_outbox o1_0 
+    where
+        o1_0.status in (?,?) 
+        and o1_0.updated_at<?
+2026-03-08 18:18:50.669 [paymentScheduler_Worker-5] [39mDEBUG[0;39m [36morg.hibernate.SQL[0;39m - 
+    select
+        o1_0.id,
+        o1_0.booking_id,
+        o1_0.created_at,
+        o1_0.event_type,
+        o1_0.payload,
+        o1_0.retry_count,
+        o1_0.status,
+        o1_0.updated_at 
+    from
+        outgoing_payment_outbox o1_0 
+    where
+        o1_0.status in (?,?) 
+        and o1_0.updated_at<?
+2026-03-08 18:19:20.665 [paymentScheduler_Worker-1] [39mDEBUG[0;39m [36morg.hibernate.SQL[0;39m - 
+    select
+        p1_0.id,
+        p1_0.booking_id,
+        p1_0.created_at,
+        p1_0.event_type,
+        p1_0.payload,
+        p1_0.retry_count,
+        p1_0.status,
+        p1_0.updated_at 
+    from
+        payment_outbox p1_0 
+    where
+        p1_0.status in (?,?,?,?) 
+        and p1_0.updated_at<?
+2026-03-08 18:19:20.674 [paymentScheduler_Worker-2] [39mDEBUG[0;39m [36morg.hibernate.SQL[0;39m - 
+    select
+        o1_0.id,
+        o1_0.booking_id,
+        o1_0.created_at,
+        o1_0.event_type,
+        o1_0.payload,
+        o1_0.retry_count,
+        o1_0.status,
+        o1_0.updated_at 
+    from
+        outgoing_payment_outbox o1_0 
+    where
+        o1_0.status in (?,?) 
+        and o1_0.updated_at<?
+2026-03-08 18:19:50.665 [paymentScheduler_Worker-3] [39mDEBUG[0;39m [36morg.hibernate.SQL[0;39m - 
+    select
+        o1_0.id,
+        o1_0.booking_id,
+        o1_0.created_at,
+        o1_0.event_type,
+        o1_0.payload,
+        o1_0.retry_count,
+        o1_0.status,
+        o1_0.updated_at 
+    from
+        outgoing_payment_outbox o1_0 
+    where
+        o1_0.status in (?,?) 
+        and o1_0.updated_at<?
+2026-03-08 18:20:20.662 [paymentScheduler_Worker-4] [39mDEBUG[0;39m [36morg.hibernate.SQL[0;39m - 
+    select
+        p1_0.id,
+        p1_0.booking_id,
+        p1_0.created_at,
+        p1_0.event_type,
+        p1_0.payload,
+        p1_0.retry_count,
+        p1_0.status,
+        p1_0.updated_at 
+    from
+        payment_outbox p1_0 
+    where
+        p1_0.status in (?,?,?,?) 
+        and p1_0.updated_at<?
+2026-03-08 18:20:20.668 [paymentScheduler_Worker-5] [39mDEBUG[0;39m [36morg.hibernate.SQL[0;39m - 
+    select
+        o1_0.id,
+        o1_0.booking_id,
+        o1_0.created_at,
+        o1_0.event_type,
+        o1_0.payload,
+        o1_0.retry_count,
+        o1_0.status,
+        o1_0.updated_at 
+    from
+        outgoing_payment_outbox o1_0 
+    where
+        o1_0.status in (?,?) 
+        and o1_0.updated_at<?
+2026-03-08 18:20:50.659 [paymentScheduler_Worker-1] [39mDEBUG[0;39m [36morg.hibernate.SQL[0;39m - 
+    select
+        o1_0.id,
+        o1_0.booking_id,
+        o1_0.created_at,
+        o1_0.event_type,
+        o1_0.payload,
+        o1_0.retry_count,
+        o1_0.status,
+        o1_0.updated_at 
+    from
+        outgoing_payment_outbox o1_0 
+    where
+        o1_0.status in (?,?) 
+        and o1_0.updated_at<?
+2026-03-08 18:21:20.669 [paymentScheduler_Worker-2] [39mDEBUG[0;39m [36morg.hibernate.SQL[0;39m - 
+    select
+        p1_0.id,
+        p1_0.booking_id,
+        p1_0.created_at,
+        p1_0.event_type,
+        p1_0.payload,
+        p1_0.retry_count,
+        p1_0.status,
+        p1_0.updated_at 
+    from
+        payment_outbox p1_0 
+    where
+        p1_0.status in (?,?,?,?) 
+        and p1_0.updated_at<?
+2026-03-08 18:21:20.684 [paymentScheduler_Worker-3] [39mDEBUG[0;39m [36morg.hibernate.SQL[0;39m - 
+    select
+        o1_0.id,
+        o1_0.booking_id,
+        o1_0.created_at,
+        o1_0.event_type,
+        o1_0.payload,
+        o1_0.retry_count,
+        o1_0.status,
+        o1_0.updated_at 
+    from
+        outgoing_payment_outbox o1_0 
+    where
+        o1_0.status in (?,?) 
+        and o1_0.updated_at<?
+2026-03-08 18:21:50.662 [paymentScheduler_Worker-4] [39mDEBUG[0;39m [36morg.hibernate.SQL[0;39m - 
+    select
+        o1_0.id,
+        o1_0.booking_id,
+        o1_0.created_at,
+        o1_0.event_type,
+        o1_0.payload,
+        o1_0.retry_count,
+        o1_0.status,
+        o1_0.updated_at 
+    from
+        outgoing_payment_outbox o1_0 
+    where
+        o1_0.status in (?,?) 
+        and o1_0.updated_at<?
+2026-03-08 18:22:20.664 [paymentScheduler_Worker-5] [39mDEBUG[0;39m [36morg.hibernate.SQL[0;39m - 
+    select
+        p1_0.id,
+        p1_0.booking_id,
+        p1_0.created_at,
+        p1_0.event_type,
+        p1_0.payload,
+        p1_0.retry_count,
+        p1_0.status,
+        p1_0.updated_at 
+    from
+        payment_outbox p1_0 
+    where
+        p1_0.status in (?,?,?,?) 
+        and p1_0.updated_at<?
+2026-03-08 18:22:20.670 [paymentScheduler_Worker-1] [39mDEBUG[0;39m [36morg.hibernate.SQL[0;39m - 
+    select
+        o1_0.id,
+        o1_0.booking_id,
+        o1_0.created_at,
+        o1_0.event_type,
+        o1_0.payload,
+        o1_0.retry_count,
+        o1_0.status,
+        o1_0.updated_at 
+    from
+        outgoing_payment_outbox o1_0 
+    where
+        o1_0.status in (?,?) 
+        and o1_0.updated_at<?
+2026-03-08 18:22:50.658 [paymentScheduler_Worker-2] [39mDEBUG[0;39m [36morg.hibernate.SQL[0;39m - 
+    select
+        o1_0.id,
+        o1_0.booking_id,
+        o1_0.created_at,
+        o1_0.event_type,
+        o1_0.payload,
+        o1_0.retry_count,
+        o1_0.status,
+        o1_0.updated_at 
+    from
+        outgoing_payment_outbox o1_0 
+    where
+        o1_0.status in (?,?) 
+        and o1_0.updated_at<?
+2026-03-08 18:23:20.664 [paymentScheduler_Worker-3] [39mDEBUG[0;39m [36morg.hibernate.SQL[0;39m - 
+    select
+        p1_0.id,
+        p1_0.booking_id,
+        p1_0.created_at,
+        p1_0.event_type,
+        p1_0.payload,
+        p1_0.retry_count,
+        p1_0.status,
+        p1_0.updated_at 
+    from
+        payment_outbox p1_0 
+    where
+        p1_0.status in (?,?,?,?) 
+        and p1_0.updated_at<?
+2026-03-08 18:23:20.675 [paymentScheduler_Worker-4] [39mDEBUG[0;39m [36morg.hibernate.SQL[0;39m - 
+    select
+        o1_0.id,
+        o1_0.booking_id,
+        o1_0.created_at,
+        o1_0.event_type,
+        o1_0.payload,
+        o1_0.retry_count,
+        o1_0.status,
+        o1_0.updated_at 
+    from
+        outgoing_payment_outbox o1_0 
+    where
+        o1_0.status in (?,?) 
+        and o1_0.updated_at<?
+2026-03-08 18:23:50.676 [paymentScheduler_Worker-5] [39mDEBUG[0;39m [36morg.hibernate.SQL[0;39m - 
+    select
+        o1_0.id,
+        o1_0.booking_id,
+        o1_0.created_at,
+        o1_0.event_type,
+        o1_0.payload,
+        o1_0.retry_count,
+        o1_0.status,
+        o1_0.updated_at 
+    from
+        outgoing_payment_outbox o1_0 
+    where
+        o1_0.status in (?,?) 
+        and o1_0.updated_at<?
+2026-03-08 18:24:20.678 [paymentScheduler_Worker-1] [39mDEBUG[0;39m [36morg.hibernate.SQL[0;39m - 
+    select
+        p1_0.id,
+        p1_0.booking_id,
+        p1_0.created_at,
+        p1_0.event_type,
+        p1_0.payload,
+        p1_0.retry_count,
+        p1_0.status,
+        p1_0.updated_at 
+    from
+        payment_outbox p1_0 
+    where
+        p1_0.status in (?,?,?,?) 
+        and p1_0.updated_at<?
+2026-03-08 18:24:20.703 [paymentScheduler_Worker-2] [39mDEBUG[0;39m [36morg.hibernate.SQL[0;39m - 
+    select
+        o1_0.id,
+        o1_0.booking_id,
+        o1_0.created_at,
+        o1_0.event_type,
+        o1_0.payload,
+        o1_0.retry_count,
+        o1_0.status,
+        o1_0.updated_at 
+    from
+        outgoing_payment_outbox o1_0 
+    where
+        o1_0.status in (?,?) 
+        and o1_0.updated_at<?
+2026-03-08 18:24:50.673 [paymentScheduler_Worker-3] [39mDEBUG[0;39m [36morg.hibernate.SQL[0;39m - 
+    select
+        o1_0.id,
+        o1_0.booking_id,
+        o1_0.created_at,
+        o1_0.event_type,
+        o1_0.payload,
+        o1_0.retry_count,
+        o1_0.status,
+        o1_0.updated_at 
+    from
+        outgoing_payment_outbox o1_0 
+    where
+        o1_0.status in (?,?) 
+        and o1_0.updated_at<?
+2026-03-08 18:25:20.660 [paymentScheduler_Worker-4] [39mDEBUG[0;39m [36morg.hibernate.SQL[0;39m - 
+    select
+        p1_0.id,
+        p1_0.booking_id,
+        p1_0.created_at,
+        p1_0.event_type,
+        p1_0.payload,
+        p1_0.retry_count,
+        p1_0.status,
+        p1_0.updated_at 
+    from
+        payment_outbox p1_0 
+    where
+        p1_0.status in (?,?,?,?) 
+        and p1_0.updated_at<?
+2026-03-08 18:25:20.668 [paymentScheduler_Worker-5] [39mDEBUG[0;39m [36morg.hibernate.SQL[0;39m - 
+    select
+        o1_0.id,
+        o1_0.booking_id,
+        o1_0.created_at,
+        o1_0.event_type,
+        o1_0.payload,
+        o1_0.retry_count,
+        o1_0.status,
+        o1_0.updated_at 
+    from
+        outgoing_payment_outbox o1_0 
+    where
+        o1_0.status in (?,?) 
+        and o1_0.updated_at<?
+2026-03-08 18:25:50.670 [paymentScheduler_Worker-1] [39mDEBUG[0;39m [36morg.hibernate.SQL[0;39m - 
+    select
+        o1_0.id,
+        o1_0.booking_id,
+        o1_0.created_at,
+        o1_0.event_type,
+        o1_0.payload,
+        o1_0.retry_count,
+        o1_0.status,
+        o1_0.updated_at 
+    from
+        outgoing_payment_outbox o1_0 
+    where
+        o1_0.status in (?,?) 
+        and o1_0.updated_at<?
+2026-03-08 18:26:20.661 [paymentScheduler_Worker-2] [39mDEBUG[0;39m [36morg.hibernate.SQL[0;39m - 
+    select
+        p1_0.id,
+        p1_0.booking_id,
+        p1_0.created_at,
+        p1_0.event_type,
+        p1_0.payload,
+        p1_0.retry_count,
+        p1_0.status,
+        p1_0.updated_at 
+    from
+        payment_outbox p1_0 
+    where
+        p1_0.status in (?,?,?,?) 
+        and p1_0.updated_at<?
+2026-03-08 18:26:20.671 [paymentScheduler_Worker-3] [39mDEBUG[0;39m [36morg.hibernate.SQL[0;39m - 
+    select
+        o1_0.id,
+        o1_0.booking_id,
+        o1_0.created_at,
+        o1_0.event_type,
+        o1_0.payload,
+        o1_0.retry_count,
+        o1_0.status,
+        o1_0.updated_at 
+    from
+        outgoing_payment_outbox o1_0 
+    where
+        o1_0.status in (?,?) 
+        and o1_0.updated_at<?
+2026-03-08 18:26:50.671 [paymentScheduler_Worker-4] [39mDEBUG[0;39m [36morg.hibernate.SQL[0;39m - 
+    select
+        o1_0.id,
+        o1_0.booking_id,
+        o1_0.created_at,
+        o1_0.event_type,
+        o1_0.payload,
+        o1_0.retry_count,
+        o1_0.status,
+        o1_0.updated_at 
+    from
+        outgoing_payment_outbox o1_0 
+    where
+        o1_0.status in (?,?) 
+        and o1_0.updated_at<?
+2026-03-08 18:27:20.665 [paymentScheduler_Worker-5] [39mDEBUG[0;39m [36morg.hibernate.SQL[0;39m - 
+    select
+        p1_0.id,
+        p1_0.booking_id,
+        p1_0.created_at,
+        p1_0.event_type,
+        p1_0.payload,
+        p1_0.retry_count,
+        p1_0.status,
+        p1_0.updated_at 
+    from
+        payment_outbox p1_0 
+    where
+        p1_0.status in (?,?,?,?) 
+        and p1_0.updated_at<?
+2026-03-08 18:27:20.675 [paymentScheduler_Worker-1] [39mDEBUG[0;39m [36morg.hibernate.SQL[0;39m - 
+    select
+        o1_0.id,
+        o1_0.booking_id,
+        o1_0.created_at,
+        o1_0.event_type,
+        o1_0.payload,
+        o1_0.retry_count,
+        o1_0.status,
+        o1_0.updated_at 
+    from
+        outgoing_payment_outbox o1_0 
+    where
+        o1_0.status in (?,?) 
+        and o1_0.updated_at<?
+2026-03-08 18:27:50.657 [paymentScheduler_Worker-2] [39mDEBUG[0;39m [36morg.hibernate.SQL[0;39m - 
+    select
+        o1_0.id,
+        o1_0.booking_id,
+        o1_0.created_at,
+        o1_0.event_type,
+        o1_0.payload,
+        o1_0.retry_count,
+        o1_0.status,
+        o1_0.updated_at 
+    from
+        outgoing_payment_outbox o1_0 
+    where
+        o1_0.status in (?,?) 
+        and o1_0.updated_at<?
+2026-03-08 18:28:20.659 [paymentScheduler_Worker-3] [39mDEBUG[0;39m [36morg.hibernate.SQL[0;39m - 
+    select
+        p1_0.id,
+        p1_0.booking_id,
+        p1_0.created_at,
+        p1_0.event_type,
+        p1_0.payload,
+        p1_0.retry_count,
+        p1_0.status,
+        p1_0.updated_at 
+    from
+        payment_outbox p1_0 
+    where
+        p1_0.status in (?,?,?,?) 
+        and p1_0.updated_at<?
+2026-03-08 18:28:20.677 [paymentScheduler_Worker-4] [39mDEBUG[0;39m [36morg.hibernate.SQL[0;39m - 
+    select
+        o1_0.id,
+        o1_0.booking_id,
+        o1_0.created_at,
+        o1_0.event_type,
+        o1_0.payload,
+        o1_0.retry_count,
+        o1_0.status,
+        o1_0.updated_at 
+    from
+        outgoing_payment_outbox o1_0 
+    where
+        o1_0.status in (?,?) 
+        and o1_0.updated_at<?
+2026-03-08 18:28:50.659 [paymentScheduler_Worker-5] [39mDEBUG[0;39m [36morg.hibernate.SQL[0;39m - 
+    select
+        o1_0.id,
+        o1_0.booking_id,
+        o1_0.created_at,
+        o1_0.event_type,
+        o1_0.payload,
+        o1_0.retry_count,
+        o1_0.status,
+        o1_0.updated_at 
+    from
+        outgoing_payment_outbox o1_0 
+    where
+        o1_0.status in (?,?) 
+        and o1_0.updated_at<?
+2026-03-08 18:29:20.673 [paymentScheduler_Worker-1] [39mDEBUG[0;39m [36morg.hibernate.SQL[0;39m - 
+    select
+        p1_0.id,
+        p1_0.booking_id,
+        p1_0.created_at,
+        p1_0.event_type,
+        p1_0.payload,
+        p1_0.retry_count,
+        p1_0.status,
+        p1_0.updated_at 
+    from
+        payment_outbox p1_0 
+    where
+        p1_0.status in (?,?,?,?) 
+        and p1_0.updated_at<?
+2026-03-08 18:29:20.684 [paymentScheduler_Worker-2] [39mDEBUG[0;39m [36morg.hibernate.SQL[0;39m - 
+    select
+        o1_0.id,
+        o1_0.booking_id,
+        o1_0.created_at,
+        o1_0.event_type,
+        o1_0.payload,
+        o1_0.retry_count,
+        o1_0.status,
+        o1_0.updated_at 
+    from
+        outgoing_payment_outbox o1_0 
+    where
+        o1_0.status in (?,?) 
+        and o1_0.updated_at<?
+2026-03-08 18:29:50.666 [paymentScheduler_Worker-3] [39mDEBUG[0;39m [36morg.hibernate.SQL[0;39m - 
+    select
+        o1_0.id,
+        o1_0.booking_id,
+        o1_0.created_at,
+        o1_0.event_type,
+        o1_0.payload,
+        o1_0.retry_count,
+        o1_0.status,
+        o1_0.updated_at 
+    from
+        outgoing_payment_outbox o1_0 
+    where
+        o1_0.status in (?,?) 
+        and o1_0.updated_at<?
+2026-03-08 18:30:20.669 [paymentScheduler_Worker-4] [39mDEBUG[0;39m [36morg.hibernate.SQL[0;39m - 
+    select
+        p1_0.id,
+        p1_0.booking_id,
+        p1_0.created_at,
+        p1_0.event_type,
+        p1_0.payload,
+        p1_0.retry_count,
+        p1_0.status,
+        p1_0.updated_at 
+    from
+        payment_outbox p1_0 
+    where
+        p1_0.status in (?,?,?,?) 
+        and p1_0.updated_at<?
+2026-03-08 18:30:20.687 [paymentScheduler_Worker-5] [39mDEBUG[0;39m [36morg.hibernate.SQL[0;39m - 
+    select
+        o1_0.id,
+        o1_0.booking_id,
+        o1_0.created_at,
+        o1_0.event_type,
+        o1_0.payload,
+        o1_0.retry_count,
+        o1_0.status,
+        o1_0.updated_at 
+    from
+        outgoing_payment_outbox o1_0 
+    where
+        o1_0.status in (?,?) 
+        and o1_0.updated_at<?
+2026-03-08 18:30:50.661 [paymentScheduler_Worker-1] [39mDEBUG[0;39m [36morg.hibernate.SQL[0;39m - 
+    select
+        o1_0.id,
+        o1_0.booking_id,
+        o1_0.created_at,
+        o1_0.event_type,
+        o1_0.payload,
+        o1_0.retry_count,
+        o1_0.status,
+        o1_0.updated_at 
+    from
+        outgoing_payment_outbox o1_0 
+    where
+        o1_0.status in (?,?) 
+        and o1_0.updated_at<?
+2026-03-08 18:31:20.689 [paymentScheduler_Worker-2] [39mDEBUG[0;39m [36morg.hibernate.SQL[0;39m - 
+    select
+        p1_0.id,
+        p1_0.booking_id,
+        p1_0.created_at,
+        p1_0.event_type,
+        p1_0.payload,
+        p1_0.retry_count,
+        p1_0.status,
+        p1_0.updated_at 
+    from
+        payment_outbox p1_0 
+    where
+        p1_0.status in (?,?,?,?) 
+        and p1_0.updated_at<?
+2026-03-08 18:31:20.703 [paymentScheduler_Worker-3] [39mDEBUG[0;39m [36morg.hibernate.SQL[0;39m - 
+    select
+        o1_0.id,
+        o1_0.booking_id,
+        o1_0.created_at,
+        o1_0.event_type,
+        o1_0.payload,
+        o1_0.retry_count,
+        o1_0.status,
+        o1_0.updated_at 
+    from
+        outgoing_payment_outbox o1_0 
+    where
+        o1_0.status in (?,?) 
+        and o1_0.updated_at<?
+2026-03-08 18:31:50.676 [paymentScheduler_Worker-4] [39mDEBUG[0;39m [36morg.hibernate.SQL[0;39m - 
+    select
+        o1_0.id,
+        o1_0.booking_id,
+        o1_0.created_at,
+        o1_0.event_type,
+        o1_0.payload,
+        o1_0.retry_count,
+        o1_0.status,
+        o1_0.updated_at 
+    from
+        outgoing_payment_outbox o1_0 
+    where
+        o1_0.status in (?,?) 
+        and o1_0.updated_at<?
+2026-03-08 18:32:20.670 [paymentScheduler_Worker-5] [39mDEBUG[0;39m [36morg.hibernate.SQL[0;39m - 
+    select
+        p1_0.id,
+        p1_0.booking_id,
+        p1_0.created_at,
+        p1_0.event_type,
+        p1_0.payload,
+        p1_0.retry_count,
+        p1_0.status,
+        p1_0.updated_at 
+    from
+        payment_outbox p1_0 
+    where
+        p1_0.status in (?,?,?,?) 
+        and p1_0.updated_at<?
+2026-03-08 18:32:20.689 [paymentScheduler_Worker-1] [39mDEBUG[0;39m [36morg.hibernate.SQL[0;39m - 
+    select
+        o1_0.id,
+        o1_0.booking_id,
+        o1_0.created_at,
+        o1_0.event_type,
+        o1_0.payload,
+        o1_0.retry_count,
+        o1_0.status,
+        o1_0.updated_at 
+    from
+        outgoing_payment_outbox o1_0 
+    where
+        o1_0.status in (?,?) 
+        and o1_0.updated_at<?
+2026-03-08 18:32:50.666 [paymentScheduler_Worker-2] [39mDEBUG[0;39m [36morg.hibernate.SQL[0;39m - 
+    select
+        o1_0.id,
+        o1_0.booking_id,
+        o1_0.created_at,
+        o1_0.event_type,
+        o1_0.payload,
+        o1_0.retry_count,
+        o1_0.status,
+        o1_0.updated_at 
+    from
+        outgoing_payment_outbox o1_0 
+    where
+        o1_0.status in (?,?) 
+        and o1_0.updated_at<?
+2026-03-08 18:33:20.662 [paymentScheduler_Worker-3] [39mDEBUG[0;39m [36morg.hibernate.SQL[0;39m - 
+    select
+        p1_0.id,
+        p1_0.booking_id,
+        p1_0.created_at,
+        p1_0.event_type,
+        p1_0.payload,
+        p1_0.retry_count,
+        p1_0.status,
+        p1_0.updated_at 
+    from
+        payment_outbox p1_0 
+    where
+        p1_0.status in (?,?,?,?) 
+        and p1_0.updated_at<?
+2026-03-08 18:33:20.679 [paymentScheduler_Worker-4] [39mDEBUG[0;39m [36morg.hibernate.SQL[0;39m - 
     select
         o1_0.id,
         o1_0.booking_id,
