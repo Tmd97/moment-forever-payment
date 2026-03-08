@@ -2,7 +2,7 @@
 # SERVER CONFIGURATION
 # ==========================================================
 server:
-  port: 8089
+  port: 8083
   forward-headers-strategy: framework
 
   servlet:
@@ -227,28 +227,28 @@ payment:
 # ==========================================================
 # ACTUATOR
 # ==========================================================
-management:
-  endpoints:
-    web:
-      exposure:
-        include: health,info,metrics,prometheus
-      base-path: /actuator
-  endpoint:
-    health:
-      show-details: always
-      probes:
-        enabled: true
-    metrics:
-      enabled: true
-    prometheus:
-      enabled: true
-  metrics:
-    export:
-      prometheus:
-        enabled: true
-  server:
-    port: 8083  # Separate port for metrics (optional)
-    address: 127.0.0.1
+#management:
+#  endpoints:
+#    web:
+#      exposure:
+#        include: health,info,metrics,prometheus
+#      base-path: /actuator
+#  endpoint:
+#    health:
+#      show-details: always
+#      probes:
+#        enabled: true
+#    metrics:
+#      enabled: true
+#    prometheus:
+#      enabled: true
+#  metrics:
+#    export:
+#      prometheus:
+#        enabled: true
+#  server:
+#    port: 8083  # Separate port for metrics (optional)
+#    address: 127.0.0.1
 
 
 # ==========================================================
