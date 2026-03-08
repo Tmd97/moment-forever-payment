@@ -2,7 +2,7 @@
 # SERVER CONFIGURATION
 # ==========================================================
 server:
-  port: 8086
+  port: 8089
   forward-headers-strategy: framework
 
   servlet:
@@ -253,24 +253,7 @@ management:
 
 # ==========================================================
 # SWAGGER / OPENAPI
-# ==========================================================
-springdoc:
-  api-docs:
-    path: /v3/api-docs
-    enabled: true
-  swagger-ui:
-    path: /swagger-ui.html
-    url: /v3/api-docs
-    enabled: true
-    display-request-duration: true
-    groups-order: DESC
-    tags-sorter: alpha
-    operations-sorter: method
-    disable-swagger-default-url: true
-    try-it-out-enabled: true
-  show-actuator: true
-  default-produces-media-type: application/json
-  default-consumes-media-type: application/json
+# =========================================================
 
 
 # ==========================================================
@@ -307,3 +290,13 @@ monitoring:
     alert-threshold: 5  # Alert if more than 5 dead letters in an hour
   processing-time:
     slow-threshold-ms: 5000  # Alert if payment takes longer than 5 seconds
+
+# ==========================================================
+# SWAGGER / OPENAPI
+# ==========================================================
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
+    url: /v3/api-docs
+  api-docs:
+    path: /v3/api-docs

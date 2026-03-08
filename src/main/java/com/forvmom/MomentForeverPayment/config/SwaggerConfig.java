@@ -26,7 +26,7 @@ public class SwaggerConfig {
     public GroupedOpenApi paymentPublicApi() {
         return GroupedOpenApi.builder()
                 .group("1-payment-public")
-                .pathsToMatch("/api/payments/**")
+                .pathsToMatch("/**")
                 .displayName("Payment Public API")
                 .build();
     }
@@ -35,7 +35,7 @@ public class SwaggerConfig {
     public GroupedOpenApi paymentAdminApi() {
         return GroupedOpenApi.builder()
                 .group("2-payment-admin")
-                .pathsToMatch("/api/payments/admin/**")
+                .pathsToMatch("/**")
                 .displayName("Payment Admin API")
                 .build();
     }
@@ -44,7 +44,7 @@ public class SwaggerConfig {
     public GroupedOpenApi paymentOutboxApi() {
         return GroupedOpenApi.builder()
                 .group("3-payment-outbox")
-                .pathsToMatch("/api/payments/admin/outbox/**")
+                .pathsToMatch("/**")
                 .displayName("Payment Outbox Monitoring API")
                 .build();
     }
@@ -55,11 +55,11 @@ public class SwaggerConfig {
         return new OpenAPI()
                 .info(apiInfo())
                 // Set the server URL with context path
-                .addServersItem(new Server().url(contextPath))
+                .addServersItem(new Server().url("/api/payment"))
                 .addSecurityItem(new SecurityRequirement().addList(SECURITY_SCHEME_NAME))
                 .components(new Components()
-                        .addSecuritySchemes(SECURITY_SCHEME_NAME, createSecurityScheme())
-                        .addSecuritySchemes("apiKey", createApiKeyScheme()));
+                        .addSecuritySchemes(SECURITY_SCHEME_NAME, createSecurityScheme()));
+                       // .addSecuritySchemes("apiKey", createApiKeyScheme()));
     }
 
     private SecurityScheme createSecurityScheme() {
