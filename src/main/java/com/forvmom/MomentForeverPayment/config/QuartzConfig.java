@@ -1,8 +1,10 @@
 package com.forvmom.MomentForeverPayment.config;
 import com.forvmom.MomentForeverPayment.scheduler.OutboxCleanupJob;
+import com.forvmom.MomentForeverPayment.scheduler.OutboxOutgoingCleanupJob;
 import com.forvmom.MomentForeverPayment.scheduler.PaymentIncomingRetryJob;
 import com.forvmom.MomentForeverPayment.scheduler.PaymentOutgoingRetryJob;
 import org.quartz.*;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 // we are using fire now policy, so even if many missed fires, we fire only once when server
@@ -10,8 +12,14 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class QuartzConfig {
 
-    private static final int CLEANUP_INTERVAL_HOURS = 24;
-    private static final int RETRY_INTERVAL_MINUTES = 1;
+    @Value("${payment.cleanup.interval-hours:24}")
+    private int cleanupIntervalHours;
+
+    @Value("${payment.retry.incoming.interval-minutes:2}")
+    private int incomingRetryIntervalMinutes;
+
+    @Value("${payment.retry.outgoing.interval-seconds:30}")
+    private int outgoingRetryIntervalSeconds;
 
     @Bean
     public JobDetail outboxCleanupJobDetail() {
@@ -24,7 +32,7 @@ public class QuartzConfig {
     @Bean
     public Trigger outboxCleanupTrigger() {
         SimpleScheduleBuilder scheduleBuilder = SimpleScheduleBuilder.simpleSchedule()
-                .withIntervalInHours(CLEANUP_INTERVAL_HOURS)
+                .withIntervalInHours(cleanupIntervalHours)
                 .repeatForever()
                 .withMisfireHandlingInstructionFireNow(); // Important: on misfire, run immediately
 
@@ -47,7 +55,7 @@ public class QuartzConfig {
     @Bean
     public Trigger outboxRetryTrigger() {
         SimpleScheduleBuilder scheduleBuilder = SimpleScheduleBuilder.simpleSchedule()
-                .withIntervalInMinutes(RETRY_INTERVAL_MINUTES)
+                .withIntervalInMinutes(incomingRetryIntervalMinutes)
                 .repeatForever()
                 .withMisfireHandlingInstructionFireNow();
 
@@ -72,7 +80,7 @@ public class QuartzConfig {
     @Bean
     public Trigger outgoingOutboxPublisherTrigger() {
         SimpleScheduleBuilder scheduleBuilder = SimpleScheduleBuilder.simpleSchedule()
-                .withIntervalInSeconds(30)   // runs every 30 seconds
+                .withIntervalInSeconds(outgoingRetryIntervalSeconds)
                 .repeatForever()
                 .withMisfireHandlingInstructionFireNow();
 
@@ -80,6 +88,26 @@ public class QuartzConfig {
                 .forJob(outgoingOutboxPublisherJobDetail())
                 .withIdentity("outgoingOutboxPublisherTrigger")
                 .withSchedule(scheduleBuilder)
+                .build();
+    }
+
+    @Bean
+    public JobDetail outgoingOutboxCleanupJobDetail() {
+        return JobBuilder.newJob(OutboxOutgoingCleanupJob.class)
+                .withIdentity("outgoingOutboxCleanupJob")
+                .storeDurably()
+                .build();
+    }
+
+    @Bean
+    public Trigger outgoingOutboxCleanupTrigger() {
+        return TriggerBuilder.newTrigger()
+                .forJob(outgoingOutboxCleanupJobDetail())
+                .withIdentity("outgoingOutboxCleanupTrigger")
+                .withSchedule(SimpleScheduleBuilder.simpleSchedule()
+                        .withIntervalInHours(cleanupIntervalHours)
+                        .repeatForever()
+                        .withMisfireHandlingInstructionFireNow())
                 .build();
     }
 }

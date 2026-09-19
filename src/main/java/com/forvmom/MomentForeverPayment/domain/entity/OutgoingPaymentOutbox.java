@@ -5,29 +5,42 @@ import jakarta.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "outgoing_payment_outbox")
+@Table(name = "outgoing_payment_outbox",
+        uniqueConstraints = @UniqueConstraint(name = "uq_out_payment_booking_event", columnNames = {"producer", "event_id"}))
 public class OutgoingPaymentOutbox {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
+    @Column(name = "booking_id", nullable = false)
     private String bookingId;
 
-    @Column(nullable = false)
+    @Column(name = "event_type", nullable = false)
     private String eventType; // PAYMENT_PROCESSED, PAYMENT_FAILED
 
+    @Column(name = "event_id", nullable = false)
+    private String eventId;
+
     @Column(nullable = false)
-    private String status; // PENDING, SENT, FAILED, DEAD
+    private String producer;
+
+    @Column(nullable = false)
+    private String status; // PENDING, PROCESSING, SENT, FAILED, DEAD
 
     @Column(columnDefinition = "TEXT")
     private String payload;
 
+    @Version
+    private Long version;
+
+    @Column(name = "retry_count", nullable = false)
     private Integer retryCount = 0;
 
+    @Column(name = "created_at", nullable = false, updatable = false)
     private LocalDateTime createdAt;
 
+    @Column(name = "updated_at", nullable = false)
     private LocalDateTime updatedAt;
 
     @PrePersist
@@ -43,6 +56,7 @@ public class OutgoingPaymentOutbox {
 
     // Status constants
     public static final String STATUS_PENDING = "PENDING";
+    public static final String STATUS_PROCESSING = "PROCESSING";
     public static final String STATUS_SENT = "SENT";
     public static final String STATUS_FAILED = "FAILED";
     public static final String STATUS_DEAD = "DEAD";
@@ -69,6 +83,22 @@ public class OutgoingPaymentOutbox {
 
     public void setEventType(String eventType) {
         this.eventType = eventType;
+    }
+
+    public String getEventId() {
+        return eventId;
+    }
+
+    public void setEventId(String eventId) {
+        this.eventId = eventId;
+    }
+
+    public String getProducer() {
+        return producer;
+    }
+
+    public void setProducer(String producer) {
+        this.producer = producer;
     }
 
     public String getStatus() {

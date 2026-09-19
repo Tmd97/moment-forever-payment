@@ -1,26 +1,17 @@
 package com.forvmom.MomentForeverPayment.service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.forvmom.MomentForeverPayment.commons.EventConstants;
 import com.forvmom.MomentForeverPayment.domain.entity.PaymentOutbox;
-import com.forvmom.MomentForeverPayment.domain.entity.OutgoingPaymentOutbox;
-import com.forvmom.MomentForeverPayment.domain.entity.PaymentResult;
-import com.forvmom.MomentForeverPayment.events.InboundPaymentEvent;
 import com.forvmom.MomentForeverPayment.events.PaymentRequestedEvent;
 import com.forvmom.MomentForeverPayment.repository.PaymentOutboxDao;
-import com.forvmom.MomentForeverPayment.repository.OutgoingPaymentOutboxDao;
-import com.forvmom.MomentForeverPayment.scheduler.OutgoingPaymentPublisher;
 import com.forvmom.MomentForeverPayment.scheduler.PaymentDeadLetterHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.kafka.support.Acknowledgment;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class PaymentIncomingRetryService {
@@ -34,25 +25,19 @@ public class PaymentIncomingRetryService {
     private long gracePeriodMinutes;
 
     private final PaymentOutboxDao outboxDao;
-    private final OutgoingPaymentOutboxDao outgoingDao;
     private final PaymentOutboxService outboxService;
     private final PaymentProcessService paymentProcessService;
-    private final OutgoingPaymentPublisher outgoingPublisher;
     private final ObjectMapper objectMapper;
     private final PaymentDeadLetterHandler deadLetterHandler;
 
     public PaymentIncomingRetryService(PaymentOutboxDao outboxDao,
-                                       OutgoingPaymentOutboxDao outgoingDao,
                                        PaymentOutboxService outboxService,
                                        PaymentProcessService paymentProcessService,
-                                       OutgoingPaymentPublisher outgoingPublisher,
                                        ObjectMapper objectMapper,
                                        PaymentDeadLetterHandler deadLetterHandler) {
         this.outboxDao = outboxDao;
-        this.outgoingDao = outgoingDao;
         this.outboxService = outboxService;
         this.paymentProcessService = paymentProcessService;
-        this.outgoingPublisher = outgoingPublisher;
         this.objectMapper = objectMapper;
         this.deadLetterHandler = deadLetterHandler;
     }
@@ -61,7 +46,6 @@ public class PaymentIncomingRetryService {
      * Retry stuck payment requests (PAYMENT_REQUESTED events)
      * Called by Quartz every 2 minutes
      */
-    @Transactional
     public void retryStuckAndFailedRecords() {
         LocalDateTime cutoff = LocalDateTime.now().minusMinutes(gracePeriodMinutes);
 
@@ -94,54 +78,25 @@ public class PaymentIncomingRetryService {
 
             try {
                 // Increment retry count and mark as PROCESSING
-                outboxService.incrementRetry(outbox);
+                outbox = outboxService.incrementRetry(outbox);
 
-                String bookingId = outbox.getBookingId();
+                String producer = outbox.getProducer();
+                String eventId = outbox.getEventId();
 
-                // BRANCH A: Check if outgoing record already exists (payment already processed)
-                Optional<OutgoingPaymentOutbox> existingOutgoing = outgoingDao
-                        .findByBookingIdAndEventType(bookingId, EventConstants.PAYMENT_PROCESSED);
-
-                if (existingOutgoing.isPresent()) {
-                    // Payment was already processed, just need to publish
-                    OutgoingPaymentOutbox outgoing = existingOutgoing.get();
-                    if (!OutgoingPaymentOutbox.STATUS_SENT.equals(outgoing.getStatus())) {
-                        log.info("[Branch A] Republishing existing processed payment for bookingId={}", bookingId);
-                        outgoingPublisher.trySinglePublish(outgoing);
-                    }
-                    outboxService.markAsProcessed(outbox);
-                    continue;
-                }
-
-                // BRANCH B: Check if failed record exists
-                Optional<OutgoingPaymentOutbox> existingFailed = outgoingDao
-                        .findByBookingIdAndEventType(bookingId, EventConstants.PAYMENT_FAILED);
-
-                if (existingFailed.isPresent()) {
-                    // Payment already failed, just need to publish
-                    OutgoingPaymentOutbox outgoing = existingFailed.get();
-                    if (!OutgoingPaymentOutbox.STATUS_SENT.equals(outgoing.getStatus())) {
-                        log.info("[Branch A] Republishing existing failed payment for bookingId={}", bookingId);
-                        outgoingPublisher.trySinglePublish(outgoing);
-                    }
-                    outboxService.markAsProcessed(outbox);
-                    continue;
-                }
-                // BRANCH C: No outgoing record - reprocess the payment
-                log.info("[Branch B] Reprocessing payment for bookingId={}", bookingId);
+                log.info("Reprocessing payment for producer={}, eventId={}", producer, eventId);
                 // Deserialize the original event
-                InboundPaymentEvent event = objectMapper.readValue(
+                PaymentRequestedEvent event = objectMapper.readValue(
                         outbox.getPayload(),
-                        InboundPaymentEvent.class
+                        PaymentRequestedEvent.class
                 );
                 // Process payment again (this will create a new outgoing record)
-                Acknowledgment acknowledgment= null; // Placeholder, not used in Quartz context
-                paymentProcessService.processPayment(event, acknowledgment);
-                log.info("Successfully retried payment for bookingId={}", bookingId);
+                // Using the specific transactional method for Quartz jobs (doesn't deal with Kafka Acks)
+                paymentProcessService.executePaymentTransaction(outbox, event);
+                log.info("Successfully retried payment for producer={}, eventId={}", producer, eventId);
 
             } catch (Exception e) {
-                log.error("Retry failed for payment outbox id={}, bookingId={}",
-                        outbox.getId(), outbox.getBookingId(), e);
+                log.error("Retry failed for payment outbox id={}, producer={}, eventId={}",
+                        outbox.getId(), outbox.getProducer(), outbox.getEventId(), e);
                 outboxService.markAsFailed(outbox);
             }
         }

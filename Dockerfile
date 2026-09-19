@@ -15,7 +15,7 @@ WORKDIR /app
 # Copy the jar from the core module where the main application resides
 #COPY --from=build /app/moment-forever-booking/target/*.jar app.jar
 COPY --from=build /app/target/*.jar app.jar
-EXPOSE 8080
+EXPOSE 8083
 
 # Define the entrypoint command to run the Spring Boot application
 ENTRYPOINT ["java", "-jar", "app.jar"]

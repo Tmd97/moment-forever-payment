@@ -40,10 +40,11 @@ spring:
       host: ${CONSUL_HOST:localhost}
       port: 8500
       discovery:
-        enabled: true
-        register: true
+        enabled: ${CONSUL_DISCOVERY_ENABLED:true}
+        register: ${CONSUL_DISCOVERY_ENABLED:true}
+        fail-fast: ${CONSUL_FAIL_FAST:false}
         service-name: ${spring.application.name}
-        health-check-path: /actuator/health
+        health-check-path: /payment/actuator/health
         health-check-interval: 10s
         instance-id: ${spring.application.name}:${random.value}
         prefer-ip-address: true
@@ -62,22 +63,21 @@ spring:
   # ----------------------------------------------------------
   # HIKARI CONNECTION POOL
   # ----------------------------------------------------------
-  hikari:
-    pool-name: MomentForeverPayment-HikariPool
-    connection-timeout: 30000
-    maximum-pool-size: 20
-    minimum-idle: 5
-    idle-timeout: 600000
-    max-lifetime: 1800000
-    connection-test-query: SELECT 1
-    auto-commit: false
+    hikari:
+      pool-name: MomentForeverPayment-HikariPool
+      connection-timeout: 30000
+      maximum-pool-size: 20
+      minimum-idle: 5
+      idle-timeout: 600000
+      max-lifetime: 1800000
+      connection-test-query: SELECT 1
+      auto-commit: false
 
 
   # ----------------------------------------------------------
   # JPA / HIBERNATE
   # ----------------------------------------------------------
   jpa:
-    database-platform: org.hibernate.dialect.PostgreSQLDialect
     hibernate:
       ddl-auto: update
     show-sql: true
@@ -142,9 +142,9 @@ spring:
   # QUARTZ SCHEDULER
   # ----------------------------------------------------------
   quartz:
-    job-store-type: jdbc
+    job-store-type: ${QUARTZ_JOB_STORE_TYPE:jdbc}
     jdbc:
-      initialize-schema: always
+      initialize-schema: ${QUARTZ_INITIALIZE_SCHEMA:never}
     properties:
       org:
         quartz:
@@ -195,7 +195,6 @@ payment:
   processing:
     simulate-failure-rate: 10          # Percentage of payments to randomly fail (0-100)
     processing-time-ms: 500             # Simulated payment processing time in ms
-    payment-methods: CREDIT_CARD,DEBIT_CARD,UPI,NET_BANKING
 
   # Retry configuration
   retry:
@@ -219,9 +218,11 @@ payment:
 
   # Gateway configuration (for real payment integration)
   gateway:
-    provider: mock                                   # mock, stripe, razorpay, etc.
+    provider: stripe
     api-key: ${PAYMENT_GATEWAY_API_KEY:}
     webhook-secret: ${PAYMENT_GATEWAY_WEBHOOK_SECRET:}
+    success-url: ${PAYMENT_SUCCESS_URL:http://localhost:8082/payment/success?session_id={CHECKOUT_SESSION_ID}}
+    cancel-url: ${PAYMENT_CANCEL_URL:http://localhost:8082/payment/cancel}
     timeout-seconds: 30
     retry-attempts: 3
 
@@ -264,7 +265,8 @@ payment:
 kafka:
   topics:
     payment-requested: topic_payment_requested
-    payment-processed: topic_payment_processed
+    payment-initiated: topic_payment_initiated
+    payment-processed: topic_payment_confirmed
     payment-failed: topic_payment_failed
 
 

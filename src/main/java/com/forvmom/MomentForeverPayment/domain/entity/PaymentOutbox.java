@@ -6,7 +6,7 @@ import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "payment_outbox",
-        uniqueConstraints = @UniqueConstraint(columnNames = {"bookingId", "eventType"}))
+        uniqueConstraints = @UniqueConstraint(columnNames = {"producer", "event_id"}))
 @Data
 public class PaymentOutbox {
 
@@ -20,11 +20,17 @@ public class PaymentOutbox {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
+    @Column(name = "booking_id", nullable = false)
     private String bookingId;
 
-    @Column(nullable = false)
+    @Column(name = "event_type", nullable = false)
     private String eventType;
+
+    @Column(name = "event_id", nullable = false)
+    private String eventId;
+
+    @Column(nullable = false)
+    private String producer;
 
     @Column(nullable = false)
     private String status; // PENDING, PROCESSING, PROCESSED, FAILED, DEAD
@@ -32,10 +38,16 @@ public class PaymentOutbox {
     @Column(columnDefinition = "TEXT")
     private String payload;
 
+    @Version
+    private Long version;
+
+    @Column(name = "retry_count", nullable = false)
     private Integer retryCount = 0;
 
+    @Column(name = "created_at", nullable = false, updatable = false)
     private LocalDateTime createdAt;
 
+    @Column(name = "updated_at", nullable = false)
     private LocalDateTime updatedAt;
 
     @PrePersist

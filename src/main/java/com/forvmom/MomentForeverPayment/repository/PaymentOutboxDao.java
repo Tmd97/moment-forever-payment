@@ -13,7 +13,7 @@ import java.util.Optional;
 
 public interface PaymentOutboxDao extends JpaRepository<PaymentOutbox, Long> {
 
-    Optional<PaymentOutbox> findByBookingIdAndEventType(String bookingId, String eventType);
+    Optional<PaymentOutbox> findByProducerAndEventId(String producer, String eventId);
 
     List<PaymentOutbox> findByStatusInAndUpdatedAtBefore(List<String> statuses, LocalDateTime cutoff);
 

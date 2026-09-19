@@ -20,17 +20,8 @@ public final class EventConstants {
     // ==========================================================
 
     public static final String PAYMENT_REQUESTED = "PAYMENT_REQUESTED";
+    public static final String PAYMENT_INITIATED = "PAYMENT_INITIATED";
     public static final String PAYMENT_PROCESSED = "PAYMENT_PROCESSED";
     public static final String PAYMENT_FAILED = "PAYMENT_FAILED";
-    public static final String PAYMENT_REFUNDED = "PAYMENT_REFUNDED";
-
-
-    // ==========PAYMENT TYPES===========================
-    public static final String CREDIT_CARD = "CREDIT_CARD";
-    public static final String PAYPAL = "PAYPAL";
-    public static final String UPI = "UPI";
-
-
-
 
 }

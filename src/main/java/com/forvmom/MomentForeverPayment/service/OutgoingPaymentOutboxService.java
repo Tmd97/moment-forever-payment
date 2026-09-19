@@ -23,11 +23,13 @@ public class OutgoingPaymentOutboxService {
     }
 
     @Transactional
-    public OutgoingPaymentOutbox createRecord(String bookingId, String eventType, Object payload) {
+    public OutgoingPaymentOutbox createRecord(String bookingId, String eventType, String producer, String eventId, Object payload) {
         try {
             OutgoingPaymentOutbox record = new OutgoingPaymentOutbox();
             record.setBookingId(bookingId);
             record.setEventType(eventType);
+            record.setProducer(producer);
+            record.setEventId(eventId);
             record.setStatus(OutgoingPaymentOutbox.STATUS_PENDING);
             record.setRetryCount(0);
             record.setPayload(objectMapper.writeValueAsString(payload));
@@ -65,11 +67,12 @@ public class OutgoingPaymentOutboxService {
     }
 
     @Transactional
-    public void incrementRetry(OutgoingPaymentOutbox record) {
+    public OutgoingPaymentOutbox incrementRetry(OutgoingPaymentOutbox record) {
         record.setRetryCount(record.getRetryCount() + 1);
-        record.setStatus(OutgoingPaymentOutbox.STATUS_FAILED);
-        outgoingDao.save(record);
+        record.setStatus(OutgoingPaymentOutbox.STATUS_PROCESSING); // Lock it to processing during Kafka attempt
+        OutgoingPaymentOutbox saved = outgoingDao.saveAndFlush(record);
         log.debug("Incremented retry count to {} for outgoing outbox id={}",
                 record.getRetryCount(), record.getId());
+        return saved;
     }
 }

@@ -58,11 +58,14 @@ public class OutgoingPaymentPublisher {
     }
 
     // Batch retry (called by Quartz)
-    @Transactional
     public void publishPendingEvents() {
         LocalDateTime cutoff = LocalDateTime.now().minusMinutes(GRACE_PERIOD_MINUTES);
         List<OutgoingPaymentOutbox> pending = outgoingDao.findByStatusInAndUpdatedAtBefore(
-                List.of(OutgoingPaymentOutbox.STATUS_PENDING, OutgoingPaymentOutbox.STATUS_FAILED),
+                List.of(
+                    OutgoingPaymentOutbox.STATUS_PENDING, 
+                    OutgoingPaymentOutbox.STATUS_FAILED,
+                    OutgoingPaymentOutbox.STATUS_PROCESSING // Pick up stuck PROCESSING records older than cutoff
+                ),
                 cutoff);
 
         if (!pending.isEmpty()) {
@@ -76,14 +79,18 @@ public class OutgoingPaymentPublisher {
             }
 
             try {
-                outgoingService.incrementRetry(record);
+                // This correctly locks the record to PROCESSING before sending to Kafka
+                record = outgoingService.incrementRetry(record);
+                
                 sendToKafka(record);
                 outgoingService.markAsSent(record);
+                
                 log.info("Quartz retry succeeded: id={}, type={}, bookingId={}",
                         record.getId(), record.getEventType(), record.getBookingId());
             } catch (Exception e) {
                 log.error("Quartz retry failed for id={}: {}", record.getId(), e.getMessage());
-                // Record already marked as FAILED by incrementRetry
+                // Mark it back to failed so Quartz can pick it up again later
+                outgoingService.markAsFailed(record);
             }
         }
     }
@@ -93,6 +100,11 @@ public class OutgoingPaymentPublisher {
         String json = record.getPayload();
 
         switch (type) {
+            case EventConstants.PAYMENT_INITIATED:
+                com.forvmom.MomentForeverPayment.events.PaymentInitiatedEvent initiatedEvent = objectMapper.readValue(json, com.forvmom.MomentForeverPayment.events.PaymentInitiatedEvent.class);
+                eventProducer.sendPaymentInitiatedEvent(initiatedEvent);
+                break;
+                
             case EventConstants.PAYMENT_PROCESSED:
                 PaymentProcessedEvent processedEvent = objectMapper.readValue(json, PaymentProcessedEvent.class);
                 eventProducer.sendPaymentProcessedEvent(processedEvent);
@@ -104,7 +116,7 @@ public class OutgoingPaymentPublisher {
                 break;
 
             default:
-                log.warn("Unknown outgoing event type: {}", type);
+                throw new IllegalArgumentException("Unknown outgoing event type: " + type);
         }
     }
 }

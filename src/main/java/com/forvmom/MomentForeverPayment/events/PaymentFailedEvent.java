@@ -4,6 +4,7 @@ import lombok.Data;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.time.Instant;
 
 @Data
 public class PaymentFailedEvent implements OutGoingEvent {
@@ -21,6 +22,31 @@ public class PaymentFailedEvent implements OutGoingEvent {
     private Integer guestCount;
     private Long userId;
     private String userEmail;
+    
+    private String eventId;
+    private String producer;
+    private String correlationId;
+    private String causationId;
+    private Integer schemaVersion = 1;
+    private Instant occurredAt;
+
+    @Override
+    public String getEventId() {
+        return eventId;
+    }
+
+    public void setEventId(String eventId) {
+        this.eventId = eventId;
+    }
+
+    @Override
+    public String getProducer() {
+        return producer;
+    }
+
+    public void setProducer(String producer) {
+        this.producer = producer;
+    }
 //
 //    @Override
 //    public String getEventType() {
