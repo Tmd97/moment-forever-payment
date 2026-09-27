@@ -62,9 +62,9 @@ public class PaymentAdminController {
 
         // Check outgoing records to see what happened with this booking
         var processed = outgoingPaymentOutboxDao
-                .findByBookingIdAndEventType(bookingId, "PAYMENT_PROCESSED");
+                .findFirstByBookingIdAndEventTypeOrderByCreatedAtDesc(bookingId, "PAYMENT_PROCESSED");
         var failed = outgoingPaymentOutboxDao
-                .findByBookingIdAndEventType(bookingId, "PAYMENT_FAILED");
+                .findFirstByBookingIdAndEventTypeOrderByCreatedAtDesc(bookingId, "PAYMENT_FAILED");
 
         if (processed.isPresent()) {
             response.put("status", "PROCESSED");

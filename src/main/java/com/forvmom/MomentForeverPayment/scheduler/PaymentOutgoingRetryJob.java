@@ -1,10 +1,11 @@
 package com.forvmom.MomentForeverPayment.scheduler;
-import com.forvmom.MomentForeverPayment.scheduler.OutgoingPaymentPublisher;
+import org.quartz.DisallowConcurrentExecution;
 import org.quartz.Job;
 import org.quartz.JobExecutionContext;
 import org.springframework.stereotype.Component;
 
 @Component
+@DisallowConcurrentExecution
 public class PaymentOutgoingRetryJob implements Job {
 
     private final OutgoingPaymentPublisher publisher;

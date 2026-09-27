@@ -1,6 +1,7 @@
 package com.forvmom.MomentForeverPayment.events;
 
 import java.time.LocalDateTime;
+import java.time.Instant;
 import java.math.BigDecimal;
 
 public class PaymentRequestedEvent implements InboundPaymentEvent {
@@ -8,14 +9,38 @@ public class PaymentRequestedEvent implements InboundPaymentEvent {
     private String bookingId;
     private Long userId;
     private String userEmail;
-    private String experienceId;
+    private Long experienceId;
     private String experienceName;
-    private String timeSlotMapperId;
+    private Long timeSlotMapperId;
     private Integer guestCount;
     private BigDecimal grandTotal;
     private String currency;
     private LocalDateTime requestedAt;
-    private String paymentType; // e.g., "CREDIT_CARD", "PAYPAL"
+    private String paymentType; // e.g., "STRIPE"
+    private String eventId;
+    private String producer;
+    private String correlationId;
+    private String causationId;
+    private Integer schemaVersion = 1;
+    private Instant occurredAt;
+
+    @Override
+    public String getEventId() {
+        return eventId;
+    }
+
+    public void setEventId(String eventId) {
+        this.eventId = eventId;
+    }
+
+    @Override
+    public String getProducer() {
+        return producer;
+    }
+
+    public void setProducer(String producer) {
+        this.producer = producer;
+    }
 
     @Override
     public String getEventType() {
@@ -56,11 +81,11 @@ public class PaymentRequestedEvent implements InboundPaymentEvent {
         this.userEmail = userEmail;
     }
 
-    public String getExperienceId() {
+    public Long getExperienceId() {
         return experienceId;
     }
 
-    public void setExperienceId(String experienceId) {
+    public void setExperienceId(Long experienceId) {
         this.experienceId = experienceId;
     }
 
@@ -72,11 +97,11 @@ public class PaymentRequestedEvent implements InboundPaymentEvent {
         this.experienceName = experienceName;
     }
 
-    public String getTimeSlotMapperId() {
+    public Long getTimeSlotMapperId() {
         return timeSlotMapperId;
     }
 
-    public void setTimeSlotMapperId(String timeSlotMapperId) {
+    public void setTimeSlotMapperId(Long timeSlotMapperId) {
         this.timeSlotMapperId = timeSlotMapperId;
     }
 
@@ -110,5 +135,41 @@ public class PaymentRequestedEvent implements InboundPaymentEvent {
 
     public void setRequestedAt(LocalDateTime requestedAt) {
         this.requestedAt = requestedAt;
+    }
+
+    @Override
+    public String getCorrelationId() {
+        return correlationId;
+    }
+
+    public void setCorrelationId(String correlationId) {
+        this.correlationId = correlationId;
+    }
+
+    @Override
+    public String getCausationId() {
+        return causationId;
+    }
+
+    public void setCausationId(String causationId) {
+        this.causationId = causationId;
+    }
+
+    @Override
+    public Integer getSchemaVersion() {
+        return schemaVersion;
+    }
+
+    public void setSchemaVersion(Integer schemaVersion) {
+        this.schemaVersion = schemaVersion;
+    }
+
+    @Override
+    public Instant getOccurredAt() {
+        return occurredAt;
+    }
+
+    public void setOccurredAt(Instant occurredAt) {
+        this.occurredAt = occurredAt;
     }
 }

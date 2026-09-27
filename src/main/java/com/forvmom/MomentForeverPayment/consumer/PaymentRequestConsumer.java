@@ -33,7 +33,7 @@ public class PaymentRequestConsumer {
             containerFactory = "kafkaListenerContainerFactory")
     public void onPaymentRequested(@Payload PaymentRequestedEvent paymentRequestedEvent, Acknowledgment ack) {
 
-        paymentProcessService.processPayment(paymentRequestedEvent, ack);
+        paymentProcessService.handleIncomingPaymentRequest(paymentRequestedEvent, ack);
 
     }
 }

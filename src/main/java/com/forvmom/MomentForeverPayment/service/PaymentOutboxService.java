@@ -10,6 +10,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.transaction.support.TransactionTemplate;
 
 import java.util.Optional;
 
@@ -20,32 +21,33 @@ public class PaymentOutboxService {
 
     private final PaymentOutboxDao outboxDao;
     private final ObjectMapper objectMapper;
+    private final TransactionTemplate transactionTemplate;
 
-    public PaymentOutboxService(PaymentOutboxDao outboxDao, ObjectMapper objectMapper) {
+    public PaymentOutboxService(
+            PaymentOutboxDao outboxDao,
+            ObjectMapper objectMapper,
+            TransactionTemplate transactionTemplate) {
         this.outboxDao = outboxDao;
         this.objectMapper = objectMapper;
+        this.transactionTemplate = transactionTemplate;
     }
 
-    @Transactional
     public PaymentOutbox findOrCreateForEvent(InboundPaymentEvent inboundPaymentEvent) {
-        String bookingId = inboundPaymentEvent.getBookingId();
-        String inboundPaymentEventType = inboundPaymentEvent.getEventType();
+        String eventId = inboundPaymentEvent.getEventId();
+        String producer = inboundPaymentEvent.getProducer();
+
+        Optional<PaymentOutbox> existing = outboxDao.findByProducerAndEventId(producer, eventId);
+        if (existing.isPresent()) {
+            log.debug("Found existing outbox record for producer={}, eventId={}", producer, eventId);
+            return existing.get();
+        }
 
         try {
-            Optional<PaymentOutbox> existing = outboxDao.findByBookingIdAndEventType(bookingId, inboundPaymentEventType);
-
-            if (existing.isPresent()) {
-                log.debug("Found existing outbox record for bookingId={}, inboundPaymentEventType={}", bookingId, inboundPaymentEventType);
-                return existing.get();
-            }
-
-            return createNewOutbox(inboundPaymentEvent);
-
+            return transactionTemplate.execute(status -> createNewOutbox(inboundPaymentEvent));
         } catch (DataIntegrityViolationException e) {
-            // Race condition - another thread inserted concurrently
-            log.warn("Concurrent insert detected for bookingId={}, inboundPaymentEventType={}, fetching existing",
-                    bookingId, inboundPaymentEventType);
-            return outboxDao.findByBookingIdAndEventType(bookingId, inboundPaymentEventType)
+            log.warn("Concurrent insert detected for producer={}, eventId={}, fetching existing",
+                    producer, eventId);
+            return outboxDao.findByProducerAndEventId(producer, eventId)
                     .orElseThrow(() -> new IllegalStateException("Failed to recover from concurrent insert", e));
         }
     }
@@ -55,11 +57,13 @@ public class PaymentOutboxService {
             PaymentOutbox outbox = new PaymentOutbox();
             outbox.setBookingId(inboundPaymentEvent.getBookingId());
             outbox.setEventType(inboundPaymentEvent.getEventType());
+            outbox.setEventId(inboundPaymentEvent.getEventId());
+            outbox.setProducer(inboundPaymentEvent.getProducer());
             outbox.setStatus(PaymentOutbox.STATUS_PENDING);
             outbox.setRetryCount(0);
             outbox.setPayload(objectMapper.writeValueAsString(inboundPaymentEvent));
 
-            PaymentOutbox saved = outboxDao.save(outbox);
+            PaymentOutbox saved = outboxDao.saveAndFlush(outbox);
             log.info("Created new outbox record id={} for bookingId={}, inboundPaymentEventType={}",
                     saved.getId(), inboundPaymentEvent.getBookingId(), inboundPaymentEvent.getEventType());
             return saved;
@@ -71,10 +75,11 @@ public class PaymentOutboxService {
     }
 
     @Transactional
-    public void markAsProcessing(PaymentOutbox outbox) {
+    public PaymentOutbox markAsProcessing(PaymentOutbox outbox) {
         outbox.setStatus(PaymentOutbox.STATUS_PROCESSING);
-        outboxDao.save(outbox);
+        PaymentOutbox saved = outboxDao.saveAndFlush(outbox);
         log.debug("Marked outbox id={} as PROCESSING", outbox.getId());
+        return saved;
     }
 
     @Transactional
@@ -99,10 +104,11 @@ public class PaymentOutboxService {
     }
 
     @Transactional
-    public void incrementRetry(PaymentOutbox outbox) {
+    public PaymentOutbox incrementRetry(PaymentOutbox outbox) {
         outbox.setRetryCount(outbox.getRetryCount() + 1);
         outbox.setStatus(PaymentOutbox.STATUS_PROCESSING);
-        outboxDao.save(outbox);
+        PaymentOutbox saved = outboxDao.saveAndFlush(outbox);
         log.debug("Incremented retry count to {} for outbox id={}", outbox.getRetryCount(), outbox.getId());
+        return saved;
     }
 }

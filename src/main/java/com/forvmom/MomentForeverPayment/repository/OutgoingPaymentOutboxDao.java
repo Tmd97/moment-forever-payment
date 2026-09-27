@@ -15,7 +15,10 @@ public interface OutgoingPaymentOutboxDao extends JpaRepository<OutgoingPaymentO
 
     List<OutgoingPaymentOutbox> findByStatusInAndUpdatedAtBefore(List<String> statuses, LocalDateTime cutoff);
 
-    Optional<OutgoingPaymentOutbox> findByBookingIdAndEventType(String bookingId, String eventType);
+    Optional<OutgoingPaymentOutbox> findByProducerAndEventId(String producer, String eventId);
+
+    Optional<OutgoingPaymentOutbox> findFirstByBookingIdAndEventTypeOrderByCreatedAtDesc(
+            String bookingId, String eventType);
 
     @Modifying
     @Query("DELETE FROM OutgoingPaymentOutbox o WHERE o.status = :status AND o.updatedAt < :cutoff")
