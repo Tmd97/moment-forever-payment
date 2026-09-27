@@ -1,70 +1,542 @@
-2026-09-14 22:36:24.975 [main] [34mINFO [0;39m [36mc.f.M.PaymentServiceApplicationTests[0;39m - Starting PaymentServiceApplicationTests using Java 17.0.12 with PID 22644 (started by rsshr in C:\work\moment-forever-payment)
-2026-09-14 22:36:24.982 [main] [39mDEBUG[0;39m [36mc.f.M.PaymentServiceApplicationTests[0;39m - Running with Spring Boot v3.1.5, Spring v6.0.13
-2026-09-14 22:36:24.982 [main] [34mINFO [0;39m [36mc.f.M.PaymentServiceApplicationTests[0;39m - The following 1 profile is active: "test"
-2026-09-14 22:36:27.002 [main] [34mINFO [0;39m [36mo.s.d.r.c.RepositoryConfigurationDelegate[0;39m - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-2026-09-14 22:36:27.276 [main] [34mINFO [0;39m [36mo.s.d.r.c.RepositoryConfigurationDelegate[0;39m - Finished Spring Data repository scanning in 249 ms. Found 4 JPA repository interfaces.
-2026-09-14 22:36:27.938 [main] [34mINFO [0;39m [36mo.s.cloud.context.scope.GenericScope[0;39m - BeanFactory id=ed1d0e04-97bd-3b11-8d26-fc1458665d9a
-2026-09-14 22:36:31.661 [main] [34mINFO [0;39m [36mo.h.jpa.internal.util.LogHelper[0;39m - HHH000204: Processing PersistenceUnitInfo [name: default]
-2026-09-14 22:36:32.008 [main] [34mINFO [0;39m [36morg.hibernate.Version[0;39m - HHH000412: Hibernate ORM core version 6.2.13.Final
-2026-09-14 22:36:32.034 [main] [34mINFO [0;39m [36morg.hibernate.cfg.Environment[0;39m - HHH000406: Using bytecode reflection optimizer
-2026-09-14 22:36:33.207 [main] [34mINFO [0;39m [36mo.s.o.j.p.SpringPersistenceUnitInfo[0;39m - No LoadTimeWeaver setup: ignoring JPA class transformer
-2026-09-14 22:36:33.315 [main] [34mINFO [0;39m [36mcom.zaxxer.hikari.HikariDataSource[0;39m - MomentForeverPayment-HikariPool - Starting...
-2026-09-14 22:36:34.109 [main] [34mINFO [0;39m [36mcom.zaxxer.hikari.pool.HikariPool[0;39m - MomentForeverPayment-HikariPool - Added connection conn0: url=jdbc:h2:mem:testdb user=SA
-2026-09-14 22:36:34.116 [main] [34mINFO [0;39m [36mcom.zaxxer.hikari.HikariDataSource[0;39m - MomentForeverPayment-HikariPool - Start completed.
-2026-09-14 22:36:37.078 [main] [34mINFO [0;39m [36mo.h.e.t.j.p.i.JtaPlatformInitiator[0;39m - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
-2026-09-14 22:36:37.145 [main] [34mINFO [0;39m [36mo.hibernate.orm.connections.access[0;39m - HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@37e15055] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
-2026-09-14 22:36:37.198 [main] [34mINFO [0;39m [36mo.hibernate.orm.connections.access[0;39m - HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@6f28a07e] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
-2026-09-14 22:36:37.297 [main] [34mINFO [0;39m [36mo.s.o.j.LocalContainerEntityManagerFactoryBean[0;39m - Initialized JPA EntityManagerFactory for persistence unit 'default'
-2026-09-14 22:36:38.828 [main] [34mINFO [0;39m [36mo.s.d.j.r.query.QueryEnhancerFactory[0;39m - Hibernate is in classpath; If applicable, HQL parser will be used.
-2026-09-14 22:36:45.551 [main] [31mWARN [0;39m [36mo.s.c.l.c.LoadBalancerCacheAutoConfiguration$LoadBalancerCaffeineWarnLogger[0;39m - Spring Cloud LoadBalancer is currently working with the default cache. While this cache implementation is useful for development and tests, it's recommended to use Caffeine cache in production.You can switch to using Caffeine cache, by adding it and org.springframework.cache.caffeine.CaffeineCacheManager to the classpath.
-2026-09-14 22:36:45.574 [main] [34mINFO [0;39m [36mo.s.b.a.e.web.EndpointLinksResolver[0;39m - Exposing 1 endpoint(s) beneath base path '/actuator'
-2026-09-14 22:36:45.995 [main] [34mINFO [0;39m [36mc.f.M.PaymentServiceApplicationTests[0;39m - Started PaymentServiceApplicationTests in 21.825 seconds (process running for 23.316)
-2026-09-14 22:36:46.479 [main] [34mINFO [0;39m [36mc.f.M.service.PaymentProcessService[0;39m - Received payment request for bookingId=booking-integration-1
-2026-09-14 22:36:46.954 [main] [34mINFO [0;39m [36mc.f.M.service.PaymentOutboxService[0;39m - Created new outbox record id=1 for bookingId=booking-integration-1, inboundPaymentEventType=PAYMENT_REQUESTED
-2026-09-14 22:36:47.019 [main] [39mDEBUG[0;39m [36mc.f.M.service.PaymentOutboxService[0;39m - Marked outbox id=1 as PROCESSING
-2026-09-14 22:36:47.057 [main] [34mINFO [0;39m [36mc.f.M.s.OutgoingPaymentOutboxService[0;39m - Created outgoing outbox record id=1, type=PAYMENT_INITIATED, bookingId=booking-integration-1
-2026-09-14 22:36:47.062 [main] [39mDEBUG[0;39m [36mc.f.M.service.PaymentOutboxService[0;39m - Marked outbox id=1 as PROCESSED
-2026-09-14 22:36:47.064 [main] [34mINFO [0;39m [36mc.f.M.s.PaymentTransactionService[0;39m - Persisted payment result and outgoing event for bookingId=booking-integration-1
-2026-09-14 22:36:47.450 [SpringApplicationShutdownHook] [34mINFO [0;39m [36mo.s.o.j.LocalContainerEntityManagerFactoryBean[0;39m - Closing JPA EntityManagerFactory for persistence unit 'default'
-2026-09-14 22:36:47.454 [SpringApplicationShutdownHook] [31mWARN [0;39m [36mo.h.e.jdbc.spi.SqlExceptionHelper[0;39m - SQL Error: 90121, SQLState: 90121
-2026-09-14 22:36:47.455 [SpringApplicationShutdownHook] [1;31mERROR[0;39m [36mo.h.e.jdbc.spi.SqlExceptionHelper[0;39m - Database is already closed (to disable automatic closing at VM shutdown, add ";DB_CLOSE_ON_EXIT=FALSE" to the db URL) [90121-214]
-2026-09-14 22:36:47.459 [SpringApplicationShutdownHook] [31mWARN [0;39m [36mo.h.e.jdbc.spi.SqlExceptionHelper[0;39m - SQL Error: 90121, SQLState: 90121
-2026-09-14 22:36:47.460 [SpringApplicationShutdownHook] [1;31mERROR[0;39m [36mo.h.e.jdbc.spi.SqlExceptionHelper[0;39m - Database is already closed (to disable automatic closing at VM shutdown, add ";DB_CLOSE_ON_EXIT=FALSE" to the db URL) [90121-214]
-2026-09-14 22:36:47.464 [SpringApplicationShutdownHook] [31mWARN [0;39m [36mo.s.b.f.s.DisposableBeanAdapter[0;39m - Invocation of destroy method failed on bean with name 'entityManagerFactory': org.hibernate.exception.JDBCConnectionException: Unable to release JDBC Connection used for DDL execution [Database is already closed (to disable automatic closing at VM shutdown, add ";DB_CLOSE_ON_EXIT=FALSE" to the db URL) [90121-214]] [n/a]
-2026-09-14 22:36:47.467 [SpringApplicationShutdownHook] [34mINFO [0;39m [36mcom.zaxxer.hikari.HikariDataSource[0;39m - MomentForeverPayment-HikariPool - Shutdown initiated...
-2026-09-14 22:36:47.480 [SpringApplicationShutdownHook] [34mINFO [0;39m [36mcom.zaxxer.hikari.HikariDataSource[0;39m - MomentForeverPayment-HikariPool - Shutdown completed.
-2026-09-14 23:28:33.684 [main] [34mINFO [0;39m [36mc.f.M.PaymentServiceApplicationTests[0;39m - Starting PaymentServiceApplicationTests using Java 17.0.12 with PID 28484 (started by rsshr in C:\work\moment-forever-payment)
-2026-09-14 23:28:33.684 [main] [39mDEBUG[0;39m [36mc.f.M.PaymentServiceApplicationTests[0;39m - Running with Spring Boot v3.1.5, Spring v6.0.13
-2026-09-14 23:28:33.684 [main] [34mINFO [0;39m [36mc.f.M.PaymentServiceApplicationTests[0;39m - The following 1 profile is active: "test"
-2026-09-14 23:28:35.962 [main] [34mINFO [0;39m [36mo.s.d.r.c.RepositoryConfigurationDelegate[0;39m - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-2026-09-14 23:28:36.482 [main] [34mINFO [0;39m [36mo.s.d.r.c.RepositoryConfigurationDelegate[0;39m - Finished Spring Data repository scanning in 500 ms. Found 4 JPA repository interfaces.
-2026-09-14 23:28:37.392 [main] [34mINFO [0;39m [36mo.s.cloud.context.scope.GenericScope[0;39m - BeanFactory id=ed1d0e04-97bd-3b11-8d26-fc1458665d9a
-2026-09-14 23:28:39.694 [main] [34mINFO [0;39m [36mo.h.jpa.internal.util.LogHelper[0;39m - HHH000204: Processing PersistenceUnitInfo [name: default]
-2026-09-14 23:28:39.832 [main] [34mINFO [0;39m [36morg.hibernate.Version[0;39m - HHH000412: Hibernate ORM core version 6.2.13.Final
-2026-09-14 23:28:39.838 [main] [34mINFO [0;39m [36morg.hibernate.cfg.Environment[0;39m - HHH000406: Using bytecode reflection optimizer
-2026-09-14 23:28:40.428 [main] [34mINFO [0;39m [36mo.s.o.j.p.SpringPersistenceUnitInfo[0;39m - No LoadTimeWeaver setup: ignoring JPA class transformer
-2026-09-14 23:28:40.532 [main] [34mINFO [0;39m [36mcom.zaxxer.hikari.HikariDataSource[0;39m - MomentForeverPayment-HikariPool - Starting...
-2026-09-14 23:28:40.941 [main] [34mINFO [0;39m [36mcom.zaxxer.hikari.pool.HikariPool[0;39m - MomentForeverPayment-HikariPool - Added connection conn0: url=jdbc:h2:mem:testdb user=SA
-2026-09-14 23:28:40.944 [main] [34mINFO [0;39m [36mcom.zaxxer.hikari.HikariDataSource[0;39m - MomentForeverPayment-HikariPool - Start completed.
-2026-09-14 23:28:42.954 [main] [34mINFO [0;39m [36mo.h.e.t.j.p.i.JtaPlatformInitiator[0;39m - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
-2026-09-14 23:28:42.995 [main] [34mINFO [0;39m [36mo.hibernate.orm.connections.access[0;39m - HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@57d1edf0] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
-2026-09-14 23:28:43.011 [main] [34mINFO [0;39m [36mo.hibernate.orm.connections.access[0;39m - HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@44e19b99] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
-2026-09-14 23:28:43.051 [main] [34mINFO [0;39m [36mo.s.o.j.LocalContainerEntityManagerFactoryBean[0;39m - Initialized JPA EntityManagerFactory for persistence unit 'default'
-2026-09-14 23:28:43.652 [main] [34mINFO [0;39m [36mo.s.d.j.r.query.QueryEnhancerFactory[0;39m - Hibernate is in classpath; If applicable, HQL parser will be used.
-2026-09-14 23:28:47.269 [main] [31mWARN [0;39m [36mo.s.c.l.c.LoadBalancerCacheAutoConfiguration$LoadBalancerCaffeineWarnLogger[0;39m - Spring Cloud LoadBalancer is currently working with the default cache. While this cache implementation is useful for development and tests, it's recommended to use Caffeine cache in production.You can switch to using Caffeine cache, by adding it and org.springframework.cache.caffeine.CaffeineCacheManager to the classpath.
-2026-09-14 23:28:47.282 [main] [34mINFO [0;39m [36mo.s.b.a.e.web.EndpointLinksResolver[0;39m - Exposing 1 endpoint(s) beneath base path '/actuator'
-2026-09-14 23:28:47.614 [main] [34mINFO [0;39m [36mc.f.M.PaymentServiceApplicationTests[0;39m - Started PaymentServiceApplicationTests in 14.684 seconds (process running for 16.542)
-2026-09-14 23:28:48.198 [main] [34mINFO [0;39m [36mc.f.M.service.PaymentProcessService[0;39m - Received payment request for bookingId=booking-integration-1
-2026-09-14 23:28:48.797 [main] [34mINFO [0;39m [36mc.f.M.service.PaymentOutboxService[0;39m - Created new outbox record id=1 for bookingId=booking-integration-1, inboundPaymentEventType=PAYMENT_REQUESTED
-2026-09-14 23:28:48.902 [main] [39mDEBUG[0;39m [36mc.f.M.service.PaymentOutboxService[0;39m - Marked outbox id=1 as PROCESSING
-2026-09-14 23:28:48.931 [main] [34mINFO [0;39m [36mc.f.M.s.OutgoingPaymentOutboxService[0;39m - Created outgoing outbox record id=1, type=PAYMENT_INITIATED, bookingId=booking-integration-1
-2026-09-14 23:28:48.936 [main] [39mDEBUG[0;39m [36mc.f.M.service.PaymentOutboxService[0;39m - Marked outbox id=1 as PROCESSED
-2026-09-14 23:28:48.938 [main] [34mINFO [0;39m [36mc.f.M.s.PaymentTransactionService[0;39m - Persisted payment result and outgoing event for bookingId=booking-integration-1
-2026-09-14 23:28:49.177 [SpringApplicationShutdownHook] [34mINFO [0;39m [36mo.s.o.j.LocalContainerEntityManagerFactoryBean[0;39m - Closing JPA EntityManagerFactory for persistence unit 'default'
-2026-09-14 23:28:49.179 [SpringApplicationShutdownHook] [31mWARN [0;39m [36mo.h.e.jdbc.spi.SqlExceptionHelper[0;39m - SQL Error: 90121, SQLState: 90121
-2026-09-14 23:28:49.180 [SpringApplicationShutdownHook] [1;31mERROR[0;39m [36mo.h.e.jdbc.spi.SqlExceptionHelper[0;39m - Database is already closed (to disable automatic closing at VM shutdown, add ";DB_CLOSE_ON_EXIT=FALSE" to the db URL) [90121-214]
-2026-09-14 23:28:49.182 [SpringApplicationShutdownHook] [31mWARN [0;39m [36mo.h.e.jdbc.spi.SqlExceptionHelper[0;39m - SQL Error: 90121, SQLState: 90121
-2026-09-14 23:28:49.183 [SpringApplicationShutdownHook] [1;31mERROR[0;39m [36mo.h.e.jdbc.spi.SqlExceptionHelper[0;39m - Database is already closed (to disable automatic closing at VM shutdown, add ";DB_CLOSE_ON_EXIT=FALSE" to the db URL) [90121-214]
-2026-09-14 23:28:49.187 [SpringApplicationShutdownHook] [31mWARN [0;39m [36mo.s.b.f.s.DisposableBeanAdapter[0;39m - Invocation of destroy method failed on bean with name 'entityManagerFactory': org.hibernate.exception.JDBCConnectionException: Unable to release JDBC Connection used for DDL execution [Database is already closed (to disable automatic closing at VM shutdown, add ";DB_CLOSE_ON_EXIT=FALSE" to the db URL) [90121-214]] [n/a]
-2026-09-14 23:28:49.188 [SpringApplicationShutdownHook] [34mINFO [0;39m [36mcom.zaxxer.hikari.HikariDataSource[0;39m - MomentForeverPayment-HikariPool - Shutdown initiated...
-2026-09-14 23:28:49.192 [SpringApplicationShutdownHook] [34mINFO [0;39m [36mcom.zaxxer.hikari.HikariDataSource[0;39m - MomentForeverPayment-HikariPool - Shutdown completed.
+2026-09-27 14:10:43.052 [main] [34mINFO [0;39m [36mc.f.M.PaymentServiceApplication[0;39m - Starting PaymentServiceApplication using Java 17.0.12 with PID 25520 (C:\TMD\moment-forever-payment\target\classes started by rsshr in C:\TMD\moment-forever-payment)
+2026-09-27 14:10:43.073 [main] [39mDEBUG[0;39m [36mc.f.M.PaymentServiceApplication[0;39m - Running with Spring Boot v3.1.5, Spring v6.0.13
+2026-09-27 14:10:43.078 [main] [34mINFO [0;39m [36mc.f.M.PaymentServiceApplication[0;39m - No active profile set, falling back to 1 default profile: "default"
+2026-09-27 14:10:46.015 [main] [34mINFO [0;39m [36mo.s.d.r.c.RepositoryConfigurationDelegate[0;39m - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-09-27 14:10:46.182 [main] [34mINFO [0;39m [36mo.s.d.r.c.RepositoryConfigurationDelegate[0;39m - Finished Spring Data repository scanning in 158 ms. Found 4 JPA repository interfaces.
+2026-09-27 14:10:46.538 [main] [34mINFO [0;39m [36mo.s.cloud.context.scope.GenericScope[0;39m - BeanFactory id=6b94c770-4055-39bf-902e-21a5103bd7a3
+2026-09-27 14:10:47.040 [main] [34mINFO [0;39m [36mo.s.b.w.e.tomcat.TomcatWebServer[0;39m - Tomcat initialized with port(s): 8083 (http)
+2026-09-27 14:10:47.172 [main] [34mINFO [0;39m [36mo.s.b.w.s.c.ServletWebServerApplicationContext[0;39m - Root WebApplicationContext: initialization completed in 3984 ms
+2026-09-27 14:10:47.453 [main] [34mINFO [0;39m [36mo.h.jpa.internal.util.LogHelper[0;39m - HHH000204: Processing PersistenceUnitInfo [name: default]
+2026-09-27 14:10:47.516 [main] [34mINFO [0;39m [36morg.hibernate.Version[0;39m - HHH000412: Hibernate ORM core version 6.2.13.Final
+2026-09-27 14:10:47.518 [main] [34mINFO [0;39m [36morg.hibernate.cfg.Environment[0;39m - HHH000406: Using bytecode reflection optimizer
+2026-09-27 14:10:47.985 [main] [34mINFO [0;39m [36mo.s.o.j.p.SpringPersistenceUnitInfo[0;39m - No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-09-27 14:10:48.047 [main] [34mINFO [0;39m [36mcom.zaxxer.hikari.HikariDataSource[0;39m - MomentForeverPayment-HikariPool - Starting...
+2026-09-27 14:10:49.359 [main] [1;31mERROR[0;39m [36mcom.zaxxer.hikari.pool.HikariPool[0;39m - MomentForeverPayment-HikariPool - Exception during pool initialization.
+org.postgresql.util.PSQLException: FATAL: database "moment_forever_payment" does not exist
+	at org.postgresql.core.v3.QueryExecutorImpl.receiveErrorResponse(QueryExecutorImpl.java:2713)
+	at org.postgresql.core.v3.QueryExecutorImpl.readStartupMessages(QueryExecutorImpl.java:2825)
+	at org.postgresql.core.v3.QueryExecutorImpl.<init>(QueryExecutorImpl.java:175)
+	at org.postgresql.core.v3.ConnectionFactoryImpl.openConnectionImpl(ConnectionFactoryImpl.java:313)
+	at org.postgresql.core.ConnectionFactory.openConnection(ConnectionFactory.java:54)
+	at org.postgresql.jdbc.PgConnection.<init>(PgConnection.java:263)
+	at org.postgresql.Driver.makeConnection(Driver.java:443)
+	at org.postgresql.Driver.connect(Driver.java:297)
+	at com.zaxxer.hikari.util.DriverDataSource.getConnection(DriverDataSource.java:138)
+	at com.zaxxer.hikari.pool.PoolBase.newConnection(PoolBase.java:359)
+	at com.zaxxer.hikari.pool.PoolBase.newPoolEntry(PoolBase.java:201)
+	at com.zaxxer.hikari.pool.HikariPool.createPoolEntry(HikariPool.java:470)
+	at com.zaxxer.hikari.pool.HikariPool.checkFailFast(HikariPool.java:561)
+	at com.zaxxer.hikari.pool.HikariPool.<init>(HikariPool.java:100)
+	at com.zaxxer.hikari.HikariDataSource.getConnection(HikariDataSource.java:112)
+	at org.hibernate.engine.jdbc.connections.internal.DatasourceConnectionProviderImpl.getConnection(DatasourceConnectionProviderImpl.java:122)
+	at org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess.obtainConnection(JdbcEnvironmentInitiator.java:437)
+	at org.hibernate.resource.transaction.backend.jdbc.internal.JdbcIsolationDelegate.delegateWork(JdbcIsolationDelegate.java:61)
+	at org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator.getJdbcEnvironmentUsingJdbcMetadata(JdbcEnvironmentInitiator.java:279)
+	at org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator.initiateService(JdbcEnvironmentInitiator.java:193)
+	at org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator.initiateService(JdbcEnvironmentInitiator.java:69)
+	at org.hibernate.boot.registry.internal.StandardServiceRegistryImpl.initiateService(StandardServiceRegistryImpl.java:119)
+	at org.hibernate.service.internal.AbstractServiceRegistryImpl.createService(AbstractServiceRegistryImpl.java:264)
+	at org.hibernate.service.internal.AbstractServiceRegistryImpl.initializeService(AbstractServiceRegistryImpl.java:239)
+	at org.hibernate.service.internal.AbstractServiceRegistryImpl.getService(AbstractServiceRegistryImpl.java:216)
+	at org.hibernate.boot.model.relational.Database.<init>(Database.java:45)
+	at org.hibernate.boot.internal.InFlightMetadataCollectorImpl.getDatabase(InFlightMetadataCollectorImpl.java:231)
+	at org.hibernate.boot.internal.InFlightMetadataCollectorImpl.<init>(InFlightMetadataCollectorImpl.java:199)
+	at org.hibernate.boot.model.process.spi.MetadataBuildingProcess.complete(MetadataBuildingProcess.java:169)
+	at org.hibernate.jpa.boot.internal.EntityManagerFactoryBuilderImpl.metadata(EntityManagerFactoryBuilderImpl.java:1383)
+	at org.hibernate.jpa.boot.internal.EntityManagerFactoryBuilderImpl.build(EntityManagerFactoryBuilderImpl.java:1454)
+	at org.springframework.orm.jpa.vendor.SpringHibernateJpaPersistenceProvider.createContainerEntityManagerFactory(SpringHibernateJpaPersistenceProvider.java:75)
+	at org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean.createNativeEntityManagerFactory(LocalContainerEntityManagerFactoryBean.java:376)
+	at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.buildNativeEntityManagerFactory(AbstractEntityManagerFactoryBean.java:409)
+	at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.afterPropertiesSet(AbstractEntityManagerFactoryBean.java:396)
+	at org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean.afterPropertiesSet(LocalContainerEntityManagerFactoryBean.java:352)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.invokeInitMethods(AbstractAutowireCapableBeanFactory.java:1817)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1766)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:598)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:520)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:325)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:323)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:199)
+	at org.springframework.context.support.AbstractApplicationContext.getBean(AbstractApplicationContext.java:1166)
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:940)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:616)
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:146)
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:738)
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:440)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:316)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1306)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1295)
+	at com.forvmom.MomentForeverPayment.PaymentServiceApplication.main(PaymentServiceApplication.java:12)
+2026-09-27 14:10:49.368 [main] [31mWARN [0;39m [36mo.h.e.j.e.i.JdbcEnvironmentInitiator[0;39m - HHH000342: Could not obtain connection to query metadata
+java.lang.NullPointerException: Cannot invoke "org.hibernate.engine.jdbc.spi.SqlExceptionHelper.convert(java.sql.SQLException, String)" because the return value of "org.hibernate.resource.transaction.backend.jdbc.internal.JdbcIsolationDelegate.sqlExceptionHelper()" is null
+	at org.hibernate.resource.transaction.backend.jdbc.internal.JdbcIsolationDelegate.delegateWork(JdbcIsolationDelegate.java:116)
+	at org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator.getJdbcEnvironmentUsingJdbcMetadata(JdbcEnvironmentInitiator.java:279)
+	at org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator.initiateService(JdbcEnvironmentInitiator.java:193)
+	at org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator.initiateService(JdbcEnvironmentInitiator.java:69)
+	at org.hibernate.boot.registry.internal.StandardServiceRegistryImpl.initiateService(StandardServiceRegistryImpl.java:119)
+	at org.hibernate.service.internal.AbstractServiceRegistryImpl.createService(AbstractServiceRegistryImpl.java:264)
+	at org.hibernate.service.internal.AbstractServiceRegistryImpl.initializeService(AbstractServiceRegistryImpl.java:239)
+	at org.hibernate.service.internal.AbstractServiceRegistryImpl.getService(AbstractServiceRegistryImpl.java:216)
+	at org.hibernate.boot.model.relational.Database.<init>(Database.java:45)
+	at org.hibernate.boot.internal.InFlightMetadataCollectorImpl.getDatabase(InFlightMetadataCollectorImpl.java:231)
+	at org.hibernate.boot.internal.InFlightMetadataCollectorImpl.<init>(InFlightMetadataCollectorImpl.java:199)
+	at org.hibernate.boot.model.process.spi.MetadataBuildingProcess.complete(MetadataBuildingProcess.java:169)
+	at org.hibernate.jpa.boot.internal.EntityManagerFactoryBuilderImpl.metadata(EntityManagerFactoryBuilderImpl.java:1383)
+	at org.hibernate.jpa.boot.internal.EntityManagerFactoryBuilderImpl.build(EntityManagerFactoryBuilderImpl.java:1454)
+	at org.springframework.orm.jpa.vendor.SpringHibernateJpaPersistenceProvider.createContainerEntityManagerFactory(SpringHibernateJpaPersistenceProvider.java:75)
+	at org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean.createNativeEntityManagerFactory(LocalContainerEntityManagerFactoryBean.java:376)
+	at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.buildNativeEntityManagerFactory(AbstractEntityManagerFactoryBean.java:409)
+	at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.afterPropertiesSet(AbstractEntityManagerFactoryBean.java:396)
+	at org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean.afterPropertiesSet(LocalContainerEntityManagerFactoryBean.java:352)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.invokeInitMethods(AbstractAutowireCapableBeanFactory.java:1817)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1766)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:598)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:520)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:325)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:323)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:199)
+	at org.springframework.context.support.AbstractApplicationContext.getBean(AbstractApplicationContext.java:1166)
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:940)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:616)
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:146)
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:738)
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:440)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:316)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1306)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1295)
+	at com.forvmom.MomentForeverPayment.PaymentServiceApplication.main(PaymentServiceApplication.java:12)
+2026-09-27 14:10:49.371 [main] [1;31mERROR[0;39m [36mo.s.o.j.LocalContainerEntityManagerFactoryBean[0;39m - Failed to initialize JPA EntityManagerFactory: Unable to create requested service [org.hibernate.engine.jdbc.env.spi.JdbcEnvironment] due to: Unable to determine Dialect without JDBC metadata (please set 'javax.persistence.jdbc.url', 'hibernate.connection.url', or 'hibernate.dialect')
+2026-09-27 14:10:49.372 [main] [31mWARN [0;39m [36mo.s.b.w.s.c.AnnotationConfigServletWebServerApplicationContext[0;39m - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'entityManagerFactory' defined in class path resource [org/springframework/boot/autoconfigure/orm/jpa/HibernateJpaConfiguration.class]: Unable to create requested service [org.hibernate.engine.jdbc.env.spi.JdbcEnvironment] due to: Unable to determine Dialect without JDBC metadata (please set 'javax.persistence.jdbc.url', 'hibernate.connection.url', or 'hibernate.dialect')
+2026-09-27 14:10:49.447 [main] [34mINFO [0;39m [36mo.s.b.a.l.ConditionEvaluationReportLogger[0;39m - 
+
+Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
+2026-09-27 14:10:49.499 [main] [1;31mERROR[0;39m [36mo.s.boot.SpringApplication[0;39m - Application run failed
+org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'entityManagerFactory' defined in class path resource [org/springframework/boot/autoconfigure/orm/jpa/HibernateJpaConfiguration.class]: Unable to create requested service [org.hibernate.engine.jdbc.env.spi.JdbcEnvironment] due to: Unable to determine Dialect without JDBC metadata (please set 'javax.persistence.jdbc.url', 'hibernate.connection.url', or 'hibernate.dialect')
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1770)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:598)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:520)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:325)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:323)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:199)
+	at org.springframework.context.support.AbstractApplicationContext.getBean(AbstractApplicationContext.java:1166)
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:940)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:616)
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:146)
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:738)
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:440)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:316)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1306)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1295)
+	at com.forvmom.MomentForeverPayment.PaymentServiceApplication.main(PaymentServiceApplication.java:12)
+Caused by: org.hibernate.service.spi.ServiceException: Unable to create requested service [org.hibernate.engine.jdbc.env.spi.JdbcEnvironment] due to: Unable to determine Dialect without JDBC metadata (please set 'javax.persistence.jdbc.url', 'hibernate.connection.url', or 'hibernate.dialect')
+	at org.hibernate.service.internal.AbstractServiceRegistryImpl.createService(AbstractServiceRegistryImpl.java:277)
+	at org.hibernate.service.internal.AbstractServiceRegistryImpl.initializeService(AbstractServiceRegistryImpl.java:239)
+	at org.hibernate.service.internal.AbstractServiceRegistryImpl.getService(AbstractServiceRegistryImpl.java:216)
+	at org.hibernate.boot.model.relational.Database.<init>(Database.java:45)
+	at org.hibernate.boot.internal.InFlightMetadataCollectorImpl.getDatabase(InFlightMetadataCollectorImpl.java:231)
+	at org.hibernate.boot.internal.InFlightMetadataCollectorImpl.<init>(InFlightMetadataCollectorImpl.java:199)
+	at org.hibernate.boot.model.process.spi.MetadataBuildingProcess.complete(MetadataBuildingProcess.java:169)
+	at org.hibernate.jpa.boot.internal.EntityManagerFactoryBuilderImpl.metadata(EntityManagerFactoryBuilderImpl.java:1383)
+	at org.hibernate.jpa.boot.internal.EntityManagerFactoryBuilderImpl.build(EntityManagerFactoryBuilderImpl.java:1454)
+	at org.springframework.orm.jpa.vendor.SpringHibernateJpaPersistenceProvider.createContainerEntityManagerFactory(SpringHibernateJpaPersistenceProvider.java:75)
+	at org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean.createNativeEntityManagerFactory(LocalContainerEntityManagerFactoryBean.java:376)
+	at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.buildNativeEntityManagerFactory(AbstractEntityManagerFactoryBean.java:409)
+	at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.afterPropertiesSet(AbstractEntityManagerFactoryBean.java:396)
+	at org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean.afterPropertiesSet(LocalContainerEntityManagerFactoryBean.java:352)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.invokeInitMethods(AbstractAutowireCapableBeanFactory.java:1817)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1766)
+	... 16 common frames omitted
+Caused by: org.hibernate.HibernateException: Unable to determine Dialect without JDBC metadata (please set 'javax.persistence.jdbc.url', 'hibernate.connection.url', or 'hibernate.dialect')
+	at org.hibernate.engine.jdbc.dialect.internal.DialectFactoryImpl.determineDialect(DialectFactoryImpl.java:190)
+	at org.hibernate.engine.jdbc.dialect.internal.DialectFactoryImpl.buildDialect(DialectFactoryImpl.java:86)
+	at org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator.getJdbcEnvironmentWithDefaults(JdbcEnvironmentInitiator.java:229)
+	at org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator.getJdbcEnvironmentUsingJdbcMetadata(JdbcEnvironmentInitiator.java:381)
+	at org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator.initiateService(JdbcEnvironmentInitiator.java:193)
+	at org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator.initiateService(JdbcEnvironmentInitiator.java:69)
+	at org.hibernate.boot.registry.internal.StandardServiceRegistryImpl.initiateService(StandardServiceRegistryImpl.java:119)
+	at org.hibernate.service.internal.AbstractServiceRegistryImpl.createService(AbstractServiceRegistryImpl.java:264)
+	... 31 common frames omitted
+2026-09-27 16:08:02.560 [main] [34mINFO [0;39m [36mc.f.M.PaymentServiceApplication[0;39m - Starting PaymentServiceApplication using Java 17.0.12 with PID 25856 (C:\TMD\moment-forever-payment\target\classes started by rsshr in C:\TMD\moment-forever-payment)
+2026-09-27 16:08:02.564 [main] [39mDEBUG[0;39m [36mc.f.M.PaymentServiceApplication[0;39m - Running with Spring Boot v3.1.5, Spring v6.0.13
+2026-09-27 16:08:02.566 [main] [34mINFO [0;39m [36mc.f.M.PaymentServiceApplication[0;39m - No active profile set, falling back to 1 default profile: "default"
+2026-09-27 16:08:05.885 [main] [34mINFO [0;39m [36mo.s.d.r.c.RepositoryConfigurationDelegate[0;39m - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-09-27 16:08:06.298 [main] [34mINFO [0;39m [36mo.s.d.r.c.RepositoryConfigurationDelegate[0;39m - Finished Spring Data repository scanning in 393 ms. Found 4 JPA repository interfaces.
+2026-09-27 16:08:06.964 [main] [34mINFO [0;39m [36mo.s.cloud.context.scope.GenericScope[0;39m - BeanFactory id=6b94c770-4055-39bf-902e-21a5103bd7a3
+2026-09-27 16:08:08.060 [main] [34mINFO [0;39m [36mo.s.b.w.e.tomcat.TomcatWebServer[0;39m - Tomcat initialized with port(s): 8083 (http)
+2026-09-27 16:08:08.962 [main] [34mINFO [0;39m [36mo.s.b.w.s.c.ServletWebServerApplicationContext[0;39m - Root WebApplicationContext: initialization completed in 6245 ms
+2026-09-27 16:08:09.787 [main] [34mINFO [0;39m [36mo.h.jpa.internal.util.LogHelper[0;39m - HHH000204: Processing PersistenceUnitInfo [name: default]
+2026-09-27 16:08:09.973 [main] [34mINFO [0;39m [36morg.hibernate.Version[0;39m - HHH000412: Hibernate ORM core version 6.2.13.Final
+2026-09-27 16:08:09.986 [main] [34mINFO [0;39m [36morg.hibernate.cfg.Environment[0;39m - HHH000406: Using bytecode reflection optimizer
+2026-09-27 16:08:12.416 [main] [34mINFO [0;39m [36mo.s.o.j.p.SpringPersistenceUnitInfo[0;39m - No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-09-27 16:08:12.492 [main] [34mINFO [0;39m [36mcom.zaxxer.hikari.HikariDataSource[0;39m - MomentForeverPayment-HikariPool - Starting...
+2026-09-27 16:08:13.896 [main] [1;31mERROR[0;39m [36mcom.zaxxer.hikari.pool.HikariPool[0;39m - MomentForeverPayment-HikariPool - Exception during pool initialization.
+org.postgresql.util.PSQLException: FATAL: database "moment_forever_payment" does not exist
+	at org.postgresql.core.v3.QueryExecutorImpl.receiveErrorResponse(QueryExecutorImpl.java:2713)
+	at org.postgresql.core.v3.QueryExecutorImpl.readStartupMessages(QueryExecutorImpl.java:2825)
+	at org.postgresql.core.v3.QueryExecutorImpl.<init>(QueryExecutorImpl.java:175)
+	at org.postgresql.core.v3.ConnectionFactoryImpl.openConnectionImpl(ConnectionFactoryImpl.java:313)
+	at org.postgresql.core.ConnectionFactory.openConnection(ConnectionFactory.java:54)
+	at org.postgresql.jdbc.PgConnection.<init>(PgConnection.java:263)
+	at org.postgresql.Driver.makeConnection(Driver.java:443)
+	at org.postgresql.Driver.connect(Driver.java:297)
+	at com.zaxxer.hikari.util.DriverDataSource.getConnection(DriverDataSource.java:138)
+	at com.zaxxer.hikari.pool.PoolBase.newConnection(PoolBase.java:359)
+	at com.zaxxer.hikari.pool.PoolBase.newPoolEntry(PoolBase.java:201)
+	at com.zaxxer.hikari.pool.HikariPool.createPoolEntry(HikariPool.java:470)
+	at com.zaxxer.hikari.pool.HikariPool.checkFailFast(HikariPool.java:561)
+	at com.zaxxer.hikari.pool.HikariPool.<init>(HikariPool.java:100)
+	at com.zaxxer.hikari.HikariDataSource.getConnection(HikariDataSource.java:112)
+	at org.hibernate.engine.jdbc.connections.internal.DatasourceConnectionProviderImpl.getConnection(DatasourceConnectionProviderImpl.java:122)
+	at org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess.obtainConnection(JdbcEnvironmentInitiator.java:437)
+	at org.hibernate.resource.transaction.backend.jdbc.internal.JdbcIsolationDelegate.delegateWork(JdbcIsolationDelegate.java:61)
+	at org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator.getJdbcEnvironmentUsingJdbcMetadata(JdbcEnvironmentInitiator.java:279)
+	at org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator.initiateService(JdbcEnvironmentInitiator.java:193)
+	at org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator.initiateService(JdbcEnvironmentInitiator.java:69)
+	at org.hibernate.boot.registry.internal.StandardServiceRegistryImpl.initiateService(StandardServiceRegistryImpl.java:119)
+	at org.hibernate.service.internal.AbstractServiceRegistryImpl.createService(AbstractServiceRegistryImpl.java:264)
+	at org.hibernate.service.internal.AbstractServiceRegistryImpl.initializeService(AbstractServiceRegistryImpl.java:239)
+	at org.hibernate.service.internal.AbstractServiceRegistryImpl.getService(AbstractServiceRegistryImpl.java:216)
+	at org.hibernate.boot.model.relational.Database.<init>(Database.java:45)
+	at org.hibernate.boot.internal.InFlightMetadataCollectorImpl.getDatabase(InFlightMetadataCollectorImpl.java:231)
+	at org.hibernate.boot.internal.InFlightMetadataCollectorImpl.<init>(InFlightMetadataCollectorImpl.java:199)
+	at org.hibernate.boot.model.process.spi.MetadataBuildingProcess.complete(MetadataBuildingProcess.java:169)
+	at org.hibernate.jpa.boot.internal.EntityManagerFactoryBuilderImpl.metadata(EntityManagerFactoryBuilderImpl.java:1383)
+	at org.hibernate.jpa.boot.internal.EntityManagerFactoryBuilderImpl.build(EntityManagerFactoryBuilderImpl.java:1454)
+	at org.springframework.orm.jpa.vendor.SpringHibernateJpaPersistenceProvider.createContainerEntityManagerFactory(SpringHibernateJpaPersistenceProvider.java:75)
+	at org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean.createNativeEntityManagerFactory(LocalContainerEntityManagerFactoryBean.java:376)
+	at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.buildNativeEntityManagerFactory(AbstractEntityManagerFactoryBean.java:409)
+	at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.afterPropertiesSet(AbstractEntityManagerFactoryBean.java:396)
+	at org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean.afterPropertiesSet(LocalContainerEntityManagerFactoryBean.java:352)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.invokeInitMethods(AbstractAutowireCapableBeanFactory.java:1817)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1766)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:598)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:520)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:325)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:323)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:199)
+	at org.springframework.context.support.AbstractApplicationContext.getBean(AbstractApplicationContext.java:1166)
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:940)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:616)
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:146)
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:738)
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:440)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:316)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1306)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1295)
+	at com.forvmom.MomentForeverPayment.PaymentServiceApplication.main(PaymentServiceApplication.java:12)
+2026-09-27 16:08:13.904 [main] [31mWARN [0;39m [36mo.h.e.j.e.i.JdbcEnvironmentInitiator[0;39m - HHH000342: Could not obtain connection to query metadata
+java.lang.NullPointerException: Cannot invoke "org.hibernate.engine.jdbc.spi.SqlExceptionHelper.convert(java.sql.SQLException, String)" because the return value of "org.hibernate.resource.transaction.backend.jdbc.internal.JdbcIsolationDelegate.sqlExceptionHelper()" is null
+	at org.hibernate.resource.transaction.backend.jdbc.internal.JdbcIsolationDelegate.delegateWork(JdbcIsolationDelegate.java:116)
+	at org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator.getJdbcEnvironmentUsingJdbcMetadata(JdbcEnvironmentInitiator.java:279)
+	at org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator.initiateService(JdbcEnvironmentInitiator.java:193)
+	at org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator.initiateService(JdbcEnvironmentInitiator.java:69)
+	at org.hibernate.boot.registry.internal.StandardServiceRegistryImpl.initiateService(StandardServiceRegistryImpl.java:119)
+	at org.hibernate.service.internal.AbstractServiceRegistryImpl.createService(AbstractServiceRegistryImpl.java:264)
+	at org.hibernate.service.internal.AbstractServiceRegistryImpl.initializeService(AbstractServiceRegistryImpl.java:239)
+	at org.hibernate.service.internal.AbstractServiceRegistryImpl.getService(AbstractServiceRegistryImpl.java:216)
+	at org.hibernate.boot.model.relational.Database.<init>(Database.java:45)
+	at org.hibernate.boot.internal.InFlightMetadataCollectorImpl.getDatabase(InFlightMetadataCollectorImpl.java:231)
+	at org.hibernate.boot.internal.InFlightMetadataCollectorImpl.<init>(InFlightMetadataCollectorImpl.java:199)
+	at org.hibernate.boot.model.process.spi.MetadataBuildingProcess.complete(MetadataBuildingProcess.java:169)
+	at org.hibernate.jpa.boot.internal.EntityManagerFactoryBuilderImpl.metadata(EntityManagerFactoryBuilderImpl.java:1383)
+	at org.hibernate.jpa.boot.internal.EntityManagerFactoryBuilderImpl.build(EntityManagerFactoryBuilderImpl.java:1454)
+	at org.springframework.orm.jpa.vendor.SpringHibernateJpaPersistenceProvider.createContainerEntityManagerFactory(SpringHibernateJpaPersistenceProvider.java:75)
+	at org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean.createNativeEntityManagerFactory(LocalContainerEntityManagerFactoryBean.java:376)
+	at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.buildNativeEntityManagerFactory(AbstractEntityManagerFactoryBean.java:409)
+	at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.afterPropertiesSet(AbstractEntityManagerFactoryBean.java:396)
+	at org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean.afterPropertiesSet(LocalContainerEntityManagerFactoryBean.java:352)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.invokeInitMethods(AbstractAutowireCapableBeanFactory.java:1817)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1766)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:598)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:520)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:325)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:323)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:199)
+	at org.springframework.context.support.AbstractApplicationContext.getBean(AbstractApplicationContext.java:1166)
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:940)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:616)
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:146)
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:738)
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:440)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:316)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1306)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1295)
+	at com.forvmom.MomentForeverPayment.PaymentServiceApplication.main(PaymentServiceApplication.java:12)
+2026-09-27 16:08:13.907 [main] [1;31mERROR[0;39m [36mo.s.o.j.LocalContainerEntityManagerFactoryBean[0;39m - Failed to initialize JPA EntityManagerFactory: Unable to create requested service [org.hibernate.engine.jdbc.env.spi.JdbcEnvironment] due to: Unable to determine Dialect without JDBC metadata (please set 'javax.persistence.jdbc.url', 'hibernate.connection.url', or 'hibernate.dialect')
+2026-09-27 16:08:13.908 [main] [31mWARN [0;39m [36mo.s.b.w.s.c.AnnotationConfigServletWebServerApplicationContext[0;39m - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'entityManagerFactory' defined in class path resource [org/springframework/boot/autoconfigure/orm/jpa/HibernateJpaConfiguration.class]: Unable to create requested service [org.hibernate.engine.jdbc.env.spi.JdbcEnvironment] due to: Unable to determine Dialect without JDBC metadata (please set 'javax.persistence.jdbc.url', 'hibernate.connection.url', or 'hibernate.dialect')
+2026-09-27 16:08:13.961 [main] [34mINFO [0;39m [36mo.s.b.a.l.ConditionEvaluationReportLogger[0;39m - 
+
+Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
+2026-09-27 16:08:13.998 [main] [1;31mERROR[0;39m [36mo.s.boot.SpringApplication[0;39m - Application run failed
+org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'entityManagerFactory' defined in class path resource [org/springframework/boot/autoconfigure/orm/jpa/HibernateJpaConfiguration.class]: Unable to create requested service [org.hibernate.engine.jdbc.env.spi.JdbcEnvironment] due to: Unable to determine Dialect without JDBC metadata (please set 'javax.persistence.jdbc.url', 'hibernate.connection.url', or 'hibernate.dialect')
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1770)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:598)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:520)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:325)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:323)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:199)
+	at org.springframework.context.support.AbstractApplicationContext.getBean(AbstractApplicationContext.java:1166)
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:940)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:616)
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:146)
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:738)
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:440)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:316)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1306)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1295)
+	at com.forvmom.MomentForeverPayment.PaymentServiceApplication.main(PaymentServiceApplication.java:12)
+Caused by: org.hibernate.service.spi.ServiceException: Unable to create requested service [org.hibernate.engine.jdbc.env.spi.JdbcEnvironment] due to: Unable to determine Dialect without JDBC metadata (please set 'javax.persistence.jdbc.url', 'hibernate.connection.url', or 'hibernate.dialect')
+	at org.hibernate.service.internal.AbstractServiceRegistryImpl.createService(AbstractServiceRegistryImpl.java:277)
+	at org.hibernate.service.internal.AbstractServiceRegistryImpl.initializeService(AbstractServiceRegistryImpl.java:239)
+	at org.hibernate.service.internal.AbstractServiceRegistryImpl.getService(AbstractServiceRegistryImpl.java:216)
+	at org.hibernate.boot.model.relational.Database.<init>(Database.java:45)
+	at org.hibernate.boot.internal.InFlightMetadataCollectorImpl.getDatabase(InFlightMetadataCollectorImpl.java:231)
+	at org.hibernate.boot.internal.InFlightMetadataCollectorImpl.<init>(InFlightMetadataCollectorImpl.java:199)
+	at org.hibernate.boot.model.process.spi.MetadataBuildingProcess.complete(MetadataBuildingProcess.java:169)
+	at org.hibernate.jpa.boot.internal.EntityManagerFactoryBuilderImpl.metadata(EntityManagerFactoryBuilderImpl.java:1383)
+	at org.hibernate.jpa.boot.internal.EntityManagerFactoryBuilderImpl.build(EntityManagerFactoryBuilderImpl.java:1454)
+	at org.springframework.orm.jpa.vendor.SpringHibernateJpaPersistenceProvider.createContainerEntityManagerFactory(SpringHibernateJpaPersistenceProvider.java:75)
+	at org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean.createNativeEntityManagerFactory(LocalContainerEntityManagerFactoryBean.java:376)
+	at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.buildNativeEntityManagerFactory(AbstractEntityManagerFactoryBean.java:409)
+	at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.afterPropertiesSet(AbstractEntityManagerFactoryBean.java:396)
+	at org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean.afterPropertiesSet(LocalContainerEntityManagerFactoryBean.java:352)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.invokeInitMethods(AbstractAutowireCapableBeanFactory.java:1817)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1766)
+	... 16 common frames omitted
+Caused by: org.hibernate.HibernateException: Unable to determine Dialect without JDBC metadata (please set 'javax.persistence.jdbc.url', 'hibernate.connection.url', or 'hibernate.dialect')
+	at org.hibernate.engine.jdbc.dialect.internal.DialectFactoryImpl.determineDialect(DialectFactoryImpl.java:190)
+	at org.hibernate.engine.jdbc.dialect.internal.DialectFactoryImpl.buildDialect(DialectFactoryImpl.java:86)
+	at org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator.getJdbcEnvironmentWithDefaults(JdbcEnvironmentInitiator.java:229)
+	at org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator.getJdbcEnvironmentUsingJdbcMetadata(JdbcEnvironmentInitiator.java:381)
+	at org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator.initiateService(JdbcEnvironmentInitiator.java:193)
+	at org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator.initiateService(JdbcEnvironmentInitiator.java:69)
+	at org.hibernate.boot.registry.internal.StandardServiceRegistryImpl.initiateService(StandardServiceRegistryImpl.java:119)
+	at org.hibernate.service.internal.AbstractServiceRegistryImpl.createService(AbstractServiceRegistryImpl.java:264)
+	... 31 common frames omitted
+2026-09-27 16:08:43.725 [main] [34mINFO [0;39m [36mc.f.M.PaymentServiceApplication[0;39m - Starting PaymentServiceApplication using Java 17.0.12 with PID 36972 (C:\TMD\moment-forever-payment\target\classes started by rsshr in C:\TMD\moment-forever-payment)
+2026-09-27 16:08:43.728 [main] [39mDEBUG[0;39m [36mc.f.M.PaymentServiceApplication[0;39m - Running with Spring Boot v3.1.5, Spring v6.0.13
+2026-09-27 16:08:43.729 [main] [34mINFO [0;39m [36mc.f.M.PaymentServiceApplication[0;39m - No active profile set, falling back to 1 default profile: "default"
+2026-09-27 16:08:44.708 [main] [34mINFO [0;39m [36mo.s.d.r.c.RepositoryConfigurationDelegate[0;39m - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-09-27 16:08:44.830 [main] [34mINFO [0;39m [36mo.s.d.r.c.RepositoryConfigurationDelegate[0;39m - Finished Spring Data repository scanning in 115 ms. Found 4 JPA repository interfaces.
+2026-09-27 16:08:45.086 [main] [34mINFO [0;39m [36mo.s.cloud.context.scope.GenericScope[0;39m - BeanFactory id=6b94c770-4055-39bf-902e-21a5103bd7a3
+2026-09-27 16:08:45.563 [main] [34mINFO [0;39m [36mo.s.b.w.e.tomcat.TomcatWebServer[0;39m - Tomcat initialized with port(s): 8083 (http)
+2026-09-27 16:08:45.692 [main] [34mINFO [0;39m [36mo.s.b.w.s.c.ServletWebServerApplicationContext[0;39m - Root WebApplicationContext: initialization completed in 1895 ms
+2026-09-27 16:08:45.962 [main] [34mINFO [0;39m [36mo.h.jpa.internal.util.LogHelper[0;39m - HHH000204: Processing PersistenceUnitInfo [name: default]
+2026-09-27 16:08:46.009 [main] [34mINFO [0;39m [36morg.hibernate.Version[0;39m - HHH000412: Hibernate ORM core version 6.2.13.Final
+2026-09-27 16:08:46.011 [main] [34mINFO [0;39m [36morg.hibernate.cfg.Environment[0;39m - HHH000406: Using bytecode reflection optimizer
+2026-09-27 16:08:46.266 [main] [34mINFO [0;39m [36mo.s.o.j.p.SpringPersistenceUnitInfo[0;39m - No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-09-27 16:08:46.293 [main] [34mINFO [0;39m [36mcom.zaxxer.hikari.HikariDataSource[0;39m - MomentForeverPayment-HikariPool - Starting...
+2026-09-27 16:08:47.449 [main] [1;31mERROR[0;39m [36mcom.zaxxer.hikari.pool.HikariPool[0;39m - MomentForeverPayment-HikariPool - Exception during pool initialization.
+org.postgresql.util.PSQLException: FATAL: database "moment_forever_payment" does not exist
+	at org.postgresql.core.v3.QueryExecutorImpl.receiveErrorResponse(QueryExecutorImpl.java:2713)
+	at org.postgresql.core.v3.QueryExecutorImpl.readStartupMessages(QueryExecutorImpl.java:2825)
+	at org.postgresql.core.v3.QueryExecutorImpl.<init>(QueryExecutorImpl.java:175)
+	at org.postgresql.core.v3.ConnectionFactoryImpl.openConnectionImpl(ConnectionFactoryImpl.java:313)
+	at org.postgresql.core.ConnectionFactory.openConnection(ConnectionFactory.java:54)
+	at org.postgresql.jdbc.PgConnection.<init>(PgConnection.java:263)
+	at org.postgresql.Driver.makeConnection(Driver.java:443)
+	at org.postgresql.Driver.connect(Driver.java:297)
+	at com.zaxxer.hikari.util.DriverDataSource.getConnection(DriverDataSource.java:138)
+	at com.zaxxer.hikari.pool.PoolBase.newConnection(PoolBase.java:359)
+	at com.zaxxer.hikari.pool.PoolBase.newPoolEntry(PoolBase.java:201)
+	at com.zaxxer.hikari.pool.HikariPool.createPoolEntry(HikariPool.java:470)
+	at com.zaxxer.hikari.pool.HikariPool.checkFailFast(HikariPool.java:561)
+	at com.zaxxer.hikari.pool.HikariPool.<init>(HikariPool.java:100)
+	at com.zaxxer.hikari.HikariDataSource.getConnection(HikariDataSource.java:112)
+	at org.hibernate.engine.jdbc.connections.internal.DatasourceConnectionProviderImpl.getConnection(DatasourceConnectionProviderImpl.java:122)
+	at org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess.obtainConnection(JdbcEnvironmentInitiator.java:437)
+	at org.hibernate.resource.transaction.backend.jdbc.internal.JdbcIsolationDelegate.delegateWork(JdbcIsolationDelegate.java:61)
+	at org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator.getJdbcEnvironmentUsingJdbcMetadata(JdbcEnvironmentInitiator.java:279)
+	at org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator.initiateService(JdbcEnvironmentInitiator.java:193)
+	at org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator.initiateService(JdbcEnvironmentInitiator.java:69)
+	at org.hibernate.boot.registry.internal.StandardServiceRegistryImpl.initiateService(StandardServiceRegistryImpl.java:119)
+	at org.hibernate.service.internal.AbstractServiceRegistryImpl.createService(AbstractServiceRegistryImpl.java:264)
+	at org.hibernate.service.internal.AbstractServiceRegistryImpl.initializeService(AbstractServiceRegistryImpl.java:239)
+	at org.hibernate.service.internal.AbstractServiceRegistryImpl.getService(AbstractServiceRegistryImpl.java:216)
+	at org.hibernate.boot.model.relational.Database.<init>(Database.java:45)
+	at org.hibernate.boot.internal.InFlightMetadataCollectorImpl.getDatabase(InFlightMetadataCollectorImpl.java:231)
+	at org.hibernate.boot.internal.InFlightMetadataCollectorImpl.<init>(InFlightMetadataCollectorImpl.java:199)
+	at org.hibernate.boot.model.process.spi.MetadataBuildingProcess.complete(MetadataBuildingProcess.java:169)
+	at org.hibernate.jpa.boot.internal.EntityManagerFactoryBuilderImpl.metadata(EntityManagerFactoryBuilderImpl.java:1383)
+	at org.hibernate.jpa.boot.internal.EntityManagerFactoryBuilderImpl.build(EntityManagerFactoryBuilderImpl.java:1454)
+	at org.springframework.orm.jpa.vendor.SpringHibernateJpaPersistenceProvider.createContainerEntityManagerFactory(SpringHibernateJpaPersistenceProvider.java:75)
+	at org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean.createNativeEntityManagerFactory(LocalContainerEntityManagerFactoryBean.java:376)
+	at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.buildNativeEntityManagerFactory(AbstractEntityManagerFactoryBean.java:409)
+	at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.afterPropertiesSet(AbstractEntityManagerFactoryBean.java:396)
+	at org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean.afterPropertiesSet(LocalContainerEntityManagerFactoryBean.java:352)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.invokeInitMethods(AbstractAutowireCapableBeanFactory.java:1817)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1766)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:598)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:520)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:325)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:323)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:199)
+	at org.springframework.context.support.AbstractApplicationContext.getBean(AbstractApplicationContext.java:1166)
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:940)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:616)
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:146)
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:738)
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:440)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:316)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1306)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1295)
+	at com.forvmom.MomentForeverPayment.PaymentServiceApplication.main(PaymentServiceApplication.java:12)
+2026-09-27 16:08:47.453 [main] [31mWARN [0;39m [36mo.h.e.j.e.i.JdbcEnvironmentInitiator[0;39m - HHH000342: Could not obtain connection to query metadata
+java.lang.NullPointerException: Cannot invoke "org.hibernate.engine.jdbc.spi.SqlExceptionHelper.convert(java.sql.SQLException, String)" because the return value of "org.hibernate.resource.transaction.backend.jdbc.internal.JdbcIsolationDelegate.sqlExceptionHelper()" is null
+	at org.hibernate.resource.transaction.backend.jdbc.internal.JdbcIsolationDelegate.delegateWork(JdbcIsolationDelegate.java:116)
+	at org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator.getJdbcEnvironmentUsingJdbcMetadata(JdbcEnvironmentInitiator.java:279)
+	at org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator.initiateService(JdbcEnvironmentInitiator.java:193)
+	at org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator.initiateService(JdbcEnvironmentInitiator.java:69)
+	at org.hibernate.boot.registry.internal.StandardServiceRegistryImpl.initiateService(StandardServiceRegistryImpl.java:119)
+	at org.hibernate.service.internal.AbstractServiceRegistryImpl.createService(AbstractServiceRegistryImpl.java:264)
+	at org.hibernate.service.internal.AbstractServiceRegistryImpl.initializeService(AbstractServiceRegistryImpl.java:239)
+	at org.hibernate.service.internal.AbstractServiceRegistryImpl.getService(AbstractServiceRegistryImpl.java:216)
+	at org.hibernate.boot.model.relational.Database.<init>(Database.java:45)
+	at org.hibernate.boot.internal.InFlightMetadataCollectorImpl.getDatabase(InFlightMetadataCollectorImpl.java:231)
+	at org.hibernate.boot.internal.InFlightMetadataCollectorImpl.<init>(InFlightMetadataCollectorImpl.java:199)
+	at org.hibernate.boot.model.process.spi.MetadataBuildingProcess.complete(MetadataBuildingProcess.java:169)
+	at org.hibernate.jpa.boot.internal.EntityManagerFactoryBuilderImpl.metadata(EntityManagerFactoryBuilderImpl.java:1383)
+	at org.hibernate.jpa.boot.internal.EntityManagerFactoryBuilderImpl.build(EntityManagerFactoryBuilderImpl.java:1454)
+	at org.springframework.orm.jpa.vendor.SpringHibernateJpaPersistenceProvider.createContainerEntityManagerFactory(SpringHibernateJpaPersistenceProvider.java:75)
+	at org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean.createNativeEntityManagerFactory(LocalContainerEntityManagerFactoryBean.java:376)
+	at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.buildNativeEntityManagerFactory(AbstractEntityManagerFactoryBean.java:409)
+	at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.afterPropertiesSet(AbstractEntityManagerFactoryBean.java:396)
+	at org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean.afterPropertiesSet(LocalContainerEntityManagerFactoryBean.java:352)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.invokeInitMethods(AbstractAutowireCapableBeanFactory.java:1817)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1766)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:598)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:520)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:325)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:323)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:199)
+	at org.springframework.context.support.AbstractApplicationContext.getBean(AbstractApplicationContext.java:1166)
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:940)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:616)
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:146)
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:738)
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:440)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:316)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1306)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1295)
+	at com.forvmom.MomentForeverPayment.PaymentServiceApplication.main(PaymentServiceApplication.java:12)
+2026-09-27 16:08:47.455 [main] [1;31mERROR[0;39m [36mo.s.o.j.LocalContainerEntityManagerFactoryBean[0;39m - Failed to initialize JPA EntityManagerFactory: Unable to create requested service [org.hibernate.engine.jdbc.env.spi.JdbcEnvironment] due to: Unable to determine Dialect without JDBC metadata (please set 'javax.persistence.jdbc.url', 'hibernate.connection.url', or 'hibernate.dialect')
+2026-09-27 16:08:47.456 [main] [31mWARN [0;39m [36mo.s.b.w.s.c.AnnotationConfigServletWebServerApplicationContext[0;39m - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'entityManagerFactory' defined in class path resource [org/springframework/boot/autoconfigure/orm/jpa/HibernateJpaConfiguration.class]: Unable to create requested service [org.hibernate.engine.jdbc.env.spi.JdbcEnvironment] due to: Unable to determine Dialect without JDBC metadata (please set 'javax.persistence.jdbc.url', 'hibernate.connection.url', or 'hibernate.dialect')
+2026-09-27 16:08:47.480 [main] [34mINFO [0;39m [36mo.s.b.a.l.ConditionEvaluationReportLogger[0;39m - 
+
+Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
+2026-09-27 16:08:47.500 [main] [1;31mERROR[0;39m [36mo.s.boot.SpringApplication[0;39m - Application run failed
+org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'entityManagerFactory' defined in class path resource [org/springframework/boot/autoconfigure/orm/jpa/HibernateJpaConfiguration.class]: Unable to create requested service [org.hibernate.engine.jdbc.env.spi.JdbcEnvironment] due to: Unable to determine Dialect without JDBC metadata (please set 'javax.persistence.jdbc.url', 'hibernate.connection.url', or 'hibernate.dialect')
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1770)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:598)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:520)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:325)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:323)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:199)
+	at org.springframework.context.support.AbstractApplicationContext.getBean(AbstractApplicationContext.java:1166)
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:940)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:616)
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:146)
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:738)
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:440)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:316)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1306)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1295)
+	at com.forvmom.MomentForeverPayment.PaymentServiceApplication.main(PaymentServiceApplication.java:12)
+Caused by: org.hibernate.service.spi.ServiceException: Unable to create requested service [org.hibernate.engine.jdbc.env.spi.JdbcEnvironment] due to: Unable to determine Dialect without JDBC metadata (please set 'javax.persistence.jdbc.url', 'hibernate.connection.url', or 'hibernate.dialect')
+	at org.hibernate.service.internal.AbstractServiceRegistryImpl.createService(AbstractServiceRegistryImpl.java:277)
+	at org.hibernate.service.internal.AbstractServiceRegistryImpl.initializeService(AbstractServiceRegistryImpl.java:239)
+	at org.hibernate.service.internal.AbstractServiceRegistryImpl.getService(AbstractServiceRegistryImpl.java:216)
+	at org.hibernate.boot.model.relational.Database.<init>(Database.java:45)
+	at org.hibernate.boot.internal.InFlightMetadataCollectorImpl.getDatabase(InFlightMetadataCollectorImpl.java:231)
+	at org.hibernate.boot.internal.InFlightMetadataCollectorImpl.<init>(InFlightMetadataCollectorImpl.java:199)
+	at org.hibernate.boot.model.process.spi.MetadataBuildingProcess.complete(MetadataBuildingProcess.java:169)
+	at org.hibernate.jpa.boot.internal.EntityManagerFactoryBuilderImpl.metadata(EntityManagerFactoryBuilderImpl.java:1383)
+	at org.hibernate.jpa.boot.internal.EntityManagerFactoryBuilderImpl.build(EntityManagerFactoryBuilderImpl.java:1454)
+	at org.springframework.orm.jpa.vendor.SpringHibernateJpaPersistenceProvider.createContainerEntityManagerFactory(SpringHibernateJpaPersistenceProvider.java:75)
+	at org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean.createNativeEntityManagerFactory(LocalContainerEntityManagerFactoryBean.java:376)
+	at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.buildNativeEntityManagerFactory(AbstractEntityManagerFactoryBean.java:409)
+	at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.afterPropertiesSet(AbstractEntityManagerFactoryBean.java:396)
+	at org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean.afterPropertiesSet(LocalContainerEntityManagerFactoryBean.java:352)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.invokeInitMethods(AbstractAutowireCapableBeanFactory.java:1817)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1766)
+	... 16 common frames omitted
+Caused by: org.hibernate.HibernateException: Unable to determine Dialect without JDBC metadata (please set 'javax.persistence.jdbc.url', 'hibernate.connection.url', or 'hibernate.dialect')
+	at org.hibernate.engine.jdbc.dialect.internal.DialectFactoryImpl.determineDialect(DialectFactoryImpl.java:190)
+	at org.hibernate.engine.jdbc.dialect.internal.DialectFactoryImpl.buildDialect(DialectFactoryImpl.java:86)
+	at org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator.getJdbcEnvironmentWithDefaults(JdbcEnvironmentInitiator.java:229)
+	at org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator.getJdbcEnvironmentUsingJdbcMetadata(JdbcEnvironmentInitiator.java:381)
+	at org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator.initiateService(JdbcEnvironmentInitiator.java:193)
+	at org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator.initiateService(JdbcEnvironmentInitiator.java:69)
+	at org.hibernate.boot.registry.internal.StandardServiceRegistryImpl.initiateService(StandardServiceRegistryImpl.java:119)
+	at org.hibernate.service.internal.AbstractServiceRegistryImpl.createService(AbstractServiceRegistryImpl.java:264)
+	... 31 common frames omitted
+2026-09-27 16:09:48.172 [main] [34mINFO [0;39m [36mc.f.M.PaymentServiceApplication[0;39m - Starting PaymentServiceApplication using Java 17.0.12 with PID 25548 (C:\TMD\moment-forever-payment\target\classes started by rsshr in C:\TMD\moment-forever-payment)
+2026-09-27 16:09:48.176 [main] [39mDEBUG[0;39m [36mc.f.M.PaymentServiceApplication[0;39m - Running with Spring Boot v3.1.5, Spring v6.0.13
+2026-09-27 16:09:48.178 [main] [34mINFO [0;39m [36mc.f.M.PaymentServiceApplication[0;39m - No active profile set, falling back to 1 default profile: "default"
+2026-09-27 16:09:49.560 [main] [34mINFO [0;39m [36mo.s.d.r.c.RepositoryConfigurationDelegate[0;39m - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-09-27 16:09:49.741 [main] [34mINFO [0;39m [36mo.s.d.r.c.RepositoryConfigurationDelegate[0;39m - Finished Spring Data repository scanning in 170 ms. Found 4 JPA repository interfaces.
+2026-09-27 16:09:50.066 [main] [34mINFO [0;39m [36mo.s.cloud.context.scope.GenericScope[0;39m - BeanFactory id=6b94c770-4055-39bf-902e-21a5103bd7a3
+2026-09-27 16:09:50.488 [main] [34mINFO [0;39m [36mo.s.b.w.e.tomcat.TomcatWebServer[0;39m - Tomcat initialized with port(s): 8083 (http)
+2026-09-27 16:09:50.612 [main] [34mINFO [0;39m [36mo.s.b.w.s.c.ServletWebServerApplicationContext[0;39m - Root WebApplicationContext: initialization completed in 2349 ms
+2026-09-27 16:09:50.865 [main] [34mINFO [0;39m [36mo.h.jpa.internal.util.LogHelper[0;39m - HHH000204: Processing PersistenceUnitInfo [name: default]
+2026-09-27 16:09:50.910 [main] [34mINFO [0;39m [36morg.hibernate.Version[0;39m - HHH000412: Hibernate ORM core version 6.2.13.Final
+2026-09-27 16:09:50.912 [main] [34mINFO [0;39m [36morg.hibernate.cfg.Environment[0;39m - HHH000406: Using bytecode reflection optimizer
+2026-09-27 16:09:51.240 [main] [34mINFO [0;39m [36mo.s.o.j.p.SpringPersistenceUnitInfo[0;39m - No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-09-27 16:09:51.278 [main] [34mINFO [0;39m [36mcom.zaxxer.hikari.HikariDataSource[0;39m - MomentForeverPayment-HikariPool - Starting...
+2026-09-27 16:09:51.429 [main] [34mINFO [0;39m [36mcom.zaxxer.hikari.pool.HikariPool[0;39m - MomentForeverPayment-HikariPool - Added connection org.postgresql.jdbc.PgConnection@690e4b00
+2026-09-27 16:09:51.431 [main] [34mINFO [0;39m [36mcom.zaxxer.hikari.HikariDataSource[0;39m - MomentForeverPayment-HikariPool - Start completed.
+2026-09-27 16:09:52.659 [main] [34mINFO [0;39m [36mo.h.e.t.j.p.i.JtaPlatformInitiator[0;39m - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-09-27 16:09:52.728 [main] [34mINFO [0;39m [36mo.hibernate.orm.connections.access[0;39m - HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@421c057a] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
+2026-09-27 16:09:52.816 [main] [34mINFO [0;39m [36mo.s.o.j.LocalContainerEntityManagerFactoryBean[0;39m - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-09-27 16:09:53.418 [main] [34mINFO [0;39m [36mo.s.d.j.r.query.QueryEnhancerFactory[0;39m - Hibernate is in classpath; If applicable, HQL parser will be used.
+2026-09-27 16:09:54.818 [main] [34mINFO [0;39m [36morg.quartz.impl.StdSchedulerFactory[0;39m - Using default implementation for ThreadExecutor
+2026-09-27 16:09:54.828 [main] [34mINFO [0;39m [36mo.quartz.core.SchedulerSignalerImpl[0;39m - Initialized Scheduler Signaller of type: class org.quartz.core.SchedulerSignalerImpl
+2026-09-27 16:09:54.828 [main] [34mINFO [0;39m [36morg.quartz.core.QuartzScheduler[0;39m - Quartz Scheduler v.2.3.2 created.
+2026-09-27 16:09:54.835 [main] [34mINFO [0;39m [36mo.s.s.quartz.LocalDataSourceJobStore[0;39m - Using db table-based data access locking (synchronization).
+2026-09-27 16:09:54.837 [main] [34mINFO [0;39m [36mo.s.s.quartz.LocalDataSourceJobStore[0;39m - JobStoreCMT initialized.
+2026-09-27 16:09:54.838 [main] [34mINFO [0;39m [36morg.quartz.core.QuartzScheduler[0;39m - Scheduler meta-data: Quartz Scheduler (v2.3.2) 'paymentScheduler' with instanceId 'NON_CLUSTERED'
+  Scheduler class: 'org.quartz.core.QuartzScheduler' - running locally.
+  NOT STARTED.
+  Currently in standby mode.
+  Number of jobs executed: 0
+  Using thread pool 'org.quartz.simpl.SimpleThreadPool' - with 5 threads.
+  Using job-store 'org.springframework.scheduling.quartz.LocalDataSourceJobStore' - which supports persistence. and is not clustered.
+
+2026-09-27 16:09:54.838 [main] [34mINFO [0;39m [36morg.quartz.impl.StdSchedulerFactory[0;39m - Quartz scheduler 'paymentScheduler' initialized from an externally provided properties instance.
+2026-09-27 16:09:54.839 [main] [34mINFO [0;39m [36morg.quartz.impl.StdSchedulerFactory[0;39m - Quartz scheduler version: 2.3.2
+2026-09-27 16:09:54.839 [main] [34mINFO [0;39m [36morg.quartz.core.QuartzScheduler[0;39m - JobFactory set to: org.springframework.scheduling.quartz.SpringBeanJobFactory@1926a40f
+2026-09-27 16:09:55.513 [main] [31mWARN [0;39m [36mo.s.c.l.c.LoadBalancerCacheAutoConfiguration$LoadBalancerCaffeineWarnLogger[0;39m - Spring Cloud LoadBalancer is currently working with the default cache. While this cache implementation is useful for development and tests, it's recommended to use Caffeine cache in production.You can switch to using Caffeine cache, by adding it and org.springframework.cache.caffeine.CaffeineCacheManager to the classpath.
+2026-09-27 16:09:55.518 [main] [34mINFO [0;39m [36mo.s.b.a.e.web.EndpointLinksResolver[0;39m - Exposing 1 endpoint(s) beneath base path '/actuator'
+2026-09-27 16:09:55.649 [main] [31mWARN [0;39m [36mo.s.b.w.s.c.AnnotationConfigServletWebServerApplicationContext[0;39m - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.context.ApplicationContextException: Failed to start bean 'webServerStartStop'
+2026-09-27 16:09:55.656 [main] [34mINFO [0;39m [36mo.s.s.quartz.SchedulerFactoryBean[0;39m - Shutting down Quartz Scheduler
+2026-09-27 16:09:55.656 [main] [34mINFO [0;39m [36morg.quartz.core.QuartzScheduler[0;39m - Scheduler paymentScheduler_$_NON_CLUSTERED shutting down.
+2026-09-27 16:09:55.657 [main] [34mINFO [0;39m [36morg.quartz.core.QuartzScheduler[0;39m - Scheduler paymentScheduler_$_NON_CLUSTERED paused.
+2026-09-27 16:09:55.657 [main] [34mINFO [0;39m [36morg.quartz.core.QuartzScheduler[0;39m - Scheduler paymentScheduler_$_NON_CLUSTERED shutdown complete.
+2026-09-27 16:09:55.662 [main] [34mINFO [0;39m [36mo.s.o.j.LocalContainerEntityManagerFactoryBean[0;39m - Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-09-27 16:09:55.665 [main] [34mINFO [0;39m [36mcom.zaxxer.hikari.HikariDataSource[0;39m - MomentForeverPayment-HikariPool - Shutdown initiated...
+2026-09-27 16:09:55.669 [main] [34mINFO [0;39m [36mcom.zaxxer.hikari.HikariDataSource[0;39m - MomentForeverPayment-HikariPool - Shutdown completed.
+2026-09-27 16:09:55.696 [main] [34mINFO [0;39m [36mo.s.b.a.l.ConditionEvaluationReportLogger[0;39m - 
+
+Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
+2026-09-27 16:09:55.724 [main] [1;31mERROR[0;39m [36mo.s.b.d.LoggingFailureAnalysisReporter[0;39m - 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+Web server failed to start. Port 8083 was already in use.
+
+Action:
+
+Identify and stop the process that's listening on port 8083 or configure this application to listen on another port.
+
