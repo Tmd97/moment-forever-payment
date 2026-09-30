@@ -6,6 +6,7 @@ import com.forvmom.MomentForeverPayment.scheduler.OutgoingPaymentPublisher;
 import com.forvmom.MomentForeverPayment.service.WebhookProcessingService;
 import com.stripe.model.Event;
 import com.stripe.model.EventDataObjectDeserializer;
+import com.stripe.model.PaymentIntent;
 import com.stripe.model.checkout.Session;
 import com.stripe.net.Webhook;
 import io.swagger.v3.oas.annotations.Operation;
@@ -63,10 +64,12 @@ public class StripeWebhookController {
         switch (event.getType()) {
             case "checkout.session.completed":
             case "checkout.session.async_payment_succeeded":
+            case "payment_intent.succeeded":
                 outgoingRecord = handleCheckoutSessionCompleted(event);
                 break;
             case "checkout.session.expired":
             case "checkout.session.async_payment_failed":
+            case "payment_intent.payment_failed":
                 outgoingRecord = handleCheckoutSessionExpired(event);
                 break;
             default:
@@ -110,16 +113,42 @@ public class StripeWebhookController {
                 PaymentStatus.FAILED
         );
     }
-
     private Session deserializeSession(Event event) {
-        EventDataObjectDeserializer dataObjectDeserializer = event.getDataObjectDeserializer();
-        if (dataObjectDeserializer.getObject().isPresent()) {
-            Object stripeObject = dataObjectDeserializer.getObject().get();
+
+        EventDataObjectDeserializer deserializer =
+                event.getDataObjectDeserializer();
+
+        log.info("Stripe Event ID: {}", event.getId());
+        log.info("Stripe Event Type: {}", event.getType());
+        log.info("Stripe API Version: {}", event.getApiVersion());
+
+        log.info("Raw event data: {}", deserializer.getRawJson());
+
+        if (deserializer.getObject().isPresent()) {
+
+            Object stripeObject = deserializer.getObject().get();
+
+            log.info("Deserialized object class: {}",
+                    stripeObject.getClass().getName());
+
+            log.info("Deserialized object: {}", stripeObject);
+
             if (stripeObject instanceof Session session) {
                 return session;
             }
+
+            log.error(
+                    "Expected Session but got {}",
+                    stripeObject.getClass().getName()
+            );
+
+        } else {
+            log.error("Stripe SDK could not deserialize event data object");
         }
+
         throw new IllegalArgumentException(
-                "Stripe event " + event.getId() + " did not contain a compatible checkout session");
+                "Stripe event " + event.getId()
+                        + " did not contain a compatible checkout session"
+        );
     }
 }
