@@ -1,0 +1,18 @@
+2026-09-27 16:10:38.751 [paymentScheduler_Worker-1] [39mDEBUG[0;39m [36morg.hibernate.SQL[0;39m - 
+    select
+        o1_0.id,
+        o1_0.booking_id,
+        o1_0.created_at,
+        o1_0.event_id,
+        o1_0.event_type,
+        o1_0.payload,
+        o1_0.producer,
+        o1_0.retry_count,
+        o1_0.status,
+        o1_0.updated_at,
+        o1_0.version 
+    from
+        outgoing_payment_outbox o1_0 
+    where
+        o1_0.status in (?,?,?,?) 
+        and o1_0.updated_at<?

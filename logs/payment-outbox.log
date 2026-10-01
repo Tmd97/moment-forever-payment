@@ -1,0 +1,8 @@
+2026-09-14 22:36:46.954 [main] [34mINFO [0;39m [36mc.f.M.service.PaymentOutboxService[0;39m - Created new outbox record id=1 for bookingId=booking-integration-1, inboundPaymentEventType=PAYMENT_REQUESTED
+2026-09-14 22:36:47.019 [main] [39mDEBUG[0;39m [36mc.f.M.service.PaymentOutboxService[0;39m - Marked outbox id=1 as PROCESSING
+2026-09-14 22:36:47.057 [main] [34mINFO [0;39m [36mc.f.M.s.OutgoingPaymentOutboxService[0;39m - Created outgoing outbox record id=1, type=PAYMENT_INITIATED, bookingId=booking-integration-1
+2026-09-14 22:36:47.062 [main] [39mDEBUG[0;39m [36mc.f.M.service.PaymentOutboxService[0;39m - Marked outbox id=1 as PROCESSED
+2026-09-14 23:28:48.797 [main] [34mINFO [0;39m [36mc.f.M.service.PaymentOutboxService[0;39m - Created new outbox record id=1 for bookingId=booking-integration-1, inboundPaymentEventType=PAYMENT_REQUESTED
+2026-09-14 23:28:48.902 [main] [39mDEBUG[0;39m [36mc.f.M.service.PaymentOutboxService[0;39m - Marked outbox id=1 as PROCESSING
+2026-09-14 23:28:48.931 [main] [34mINFO [0;39m [36mc.f.M.s.OutgoingPaymentOutboxService[0;39m - Created outgoing outbox record id=1, type=PAYMENT_INITIATED, bookingId=booking-integration-1
+2026-09-14 23:28:48.936 [main] [39mDEBUG[0;39m [36mc.f.M.service.PaymentOutboxService[0;39m - Marked outbox id=1 as PROCESSED
